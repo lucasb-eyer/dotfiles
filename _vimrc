@@ -1,3 +1,4 @@
+set nocompatible
 
 " ==========================================================
 " Pathogen - Allows us to organize our vim plugins
