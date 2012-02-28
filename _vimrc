@@ -84,6 +84,15 @@ set hlsearch   " Highlight searches by default.
 set incsearch  " Incrementally search while typing a /regex
 
 " ==========================================================
+" Automatic brackets
+" ==========================================================
+:inoremap ( ()<Esc>i
+:inoremap { {}<Esc>i
+:inoremap [ []<Esc>i
+:inoremap ' ''<Esc>i
+:inoremap " ""<Esc>i
+
+" ==========================================================
 " Shortcuts
 " ==========================================================
 
