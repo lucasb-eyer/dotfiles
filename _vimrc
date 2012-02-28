@@ -116,10 +116,6 @@ map <leader>r :RopeRename<CR>
 " Don't let pyflakes use the quickfix window
 let g:pyflakes_use_quickfix = 0
 
-" Disable matching of '.' for snipmate as it clashes with
-" using supercomplete in the situation anything.|
-let g:snipMateAllowMatchingDot = 0
-
 " Tell supercomplete to be context-sensitive and show the doc
 au FileType python set omnifunc=pythoncomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
