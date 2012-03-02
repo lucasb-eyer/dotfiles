@@ -33,6 +33,7 @@ if [ -d "~/.bash" ]; then
         . "$f"
     done
 fi
+
 """
 
 def main():
@@ -40,8 +41,9 @@ def main():
     backup = raw_input('Delete existing files? [y/n]: ') != 'y'
 
     here_to_home('bash')
-    with open(eu('~/.bashrc'), 'a') as f:
-        f.write(bashloader)
+    if bashloader not in open(eu('~/.bashrc')).read():
+        with open(eu('~/.bashrc'), 'a') as f:
+            f.write(bashloader)
 
     here_to_home('vimrc')
     here_to_home('vim')
