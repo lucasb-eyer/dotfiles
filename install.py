@@ -27,12 +27,10 @@ def here_to_home(name):
 bashloader = r"""
 
 # Load and execute all scripts in that folder:
-if [ -d "~/.bash" ]; then
-    for f in "~/.bash/*.bash"
-    do
-        . "$f"
-    done
-fi
+for f in ~/.bash/*.bash
+do
+    . "$f"
+done
 
 """
 
