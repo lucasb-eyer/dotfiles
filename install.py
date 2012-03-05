@@ -39,8 +39,14 @@ def main():
     backup = raw_input('Delete existing files? [y/n]: ') != 'y'
 
     here_to_home('bash')
-    if bashloader not in open(eu('~/.bashrc')).read():
-        with open(eu('~/.bashrc'), 'a') as f:
+    bashrc = eu('~/.bashrc')
+    try:
+        if not bashloader not in open(bashrc).read():
+            with open(bashrc, 'a') as f:
+                f.write(bashloader)
+    except IOError:
+        # Assume non-existing file. Create one.
+        with open(bashrc, 'w+') as f:
             f.write(bashloader)
 
     here_to_home('vimrc')
