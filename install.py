@@ -41,7 +41,7 @@ def main():
     here_to_home('bash')
     bashrc = eu('~/.bashrc')
     try:
-        if not bashloader not in open(bashrc).read():
+        if bashloader not in open(bashrc).read():
             with open(bashrc, 'a') as f:
                 f.write(bashloader)
     except IOError:
