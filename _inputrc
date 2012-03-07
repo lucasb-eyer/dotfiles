@@ -1,0 +1,13 @@
+# Makes the home/end keys work. Does it?
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+
+# Control-left/right keys.
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+
+# Makes page up and page down keys more useful.
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward

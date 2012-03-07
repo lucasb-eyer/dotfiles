@@ -46,11 +46,13 @@ def main():
                 f.write(bashloader)
     except IOError:
         # Assume non-existing file. Create one.
+        # (Or no permission, this wont change anything in that case.)
         with open(bashrc, 'w+') as f:
             f.write(bashloader)
 
     here_to_home('vimrc')
     here_to_home('vim')
+    here_to_home('inputrc')
 
 if __name__ == '__main__':
     main()
