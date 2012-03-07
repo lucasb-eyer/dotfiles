@@ -24,31 +24,22 @@ def here(f):
 def here_to_home(name):
     link_with_backup(here('_' + name), '~/.' + name)
 
-bashloader = r"""
-
-# Load and execute all scripts in that folder:
-for f in ~/.bash/*.bash
-do
-    . "$f"
-done
-
-"""
-
 def main():
     global backup
     backup = raw_input('Delete existing files? [y/n]: ') != 'y'
 
     here_to_home('bash')
     bashrc = eu('~/.bashrc')
+    bashappend = open('_bashrc.append').read()
     try:
-        if bashloader not in open(bashrc).read():
+        if bashappend not in open(bashrc).read():
             with open(bashrc, 'a') as f:
-                f.write(bashloader)
+                f.write(bashappend)
     except IOError:
         # Assume non-existing file. Create one.
         # (Or no permission, this wont change anything in that case.)
         with open(bashrc, 'w+') as f:
-            f.write(bashloader)
+            f.write(bashappend)
 
     here_to_home('vimrc')
     here_to_home('vim')

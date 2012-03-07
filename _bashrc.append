@@ -1,0 +1,10 @@
+
+# Load and execute all scripts in that folder:
+for f in ~/.bash/*.bash
+do
+    . "$f"
+done
+
+# Use vim, not vi!
+export EDITOR=vim
+
