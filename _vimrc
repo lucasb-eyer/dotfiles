@@ -116,6 +116,12 @@ map <leader>j :RopeGotoDefinition<CR>
 map <leader>r :RopeRename<CR>
 
 " ===========================================================
+" Add more file types
+" ===========================================================
+au! Syntax opencl source ~/.vim/syntax/opencl.vim
+au BufRead,BufNewFile *.cl set filetype=opencl
+
+" ===========================================================
 " FileType specific changes
 " ===========================================================
 
