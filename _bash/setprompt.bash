@@ -106,12 +106,7 @@ prt_dir () {
     echo "${CYAN}\w${DEFAULT}"
 }
 
-prt_time () { #format time just the way I likes it
-    if [ `date +%p` = "PM" ]; then
-        meridiem="pm"
-    else
-        meridiem="am"
-    fi
-    val=`date +"%l:%M:%S$meridiem"|sed 's/ //g'`
+prt_time () {
+    val=`date +"%k:%M:%S"`
     echo "${YELLOW}$val${DEFAULT}"
 }
