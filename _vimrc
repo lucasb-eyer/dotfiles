@@ -98,8 +98,16 @@ autocmd FileType python,c,cpp :inoremap ' ''<Esc>i
 " Run pep8
 let g:pep8_map='<leader>8'
 
-" Open the file browser
-map <leader>n :NERDTreeToggle<CR>
+" For mac os x if the terminal is setup as in
+" http://od-eon.com/blogs/liviu/macos-vim-controlarrow-functionality/
+" Still isn't perfect.
+:noremap <Esc>A <C-W>k
+:noremap <Esc>C <C-W>l
+:noremap <Esc>D <C-W>h
+:noremap <Esc>B <C-W>j
+" Use control+arrows to switch windows.
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
 
 " Go to the function definition (python)
 map <leader>j :RopeGotoDefinition<CR>
