@@ -95,6 +95,9 @@ autocmd FileType python,c,cpp :inoremap ' ''<Esc>i
 " Shortcuts
 " ==========================================================
 
+" shift-tab unindents
+imap <S-Tab> <C-o><<
+
 " Run pep8
 let g:pep8_map='<leader>8'
 
