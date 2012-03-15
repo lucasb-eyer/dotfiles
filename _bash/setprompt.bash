@@ -30,7 +30,7 @@ DUNNO="\[\033[1;38m\]"
 
 prompt_command () {
     local err_prompt=`prt_ret`
-    export PS1="${err_prompt}[`prt_username`@`prt_hostname`:`prt_dir` `prt_time`]`prt_git`\n${BLUE}$ ${DEFAULT}"
+    export PS1="${err_prompt}`prt_virtualenv`[`prt_username`@`prt_hostname`:`prt_dir` `prt_time`]`prt_git`\n${BLUE}$ ${DEFAULT}"
 }
 
 PROMPT_COMMAND=prompt_command
@@ -38,9 +38,17 @@ PROMPT_COMMAND=prompt_command
 prt_ret () {
     RET=$?
     if [ $RET -ne 0 ]; then
-        echo "${RED}O.o ${RET}${DEFAULT}"
+        echo "${RED}O.o ${RET} ${DEFAULT}"
     else
         echo "${TEST}:) ${DEFAULT}"
+    fi
+}
+
+prt_virtualenv () {
+    if [ $VIRTUAL_ENV ]; then
+        d=`dirname $VIRTUAL_ENV`
+        parent="`basename \`dirname $VIRTUAL_ENV\``/`basename $VIRTUAL_ENV`"
+        echo "${PINK}($parent)${DEFAULT} "
     fi
 }
 
