@@ -9,8 +9,8 @@ filetype off
 " To disable a plugin, add it's bundle name to the following list
 let g:pathogen_disabled = []
 
-" UltiSnips needs python in vim.
-if !has('python')
+" UltiSnips needs python < 3 in vim. I just disable it until they fixed it
+if !has('python3')
     call add(g:pathogen_disabled, 'ultisnips')
 endif
 
