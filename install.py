@@ -1,6 +1,7 @@
 import os
 from os.path import expanduser as eu
 from time import time
+from subprocess import call
 
 backup = True
 
@@ -25,6 +26,10 @@ def here_to_home(name):
     link_with_backup(here('_' + name), '~/.' + name)
 
 def main():
+    # Pull in the plugins
+    if call('git submodule update --init', shell=True) != 0:
+        return 1
+
     global backup
     backup = raw_input('Delete existing files? [y/n]: ') != 'y'
 
