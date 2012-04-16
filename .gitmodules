@@ -25,3 +25,4 @@
 [submodule "_vim/bundle/git"]
 	path = _vim/bundle/git
 	url = git://github.com/tpope/vim-git.git
+	ignore = untracked
