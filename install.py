@@ -1,6 +1,21 @@
 import os
 from os.path import expanduser as eu
 from time import time
+from subprocess import call
+
+# Compatibility between py2 and py3:
+try:
+    raw_input
+
+    # We are in py2. Rename input to raw_input.
+    import __builtin__
+    del __builtin__.input
+    def input(*args, **kwargs):
+        return raw_input(*args, **kwargs)
+    __builtin__.input = input
+except NameError:
+    # We are in py3 for which input already is raw_input
+    pass
 
 backup = True
 
@@ -25,6 +40,11 @@ def here_to_home(name):
     link_with_backup(here('_' + name), '~/.' + name)
 
 def main():
+    # Pull in the plugins
+    if call('git submodule update --init', shell=True) != 0:
+        if 'y' != input('Error during submodule (=plugin) init or update. Continue setup? [y*/n] '):
+            return 1
+
     global backup
     backup = raw_input('Delete existing files? [y/n]: ') != 'y'
 

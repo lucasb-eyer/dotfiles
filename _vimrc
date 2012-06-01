@@ -5,6 +5,15 @@ set nocompatible
 " ==========================================================
 " Load pathogen with docs for all plugins
 filetype off
+
+" To disable a plugin, add it's bundle name to the following list
+let g:pathogen_disabled = []
+
+" UltiSnips needs python < 3 in vim. I just disable it until they fixed it
+if !has('python3')
+    call add(g:pathogen_disabled, 'ultisnips')
+endif
+
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
