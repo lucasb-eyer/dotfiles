@@ -148,6 +148,9 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 endif
 
+" PTX (nvidia's gpu assembler)
+au BufNewFile,BufRead *.ptx set tabstop=8 " Because 4 looks ugly as fuck.
+
 " ===========================================================
 " Load local vimrc file if there is one
 " ===========================================================
