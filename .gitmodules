@@ -13,9 +13,6 @@
 [submodule "_vim/bundle/minibufexpl"]
 	path = _vim/bundle/minibufexpl
 	url = git://github.com/sontek/minibufexpl.vim.git
-[submodule "_vim/bundle/ropevim"]
-	path = _vim/bundle/ropevim
-	url = git://github.com/sontek/rope-vim.git
 [submodule "_vim/bundle/fugitive"]
 	path = _vim/bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
@@ -26,3 +23,6 @@
 	path = _vim/bundle/git
 	url = git://github.com/tpope/vim-git.git
 	ignore = untracked
+[submodule "_vim/bundle/python-mode"]
+	path = _vim/bundle/python-mode
+	url = git://github.com/klen/python-mode.git
