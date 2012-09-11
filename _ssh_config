@@ -1,0 +1,7 @@
+TCPKeepAlive no
+ServerAliveInterval 15
+ServerAliveCountMax 4
+
+host rwth
+    HostName cluster-linux.rz.rwth-aachen.de
+    User lb380118

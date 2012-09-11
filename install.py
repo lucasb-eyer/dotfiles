@@ -36,8 +36,8 @@ def here(f):
     me = inspect.getsourcefile(here)
     return os.path.join(os.path.dirname(os.path.abspath(me)), f)
 
-def here_to_home(name):
-    link_with_backup(here('_' + name), '~/.' + name)
+def here_to_home(name, toname=None):
+    link_with_backup(here('_' + name), '~/.' + (toname if toname else name))
 
 def main():
     # Pull in the plugins
@@ -46,7 +46,7 @@ def main():
             return 1
 
     global backup
-    backup = raw_input('Delete existing files? [y/n]: ') != 'y'
+    backup = raw_input('Delete existing files (no backs them up)? [y/N]: ') != 'y'
 
     here_to_home('bash')
     bashrc = eu('~/.bashrc')
@@ -64,6 +64,7 @@ def main():
     here_to_home('vimrc')
     here_to_home('vim')
     here_to_home('inputrc')
+    here_to_home('ssh_config', 'ssh/config')
 
 if __name__ == '__main__':
     main()
