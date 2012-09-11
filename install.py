@@ -64,6 +64,7 @@ def main():
     here_to_home('vimrc')
     here_to_home('vim')
     here_to_home('inputrc')
+    here_to_home('gitconfig')
     here_to_home('ssh_config', 'ssh/config')
 
 if __name__ == '__main__':
