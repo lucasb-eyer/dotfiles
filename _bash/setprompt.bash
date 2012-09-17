@@ -47,9 +47,18 @@ prt_ret () {
 prt_virtualenv () {
     if [ $VIRTUAL_ENV ]; then
         d=`dirname $VIRTUAL_ENV`
-        parent="`basename \`dirname $VIRTUAL_ENV\``/`basename $VIRTUAL_ENV`"
-        echo "${PINK}($parent)${DEFAULT} "
+        parent="`basename $d`/`basename $VIRTUAL_ENV`"
+        pyenv="${PINK}($parent)${DEFAULT} "
     fi
+
+    # Node.js virtualenvs (created using nodeenv from pypi)
+    if [ $NODE_VIRTUAL_ENV ]; then
+        d=`dirname $NODE_VIRTUAL_ENV`
+        parent="`basename $d`/`basename $NODE_VIRTUAL_ENV`"
+        nodeenv="${PINK}($parent)${DEFAULT} "
+    fi
+
+    echo "$pyenv$nodeenv"
 }
 
 prt_git () {
