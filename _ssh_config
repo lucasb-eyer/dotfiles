@@ -5,3 +5,11 @@ ServerAliveCountMax 4
 host rwth
     HostName cluster-linux.rz.rwth-aachen.de
     User lb380118
+
+host beyer
+    HostName eyer.be
+    User b
+
+host lbeyer
+    HostName eyer.be
+    user lucasb
