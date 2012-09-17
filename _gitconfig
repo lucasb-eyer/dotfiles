@@ -1,3 +1,6 @@
 [user]
-	email = lucasb.eyer.be@gmail.com
-	name = lucasb-eyer
+    email = lucasb.eyer.be@gmail.com
+    name = lucasb-eyer
+
+[color]
+    ui = auto
