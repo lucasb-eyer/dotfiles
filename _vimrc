@@ -30,7 +30,9 @@ filetype on                " try to detect filetypes
 filetype plugin indent on  " enable loading indent file for filetype
 set number                 " Display line numbers
 set numberwidth=1          " using only 1 column (and 1 space) while possible
-set rnu                    " Display relative line numbers
+if exists('+rnu')          " rnu doesn't work on the cluster.
+    set rnu                " Display relative line numbers
+endif
 "set background=dark        " We are using dark background in vim
 set title                  " show title in console title bar
 "set paste                  " Don't be smart when I paste, please
