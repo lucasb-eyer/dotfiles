@@ -5,6 +5,12 @@ do
     . "$f"
 done
 
+# Load the machine-specific script if there is one.
+if [ -e ~/.bash/`hostname -s`.bash.machine ]
+then
+    . ~/.bash/`hostname -s`.bash.machine
+fi
+
 # Use vim, not vi!
 export EDITOR=vim
 

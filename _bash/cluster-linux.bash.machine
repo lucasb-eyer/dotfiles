@@ -1,0 +1,27 @@
+module_unload () {
+    mods=`module list -t 2>&1`
+    if [[ "$mods" = *$1* ]] ; then
+        module unload $1
+    fi
+}
+
+module_load () {
+    mods=`module list -t 2>&1`
+    if [[ ! "`module list -t 2>&1`" = *$1* ]] ; then
+        module load $1
+    fi
+}
+
+module_unload intel
+module load gcc/4.7
+#module_load gcc/4.6
+#module load gcc
+module_load python
+module_load cuda
+module_load LIBRARIES
+module_load intelmkl
+
+PYOPENCL_COMPILER_OUTPUT=1
+
+PATH=~/inst/bin:$PATH
+LD_LIBRARY_PATH=~/inst/lib:~/inst/lib64:$LD_LIBRARY_PATH
