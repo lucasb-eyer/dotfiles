@@ -31,22 +31,25 @@ def link_with_backup(source, link_name):
             os.remove(full_link_name)
         os.symlink(source, full_link_name)
 
+
 def here(f):
     import inspect
     me = inspect.getsourcefile(here)
     return os.path.join(os.path.dirname(os.path.abspath(me)), f)
 
+
 def here_to_home(name, toname=None):
     link_with_backup(here('_' + name), '~/.' + (toname if toname else name))
+
 
 def main():
     # Pull in the plugins
     if call('git submodule update --init', shell=True) != 0:
-        if 'y' != input('Error during submodule (=plugin) init or update. Continue setup? [y*/n] '):
+        if input('Error during submodule (=plugin) init or update. Continue setup? [Y/n] ') not in ('y', 'Y'):
             return 1
 
     global backup
-    backup = raw_input('Delete existing files (no backs them up)? [y/N]: ') != 'y'
+    backup = raw_input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
 
     here_to_home('bash')
     bashrc = eu('~/.bashrc')
@@ -70,4 +73,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
