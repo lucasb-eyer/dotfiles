@@ -1,5 +1,5 @@
 import os
-from os.path import expanduser as eu
+from os.path import expanduser as eu, dirname
 from time import time
 from subprocess import call
 
@@ -10,18 +10,25 @@ try:
     # We are in py2. Rename input to raw_input.
     import __builtin__
     del __builtin__.input
-    def input(*args, **kwargs):
-        return raw_input(*args, **kwargs)
-    __builtin__.input = input
+    __builtin__.input = lambda *args, **kwargs: raw_input(*args, **kwargs)
 except NameError:
     # We are in py3 for which input already is raw_input
     pass
 
 backup = True
 
+
 def link_with_backup(source, link_name):
     full_link_name = eu(link_name)
     print('Installing ' + source + ' -> ' + full_link_name)
+
+    # Create the folder in case it doesn't exist.
+    try:
+        os.makedirs(dirname(full_link_name))
+    except OSError as e:
+        if e.errno != 17:  # 17 means directory already exists
+            raise
+
     try:
         os.symlink(source, full_link_name)
     except OSError:
