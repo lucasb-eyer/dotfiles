@@ -25,8 +25,13 @@ call pathogen#helptags()
 " ==========================================================
 " Basic Settings
 " ==========================================================
+
+" Add language/tool-specific paths
+set rtp+=$GOROOT/misc/vim  " Go
+
 syntax on                  " syntax highlighing
 filetype on                " try to detect filetypes
+filetype plugin on         " enable loading filetype plugins
 filetype plugin indent on  " enable loading indent file for filetype
 set number                 " Display line numbers
 set numberwidth=1          " using only 1 column (and 1 space) while possible
