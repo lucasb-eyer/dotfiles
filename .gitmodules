@@ -26,3 +26,6 @@
 [submodule "_vim/bundle/python-mode"]
 	path = _vim/bundle/python-mode
 	url = git://github.com/klen/python-mode.git
+[submodule "_vim/bundle/coffee-script"]
+	path = _vim/bundle/coffee-script
+	url = git://github.com/kchmck/vim-coffee-script.git
