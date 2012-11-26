@@ -30,17 +30,17 @@ call pathogen#helptags()
 set rtp+=$GOROOT/misc/vim  " Go
 
 syntax on                  " syntax highlighing
+set background=dark        " We are using dark background in vim
+colorscheme solarized      " rock on
 filetype on                " try to detect filetypes
 filetype plugin on         " enable loading filetype plugins
 filetype plugin indent on  " enable loading indent file for filetype
 set number                 " Display line numbers
 set numberwidth=1          " using only 1 column (and 1 space) while possible
-if exists('+rnu')          " rnu doesn't work on the cluster.
-    set rnu                " Display relative line numbers
+if exists('+relativenumber')
+    set relativenumber     " Display relative line numbers
 endif
-"set background=dark        " We are using dark background in vim
 set title                  " show title in console title bar
-"set paste                  " Don't be smart when I paste, please
 set wildmenu               " Menu completion in command mode on <Tab>
 set wildmode=full          " <Tab> cycles between all matching choices.
 

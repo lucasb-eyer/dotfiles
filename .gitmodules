@@ -29,3 +29,6 @@
 [submodule "_vim/bundle/coffee-script"]
 	path = _vim/bundle/coffee-script
 	url = git://github.com/kchmck/vim-coffee-script.git
+[submodule "_vim/bundle/solarized"]
+	path = _vim/bundle/solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
