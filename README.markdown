@@ -6,8 +6,11 @@ Installing
 ==========
 
 1. Clone this repo.
+2. Infect your system:
+    1. The easy way: run install.py and answer any questions.
+    2. The manual way: replace your original dotfiles by a link to the corresponding file in the repo (use a leading dot, not underscore).
 
-2.a. The easy way: run install.py and answer any questions.
+Adding vim pathogen plugins
+===========================
 
-2.b. The manual way: replace your original dotfiles by a link to the corresponding file in the repo (use a leading dot, not _).
-
+> git submodule add https://github.com/tpope/vim-fugitive.git \_vim/bundle/vim-fugitive
