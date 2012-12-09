@@ -75,6 +75,7 @@ def main():
     here_to_home('vim')
     here_to_home('inputrc')
     here_to_home('gitconfig')
+    here_to_home('gitignore')
     here_to_home('gdbinit')
     here_to_home('ssh_config', 'ssh/config')
 
