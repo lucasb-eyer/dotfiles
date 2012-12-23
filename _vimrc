@@ -107,7 +107,7 @@ set incsearch  " Incrementally search while typing a /regex
 :inoremap ( ()<Esc>i
 :inoremap { {}<Esc>i
 :inoremap [ []<Esc>i
-autocmd FileType python,c,cpp :inoremap ' ''<Esc>i
+autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
 :inoremap " ""<Esc>i
 
 " ==========================================================
