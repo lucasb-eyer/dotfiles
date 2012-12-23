@@ -18,3 +18,14 @@ function my_mkenv {
 #alias mkenv='my_fetchit https://raw.github.com/pypa/virtualenv/master/virtualenv.py && python virtualenv.py env && rm virtualenv.py* && . env/bin/activate'
 alias mkenv='my_mkenv'
 
+function my_search {
+    if [ $# = 2 ] ; then
+        echo "find . -name \"$1\" -print0 | xargs -0 grep \"$2\"" 1>&2
+        find . -name "$1" -print0 | xargs -0 grep "$2"
+    else
+        echo "find . -print0 2> /dev/null | xargs -0 grep \"$1\" 2> /dev/null" 1>&2
+        find . -print0 2> /dev/null | xargs -0 grep "$1" 2> /dev/null
+    fi
+}
+
+alias search='my_search'
