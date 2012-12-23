@@ -20,11 +20,11 @@ alias mkenv='my_mkenv'
 
 function my_search {
     if [ $# = 2 ] ; then
-        echo "find . -name \"$1\" -print0 | xargs -0 grep \"$2\"" 1>&2
-        find . -name "$1" -print0 | xargs -0 grep "$2"
+        echo "find . -name \"$1\" -print0 | xargs -0 grep -n \"$2\"" 1>&2
+        find . -name "$1" -print0 | xargs -0 grep -n "$2"
     else
-        echo "find . -print0 2> /dev/null | xargs -0 grep \"$1\" 2> /dev/null" 1>&2
-        find . -print0 2> /dev/null | xargs -0 grep "$1" 2> /dev/null
+        echo "find . -print0 2> /dev/null | xargs -0 grep -n \"$1\" 2> /dev/null" 1>&2
+        find . -print0 2> /dev/null | xargs -0 grep -n "$1" 2> /dev/null
     fi
 }
 
