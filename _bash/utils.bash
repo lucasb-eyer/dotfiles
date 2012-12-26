@@ -19,12 +19,18 @@ function my_mkenv {
 alias mkenv='my_mkenv'
 
 function my_search {
+    WHERE=.
+    if [ $# = 3 ] ; then
+        WHERE=$1
+        shift
+    fi
+
     if [ $# = 2 ] ; then
-        echo "find . -name \"$1\" -print0 | xargs -0 grep -n \"$2\"" 1>&2
-        find . -name "$1" -print0 | xargs -0 grep -n "$2"
+        echo "find $WHERE -name \"$1\" -print0 | xargs -0 grep -n \"$2\"" 1>&2
+        find $WHERE -name "$1" -print0 | xargs -0 grep -n "$2"
     else
-        echo "find . -print0 2> /dev/null | xargs -0 grep -n \"$1\" 2> /dev/null" 1>&2
-        find . -print0 2> /dev/null | xargs -0 grep -n "$1" 2> /dev/null
+        echo "find $WHERE -print0 2> /dev/null | xargs -0 grep -n \"$1\" 2> /dev/null" 1>&2
+        find $WHERE -print0 2> /dev/null | xargs -0 grep -n "$1" 2> /dev/null
     fi
 }
 
