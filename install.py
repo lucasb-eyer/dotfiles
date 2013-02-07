@@ -1,5 +1,5 @@
 import os
-from os.path import expanduser as eu
+from os.path import expanduser as eu, dirname
 from time import time
 from subprocess import call
 
@@ -10,18 +10,25 @@ try:
     # We are in py2. Rename input to raw_input.
     import __builtin__
     del __builtin__.input
-    def input(*args, **kwargs):
-        return raw_input(*args, **kwargs)
-    __builtin__.input = input
+    __builtin__.input = lambda *args, **kwargs: raw_input(*args, **kwargs)
 except NameError:
     # We are in py3 for which input already is raw_input
     pass
 
 backup = True
 
+
 def link_with_backup(source, link_name):
     full_link_name = eu(link_name)
     print('Installing ' + source + ' -> ' + full_link_name)
+
+    # Create the folder in case it doesn't exist.
+    try:
+        os.makedirs(dirname(full_link_name))
+    except OSError as e:
+        if e.errno != 17:  # 17 means directory already exists
+            raise
+
     try:
         os.symlink(source, full_link_name)
     except OSError:
@@ -31,22 +38,25 @@ def link_with_backup(source, link_name):
             os.remove(full_link_name)
         os.symlink(source, full_link_name)
 
+
 def here(f):
     import inspect
     me = inspect.getsourcefile(here)
     return os.path.join(os.path.dirname(os.path.abspath(me)), f)
 
+
 def here_to_home(name, toname=None):
     link_with_backup(here('_' + name), '~/.' + (toname if toname else name))
+
 
 def main():
     # Pull in the plugins
     if call('git submodule update --init', shell=True) != 0:
-        if 'y' != input('Error during submodule (=plugin) init or update. Continue setup? [y*/n] '):
+        if input('Error during submodule (=plugin) init or update. Continue setup? [Y/n] ') not in ('y', 'Y'):
             return 1
 
     global backup
-    backup = raw_input('Delete existing files (no backs them up)? [y/N]: ') != 'y'
+    backup = raw_input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
 
     here_to_home('bash')
     bashrc = eu('~/.bashrc')
@@ -65,9 +75,9 @@ def main():
     here_to_home('vim')
     here_to_home('inputrc')
     here_to_home('gitconfig')
+    here_to_home('gitignore')
     here_to_home('gdbinit')
     here_to_home('ssh_config', 'ssh/config')
 
 if __name__ == '__main__':
     main()
-

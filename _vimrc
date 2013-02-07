@@ -25,17 +25,22 @@ call pathogen#helptags()
 " ==========================================================
 " Basic Settings
 " ==========================================================
+
+" Add language/tool-specific paths
+set rtp+=$GOROOT/misc/vim  " Go
+
 syntax on                  " syntax highlighing
+set background=dark        " We are using dark background in vim
+colorscheme solarized      " rock on
 filetype on                " try to detect filetypes
+filetype plugin on         " enable loading filetype plugins
 filetype plugin indent on  " enable loading indent file for filetype
 set number                 " Display line numbers
 set numberwidth=1          " using only 1 column (and 1 space) while possible
-if exists('+rnu')          " rnu doesn't work on the cluster.
-    set rnu                " Display relative line numbers
+if exists('+relativenumber')
+    set relativenumber     " Display relative line numbers
 endif
-"set background=dark        " We are using dark background in vim
 set title                  " show title in console title bar
-"set paste                  " Don't be smart when I paste, please
 set wildmenu               " Menu completion in command mode on <Tab>
 set wildmode=full          " <Tab> cycles between all matching choices.
 
@@ -102,7 +107,7 @@ set incsearch  " Incrementally search while typing a /regex
 :inoremap ( ()<Esc>i
 :inoremap { {}<Esc>i
 :inoremap [ []<Esc>i
-autocmd FileType python,c,cpp :inoremap ' ''<Esc>i
+autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
 :inoremap " ""<Esc>i
 
 " ==========================================================
@@ -131,6 +136,37 @@ map <leader>j :RopeGotoDefinition<CR>
 
 " Rename the thing below the cursor (python)
 map <leader>r :RopeRename<CR>
+
+" Next and Last
+" -------------
+
+" Motion for "next/last object". For example, "din(" would go to the next "()" pair
+" and delete its contents.
+" Taken from http://news.ycombinator.com/item?id=3122084
+
+onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+
+onoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+xnoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+
+function! s:NextTextObject(motion, dir)
+  let c = nr2char(getchar())
+
+  if c ==# "b"
+      let c = "("
+  elseif c ==# "B"
+      let c = "{"
+  elseif c ==# "d"
+      let c = "["
+  endif
+
+  exe "normal! ".a:dir.c."v".a:motion.c
+endfunction
 
 " ===========================================================
 " Add more file types
