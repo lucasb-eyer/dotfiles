@@ -19,6 +19,16 @@ function my_mkenv {
 alias mkenv='my_mkenv'
 
 function my_search {
+    if [ $# = 0 ] ; then
+        echo "Usage:"
+        echo "  search [WHERE] [HAYSTACK] NEEDLE"
+        echo ""
+        echo "Searches for NEEDLE (can be any expression grep understands)"
+        echo "in all files matching HAYSTACK (expression find understands)"
+        echo "starting at location WHERE"
+        return
+    fi
+
     WHERE=.
     if [ $# = 3 ] ; then
         WHERE=$1
