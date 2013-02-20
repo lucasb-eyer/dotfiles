@@ -18,6 +18,7 @@ fi
 # Setup go if it exists in the home folder.
 if [ -d ~/go ]; then
     export GOROOT=~/go
+    export GOPATH=~/go/
     export PATH=$PATH:$GOROOT/bin
 fi
 
