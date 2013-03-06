@@ -114,11 +114,17 @@ autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
 " Shortcuts
 " ==========================================================
 
+" jj instead of escape to leave edit mode
+imap jj <ESC>
+
 " shift-tab unindents
 imap <S-Tab> <C-o><<
 
 " Run pep8
 let g:pep8_map='<leader>8'
+
+" vv splits the window vertically
+map vv <C-w>v<C-w>l
 
 " For mac os x if the terminal is setup as in
 " http://od-eon.com/blogs/liviu/macos-vim-controlarrow-functionality/
