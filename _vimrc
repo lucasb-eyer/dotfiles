@@ -180,6 +180,9 @@ endfunction
 au! Syntax opencl source ~/.vim/syntax/opencl.vim
 au BufRead,BufNewFile *.cl set filetype=opencl
 
+" Use GitHub-flavored Markdown by default.
+au BufRead,BufNewFile *.markdown,*.md set filetype=ghmarkdown
+
 " ===========================================================
 " FileType specific changes
 " ===========================================================
