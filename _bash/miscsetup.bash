@@ -22,3 +22,5 @@ if [ -d ~/go ]; then
     export PATH=$PATH:$GOROOT/bin
 fi
 
+# Make the python interactive console a bit smarter.
+export PYTHONSTARTUP=~/.pythonrc.py

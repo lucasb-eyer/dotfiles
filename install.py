@@ -77,6 +77,7 @@ def main():
     here_to_home('gitconfig')
     here_to_home('gitignore')
     here_to_home('gdbinit')
+    here_to_home('pythonrc.py')
     here_to_home('ssh_config', 'ssh/config')
 
 if __name__ == '__main__':
