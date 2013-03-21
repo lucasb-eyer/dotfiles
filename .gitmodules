@@ -41,3 +41,6 @@
 [submodule "_vim/bundle/arpeggio"]
 	path = _vim/bundle/arpeggio
 	url = git://github.com/kana/vim-arpeggio.git
+[submodule "_vim/bundle/conque"]
+	path = _vim/bundle/conque
+	url = git://github.com/rosenfeld/conque-term.git
