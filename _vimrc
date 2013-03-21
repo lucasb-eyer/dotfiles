@@ -114,8 +114,10 @@ autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
 " Shortcuts
 " ==========================================================
 
-" jj instead of escape to leave edit mode
-imap jj <ESC>
+" j and k at the same time instead of escape to leave edit mode
+" Arpeggio inoremap jk  <Esc>
+call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+call arpeggio#map('niv', '', 1, 'jo', '<C-p>')
 
 " shift-tab unindents
 imap <S-Tab> <C-o><<

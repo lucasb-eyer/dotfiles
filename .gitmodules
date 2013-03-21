@@ -38,3 +38,6 @@
 [submodule "_vim/bundle/ctrlp"]
 	path = _vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
+[submodule "_vim/bundle/arpeggio"]
+	path = _vim/bundle/arpeggio
+	url = git://github.com/kana/vim-arpeggio.git
