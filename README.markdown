@@ -9,6 +9,7 @@ Installing
 2. Infect your system:
     1. The easy way: run install.py and answer any questions.
     2. The manual way: replace your original dotfiles by a link to the corresponding file in the repo (use a leading dot, not underscore).
+3. If you ever update it through `git pull`, don't forget to run `git submodule update` to get new submodules.
 
 Adding vim pathogen plugins
 ===========================
