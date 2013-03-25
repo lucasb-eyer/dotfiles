@@ -119,6 +119,9 @@ autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 call arpeggio#map('niv', '', 1, 'jo', '<C-p>')
 
+let g:tcommentOpModeExtra = '#'
+let g:tcommentModeExtra = '#'
+
 " shift-tab unindents
 imap <S-Tab> <C-o><<
 

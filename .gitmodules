@@ -44,3 +44,6 @@
 [submodule "_vim/bundle/conque"]
 	path = _vim/bundle/conque
 	url = git://github.com/rosenfeld/conque-term.git
+[submodule "_vim/bundle/tcomment"]
+	path = _vim/bundle/tcomment
+	url = git://github.com/tomtom/tcomment_vim.git
