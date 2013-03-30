@@ -124,16 +124,16 @@ call arpeggio#map('nv', '', 1, 'jc', 'gcc')
 call arpeggio#map('i', '', 1, 'jc', '<ESC>gcca')
 
 " map w+hjkl to window movement.
-call arpeggio#map('niv', '', 1, 'wh', '<C-W>h')
-call arpeggio#map('niv', '', 1, 'wj', '<C-W>j')
-call arpeggio#map('niv', '', 1, 'wk', '<C-W>k')
-call arpeggio#map('niv', '', 1, 'wl', '<C-W>l')
+call arpeggio#map('nv', '', 1, 'wh', '<C-W>h')
+call arpeggio#map('nv', '', 1, 'wj', '<C-W>j')
+call arpeggio#map('nv', '', 1, 'wk', '<C-W>k')
+call arpeggio#map('nv', '', 1, 'wl', '<C-W>l')
 
 " map f+hjkl to home/pgup/down/end
-call arpeggio#map('niv', '', 1, 'fh', '^')
-call arpeggio#map('niv', '', 1, 'fj', '<C-D>')
-call arpeggio#map('niv', '', 1, 'fk', '<C-U>')
-call arpeggio#map('niv', '', 1, 'fl', '$')
+call arpeggio#map('nv', '', 1, 'fh', '^')
+call arpeggio#map('nv', '', 1, 'fj', '<C-D>')
+call arpeggio#map('nv', '', 1, 'fk', '<C-U>')
+call arpeggio#map('nv', '', 1, 'fl', '$')
 
 let g:tcommentOpModeExtra = '#'
 let g:tcommentModeExtra = '#'
