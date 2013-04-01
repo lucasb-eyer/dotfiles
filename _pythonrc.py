@@ -44,7 +44,9 @@ class Completer(object):
 
     def savehist(self):
         import readline
-        readline.write_history_file(self.HISTFILE)
+        # Only store a non-empty history since somehow reading an empty one fails!
+        if readline.get_current_history_length():
+            readline.write_history_file(self.HISTFILE)
 
 c = Completer()
 
