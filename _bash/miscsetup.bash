@@ -23,4 +23,7 @@ if [ -d ~/go ]; then
 fi
 
 # Make the python interactive console a bit smarter.
-export PYTHONSTARTUP=~/.pythonrc.py
+if [-f ~/.pythonrc.py ]; then
+    export PYTHONSTARTUP=~/.pythonrc.py
+fi
+
