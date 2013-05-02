@@ -52,7 +52,7 @@ def here_to_home(name, toname=None):
 def main():
     # Pull in the plugins
     if call('git submodule update --init', shell=True) != 0:
-        if input('Error during submodule (=plugin) init or update. Continue setup? [Y/n] ') not in ('y', 'Y'):
+        if input('Error during submodule (=plugin) init or update. Continue setup? [Y/n] ') not in ('y', 'Y', ''):
             return 1
 
     global backup
