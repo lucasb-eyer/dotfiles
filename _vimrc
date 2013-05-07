@@ -120,7 +120,8 @@ call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 " jo opens the ctrl-p file opener.
 call arpeggio#map('niv', '', 1, 'jo', '<C-p>')
 " jc toggles the current line's comment state.
-call arpeggio#map('nv', '', 1, 'jc', 'gcc')
+call arpeggio#map('n', '', 1, 'jc', 'gcc')
+call arpeggio#map('v', '', 1, 'jc', 'gc')
 call arpeggio#map('i', '', 1, 'jc', '<ESC>gcca')
 
 " map w+hjkl to window movement.
