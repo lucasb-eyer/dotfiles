@@ -34,7 +34,7 @@
 	url = git://github.com/altercation/vim-colors-solarized.git
 [submodule "_vim/bundle/vim-flavored-markdown"]
 	path = _vim/bundle/vim-flavored-markdown
-	url = git@github.com:jtratner/vim-flavored-markdown.git
+	url = git://github.com/jtratner/vim-flavored-markdown.git
 [submodule "_vim/bundle/ctrlp"]
 	path = _vim/bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
