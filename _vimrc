@@ -30,8 +30,12 @@ call pathogen#helptags()
 set rtp+=$GOROOT/misc/vim  " Go
 
 syntax on                  " syntax highlighing
+" See http://stackoverflow.com/a/5561823
+set t_Co=16
+let g:solarized_termcolors=16
 set background=dark        " We are using dark background in vim
 colorscheme solarized      " rock on
+
 filetype on                " try to detect filetypes
 filetype plugin on         " enable loading filetype plugins
 filetype plugin indent on  " enable loading indent file for filetype
