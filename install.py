@@ -79,6 +79,7 @@ def main():
     here_to_home('gdbinit')
     here_to_home('pythonrc.py')
     here_to_home('ssh_config', 'ssh/config')
+    here_to_home('config_awesome_rc.lua', 'config/awesome/rc.lua')
 
 if __name__ == '__main__':
     main()
