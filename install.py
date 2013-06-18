@@ -80,6 +80,7 @@ def main():
     here_to_home('pythonrc.py')
     here_to_home('ssh_config', 'ssh/config')
     here_to_home('config_awesome_rc.lua', 'config/awesome/rc.lua')
+    here_to_home('config_awesome_themes_solarized-dark.lua', 'config/awesome/themes/solarized-dark.lua')
 
 if __name__ == '__main__':
     main()
