@@ -42,3 +42,7 @@ URxvt*color13: #6c71c4
 URxvt*color14: #93a1a1
 URxvt*color15: #fdf6e3
 
+! Adding tabs to urxvt
+URxvt.perl-ext-common: default,tabbed
+URxvt.scrollBar: false
+URxvt.tabbed.tab-bg: 11
