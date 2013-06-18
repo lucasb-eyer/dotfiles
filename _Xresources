@@ -42,6 +42,18 @@ URxvt*color13: #6c71c4
 URxvt*color14: #93a1a1
 URxvt*color15: #fdf6e3
 
+! The three most gorgeous monospace fonts I found.
+URxvt.font: xft:Consolas:size=10
+! URxvt.font: xft:Liberation Mono:size=10
+! URxvt.font: xft:Ubuntu Mono:size=11
+
+! Xft settings ----------------------------------------
+! Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+
 ! Adding tabs to urxvt
 URxvt.perl-ext-common: default,tabbed
 URxvt.scrollBar: false
