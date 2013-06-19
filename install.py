@@ -35,7 +35,11 @@ def link_with_backup(source, link_name):
         if backup:
             os.rename(full_link_name, full_link_name + '.' + str(int(time())) + '.dotfiles_backup')
         else:
-            os.remove(full_link_name)
+            # Try to remove this thing. Non-empty directories don't work yet.
+            try:
+                os.remove(full_link_name)
+            except OSError as e:
+                os.rmdir(full_link_name)
         os.symlink(source, full_link_name)
 
 
