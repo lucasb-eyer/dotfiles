@@ -10,7 +10,10 @@ require("naughty")
 -- Simple function to load additional LUA files from rc/.
 function loadrc(name, mod)
     -- Which file? In rc/ or in lib/?
-    local path = awful.util.getdir("config") .. "/rc/" .. name .. ".lua"
+    local path = awful.util.getdir("config") .. (mod and "/lib/" or "/rc/") .. name .. ".lua"
+
+    -- If the module is already loaded, don't load it again
+    if mod and package.loaded[mod] then return package.loaded[mod] end
 
     -- Execute the RC/module file
     local success
@@ -23,6 +26,11 @@ function loadrc(name, mod)
             preset = naughty.config.presets.critical
         })
         return print("E: error loading RC file '" .. name .. "': " .. result)
+    end
+
+    -- Is it a module?
+    if mod then
+        return package.loaded[mod]
     end
 
     return result
@@ -46,10 +54,10 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
-    awful.layout.suit.floating,
+    --awful.layout.suit.floating,
+    awful.layout.suit.tile.bottom,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
