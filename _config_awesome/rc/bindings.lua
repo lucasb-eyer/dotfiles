@@ -1,3 +1,6 @@
+local keydoc = loadrc("keydoc", "vbe/keydoc")
+local lucasb = require("lib/lucasb")
+
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -8,43 +11,39 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    keydoc.group("Navigation"),
+    awful.key({ modkey }, "s", function () awful.screen.focus_relative(1) end, "Focus next screen"),
 
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
-        end),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
+    -- Clients
+    awful.key({ modkey }, "j", lucasb.focus_global_bydirection("down"), "Focus client below"),
+    awful.key({ modkey }, "k", lucasb.focus_global_bydirection("up"), "Focus client above"),
+    awful.key({ modkey }, "h", lucasb.focus_global_bydirection("left"), "Focus client on the left"),
+    awful.key({ modkey }, "l", lucasb.focus_global_bydirection("right"), "Focus client on the right"),
 
-    -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
+    -- Tags
+    awful.key({ modkey }, "Left",   awful.tag.viewprev, "View left tag"),
+    awful.key({ modkey }, "Right",  awful.tag.viewnext, "View right tag"),
+    awful.key({ modkey }, "Escape", awful.tag.history.restore, "View previous tag"),
+
+    keydoc.group("Layout manipulation"),
+    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end, "Rotate clients left"),
+    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end, "Rotate clients right"),
+    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto, "Focus first urgent client"),
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end),
+            if client.focus then client.focus:raise() end
+        end,
+        "Focus previously focused client"
+    ),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
+    --awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
+    --awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
@@ -63,10 +62,21 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end)
+              end),
+
+    keydoc.group("Multimedia"),
+    awful.key({ modkey }, "F10", function () awful.util.spawn ("amixer -q sset Master 2dB-") end, "Decrease sound volume"),
+    awful.key({ modkey }, "F11", function () awful.util.spawn ("amixer -q sset Master 2dB+") end, "Increase sound volume"),
+
+    keydoc.group("Misc"),
+    awful.key({ }, "Scroll_Lock", function () awful.util.spawn("xscreensaver-command -lock") end, "Lock the session"),
+    awful.key({ }, "Print", function () awful.util.spawn('gm import -window root "' .. os.getenv("HOME") .. os.date('/%Y-%m-%d_%H:%M:%S.png"')) end, "Screenshot"),
+    awful.key({ modkey }, "w", function () mymainmenu:show({keygrabber=true}) end, "Open the menu"),
+    awful.key({ modkey }, "F1", keydoc.display)
 )
 
 clientkeys = awful.util.table.join(
+    keydoc.group("FooBar"),
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
@@ -86,6 +96,9 @@ clientkeys = awful.util.table.join(
             c.maximized_vertical   = not c.maximized_vertical
         end)
 )
+
+-- Start xscreensaver daemon
+awful.util.spawn("xscreensaver -nosplash")
 
 -- Compute the maximum number of digit we need, limited to 9
 keynumber = 0
