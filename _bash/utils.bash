@@ -12,7 +12,12 @@ function my_mkenv {
     }
 
     name=${1:-"env"}
-    my_fetchit https://raw.github.com/pypa/virtualenv/master/virtualenv.py && python virtualenv.py $name && rm virtualenv.py* && . $name/bin/activate
+    version=${2:-"1.10.1"}
+    my_fetchit https://pypi.python.org/packages/source/v/virtualenv/virtualenv-$version.tar.gz || exit 1
+    tar xzC /tmp < virtualenv-$version.tar.gz
+    python /tmp/virtualenv-$version/virtualenv.py $name
+    rm -Rf /tmp/virtualenv-$version
+    . $name/bin/activate
 }
 
 #alias mkenv='my_fetchit https://raw.github.com/pypa/virtualenv/master/virtualenv.py && python virtualenv.py env && rm virtualenv.py* && . env/bin/activate'
