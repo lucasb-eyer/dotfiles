@@ -67,6 +67,8 @@ globalkeys = awful.util.table.join(
     keydoc.group("Multimedia"),
     awful.key({ modkey }, "F10", function () awful.util.spawn ("amixer -q sset Master 2dB-") end, "Decrease sound volume"),
     awful.key({ modkey }, "F11", function () awful.util.spawn ("amixer -q sset Master 2dB+") end, "Increase sound volume"),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn ("amixer -q sset Master 2dB-") end, "Decrease sound volume"),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn ("amixer -q sset Master 2dB+") end, "Increase sound volume"),
 
     keydoc.group("Misc"),
     awful.key({ }, "Scroll_Lock", function () awful.util.spawn("xscreensaver-command -lock") end, "Lock the session"),
