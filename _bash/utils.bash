@@ -14,9 +14,10 @@ function my_mkenv {
     name=${1:-"env"}
     version=${2:-"1.10.1"}
     my_fetchit https://pypi.python.org/packages/source/v/virtualenv/virtualenv-$version.tar.gz || exit 1
-    tar xzC /tmp < virtualenv-$version.tar.gz
-    python /tmp/virtualenv-$version/virtualenv.py $name
-    rm -Rf /tmp/virtualenv-$version
+    tar xzC /tmp < virtualenv-$version.tar.gz || exit 1
+    # TODO: make sys an option.
+    python /tmp/virtualenv-$version/virtualenv.py --system-site-packages $name || exit 1
+    rm -Rf /tmp/virtualenv-$version || exit 1
     . $name/bin/activate
 }
 
