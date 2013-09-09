@@ -36,25 +36,24 @@ globalkeys = awful.util.table.join(
         end,
         "Focus previously focused client"
     ),
-
-    -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey, "Control" }, "r", awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-
     --awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     --awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
-    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
-    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end, "Increase master count"),
+    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end, "Decrease master count"),
+    awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end, "Increase column count"),
+    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end, "Decrease column count"),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end, "Next layout"),
+    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end, "Previous layout"),
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
-    -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+
+    -- Standard program
+    keydoc.group("Programs"),
+    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end, "Open commandline"),
+    awful.key({ modkey            }, "r",     function () mypromptbox[mouse.screen]:run() end, "Run a command"),
+    awful.key({ modkey, "Control" }, "r", awesome.restart, "Restart Awesome"),
+    awful.key({ modkey, "Shift"   }, "q", awesome.quit, "Quit awesome"),
 
     awful.key({ modkey }, "x",
               function ()
@@ -62,7 +61,7 @@ globalkeys = awful.util.table.join(
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
-              end),
+              end, "Run lua code"),
 
     keydoc.group("Multimedia"),
     awful.key({ modkey }, "F10", function () awful.util.spawn ("amixer -q sset Master 2dB-") end, "Decrease sound volume"),
@@ -78,25 +77,30 @@ globalkeys = awful.util.table.join(
 )
 
 clientkeys = awful.util.table.join(
-    keydoc.group("FooBar"),
-    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+    keydoc.group("Client functions"),
+    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end, "Fullscreen"),
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end, "Close"),
+    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end, "Swap with master"),
+    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        , "Move to screen"),
+    awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end, "Redraw"),
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end, "Toggle ontop"),
+    awful.key({ modkey, "Control" }, "space",
+        function (c)
+            awful.client.floating.toggle(c)
+            awful.placement.no_overlap(c)
+            awful.placement.no_offscreen(c)
+        end, "Toggle float"),
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
-        end),
+        end, "Minimize"),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
-        end)
+        end, "Maximize")
 )
 
 -- Start xscreensaver daemon
