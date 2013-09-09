@@ -21,5 +21,3 @@ module_load intelmkl
 
 PYOPENCL_COMPILER_OUTPUT=1
 
-PATH=~/inst/bin:$PATH
-LD_LIBRARY_PATH=~/inst/lib:~/inst/lib64:$LD_LIBRARY_PATH

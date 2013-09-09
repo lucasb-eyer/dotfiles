@@ -29,6 +29,10 @@ call pathogen#helptags()
 " Add language/tool-specific paths
 set rtp+=$GOROOT/misc/vim  " Go
 
+" On silly ubuntu, they install vim stuff into that, but
+" don't have that as a default vim path...
+set rtp+=/usr/share/vim/addons
+
 syntax on                  " syntax highlighing
 " See http://stackoverflow.com/a/5561823
 set t_Co=16
@@ -71,7 +75,6 @@ set shiftwidth=4      " And an indent level is 4 spaces wide.
 set softtabstop=4     " <BS> over an autoindent deletes both spaces.
 set expandtab         " Use spaces, not tabs, for autoindent/tab key.
 set shiftround        " rounds indent to a multiple of shiftwidth
-set matchpairs+=<:>   " show matching <> (html mainly) as well
 set foldmethod=indent " allow us to fold on indents
 set foldlevel=99      " don't fold by default
 
@@ -118,9 +121,10 @@ autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
 " Shortcuts
 " ==========================================================
 
+call arpeggio#load()
+
 " j and k at the same time instead of escape to leave edit mode
-" Arpeggio inoremap jk  <Esc>
-call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+call arpeggio#map('i', '', 1, 'jk', '<Esc>')
 " jo opens the ctrl-p file opener.
 call arpeggio#map('niv', '', 1, 'jo', '<C-p>')
 " jc toggles the current line's comment state.
@@ -249,6 +253,8 @@ au BufNewFile,BufRead *.tex vnoremap <Down> gj
 au BufNewFile,BufRead *.tex vnoremap <Up> gk
 au BufNewFile,BufRead *.tex inoremap <Down> <C-o>gj
 au BufNewFile,BufRead *.tex inoremap <Up> <C-o>gk
+
+au FileType html set matchpairs+=<:>   " Match < to > just like ( to ) in HTML
 
 " ===========================================================
 " Load local vimrc file if there is one
