@@ -29,6 +29,10 @@ call pathogen#helptags()
 " Add language/tool-specific paths
 set rtp+=$GOROOT/misc/vim  " Go
 
+" On silly ubuntu, they install vim stuff into that, but
+" don't have that as a default vim path...
+set rtp+=/usr/share/vim/addons
+
 syntax on                  " syntax highlighing
 " See http://stackoverflow.com/a/5561823
 set t_Co=16
