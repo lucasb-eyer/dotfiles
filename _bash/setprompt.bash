@@ -58,7 +58,14 @@ prt_virtualenv () {
         nodeenv="${PINK}($parent)${DEFAULT} "
     fi
 
-    echo "$pyenv$nodeenv"
+    # Go directories
+    if [ $GOPATH ]; then
+        d=`dirname $GOPATH`
+        name="`basename $d`/`basename $GOPATH`"
+        goenv="${PINK}($name)${DEFAULT}"
+    fi
+
+    echo "$pyenv$nodeenv$goenv"
 }
 
 prt_git () {
