@@ -27,3 +27,8 @@ if [ -f ~/.pythonrc.py ]; then
     export PYTHONSTARTUP=~/.pythonrc.py
 fi
 
+# ROS (Robot Operating System)
+if [ -f /opt/ros/groovy/setup.bash ]; then
+    . /opt/ros/groovy/setup.bash
+fi
+
