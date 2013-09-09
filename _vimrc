@@ -75,7 +75,6 @@ set shiftwidth=4      " And an indent level is 4 spaces wide.
 set softtabstop=4     " <BS> over an autoindent deletes both spaces.
 set expandtab         " Use spaces, not tabs, for autoindent/tab key.
 set shiftround        " rounds indent to a multiple of shiftwidth
-set matchpairs+=<:>   " show matching <> (html mainly) as well
 set foldmethod=indent " allow us to fold on indents
 set foldlevel=99      " don't fold by default
 
@@ -253,6 +252,8 @@ au BufNewFile,BufRead *.tex vnoremap <Down> gj
 au BufNewFile,BufRead *.tex vnoremap <Up> gk
 au BufNewFile,BufRead *.tex inoremap <Down> <C-o>gj
 au BufNewFile,BufRead *.tex inoremap <Up> <C-o>gk
+
+au FileType html set matchpairs+=<:>   " Match < to > just like ( to ) in HTML
 
 " ===========================================================
 " Load local vimrc file if there is one
