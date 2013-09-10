@@ -85,6 +85,7 @@ def main():
     here_to_home('pythonrc.py')
     here_to_home('ssh_config', 'ssh/config')
     here_to_home('config/awesome')
+    here_to_home('config/htop')
 
 if __name__ == '__main__':
     main()
