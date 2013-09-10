@@ -84,10 +84,7 @@ def main():
     here_to_home('gdbinit')
     here_to_home('pythonrc.py')
     here_to_home('ssh_config', 'ssh/config')
-    here_to_home('config_awesome/rc.lua', 'config/awesome/rc.lua')
-    here_to_home('config_awesome/rc', 'config/awesome/rc')
-    here_to_home('config_awesome/lib', 'config/awesome/lib')
-    here_to_home('config_awesome/themes', 'config/awesome/themes')
+    here_to_home('config/awesome')
 
 if __name__ == '__main__':
     main()
