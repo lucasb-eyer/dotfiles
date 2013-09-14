@@ -51,3 +51,5 @@ function my_search {
 }
 
 alias search='my_search'
+
+alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'
