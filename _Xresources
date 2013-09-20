@@ -1,0 +1,60 @@
+! Solarized color scheme for the X Window System
+!
+! http://ethanschoonover.com/solarized
+!
+! Meh, since lightdm is loading ~/.Xresources through the command
+! xrdb -nocpp -merge ~/.Xresources
+! we have two problems:
+! 1. The preprocessor is used by the original file from
+!        https://raw.github.com/solarized/xresources/master/solarized
+!    thus we need to run it through cpp -E
+! 2. Because of -merge, *background etc. won't overwrite the defaults.
+!    "solved" by prefixing with URxvt, since that is my terminal.
+
+
+! To only apply colors to your terminal, for example, prefix
+! the color assignment statement with its name. Example:
+!
+! URxvt*background: #002b36
+
+URxvt*background: #002b36
+URxvt*foreground: #839496
+URxvt*fading: 40
+URxvt*fadeColor: #002b36
+URxvt*cursorColor: #93a1a1
+URxvt*pointerColorBackground: #586e75
+URxvt*pointerColorForeground: #93a1a1
+
+URxvt*color0: #073642
+URxvt*color1: #dc322f
+URxvt*color2: #859900
+URxvt*color3: #b58900
+URxvt*color4: #268bd2
+URxvt*color5: #d33682
+URxvt*color6: #2aa198
+URxvt*color7: #eee8d5
+URxvt*color9: #cb4b16
+URxvt*color8: #002b36
+URxvt*color10: #586e75
+URxvt*color11: #657b83
+URxvt*color12: #839496
+URxvt*color13: #6c71c4
+URxvt*color14: #93a1a1
+URxvt*color15: #fdf6e3
+
+! The three most gorgeous monospace fonts I found.
+URxvt.font: xft:Consolas:size=10
+! URxvt.font: xft:Liberation Mono:size=10
+! URxvt.font: xft:Ubuntu Mono:size=11
+
+! Xft settings ----------------------------------------
+! Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+
+! Adding tabs to urxvt
+URxvt.perl-ext-common: default,tabbed
+URxvt.scrollBar: false
+URxvt.tabbed.tab-bg: 11

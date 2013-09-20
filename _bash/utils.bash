@@ -12,7 +12,13 @@ function my_mkenv {
     }
 
     name=${1:-"env"}
-    my_fetchit https://raw.github.com/pypa/virtualenv/master/virtualenv.py && python virtualenv.py $name && rm virtualenv.py* && . $name/bin/activate
+    version=${2:-"1.10.1"}
+    my_fetchit https://pypi.python.org/packages/source/v/virtualenv/virtualenv-$version.tar.gz || exit 1
+    tar xzC /tmp < virtualenv-$version.tar.gz || exit 1
+    # TODO: make sys an option.
+    python /tmp/virtualenv-$version/virtualenv.py --system-site-packages $name || exit 1
+    rm -Rf /tmp/virtualenv-$version || exit 1
+    . $name/bin/activate
 }
 
 #alias mkenv='my_fetchit https://raw.github.com/pypa/virtualenv/master/virtualenv.py && python virtualenv.py env && rm virtualenv.py* && . env/bin/activate'
@@ -45,3 +51,5 @@ function my_search {
 }
 
 alias search='my_search'
+
+alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'

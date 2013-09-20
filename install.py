@@ -35,7 +35,11 @@ def link_with_backup(source, link_name):
         if backup:
             os.rename(full_link_name, full_link_name + '.' + str(int(time())) + '.dotfiles_backup')
         else:
-            os.remove(full_link_name)
+            # Try to remove this thing. Non-empty directories don't work yet.
+            try:
+                os.remove(full_link_name)
+            except OSError as e:
+                os.rmdir(full_link_name)
         os.symlink(source, full_link_name)
 
 
@@ -74,11 +78,14 @@ def main():
     here_to_home('vimrc')
     here_to_home('vim')
     here_to_home('inputrc')
+    here_to_home('Xresources')
     here_to_home('gitconfig')
     here_to_home('gitignore')
     here_to_home('gdbinit')
     here_to_home('pythonrc.py')
     here_to_home('ssh_config', 'ssh/config')
+    here_to_home('config/awesome')
+    here_to_home('config/htop')
 
 if __name__ == '__main__':
     main()

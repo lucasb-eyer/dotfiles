@@ -13,3 +13,8 @@ host beyer
 host lbeyer
     HostName eyer.be
     user lucasb
+
+host github.com
+	HostName github.com
+	user git
+	IdentityFile ~/.ssh/id_rsa_github
