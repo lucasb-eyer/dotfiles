@@ -1,3 +1,42 @@
+# Watch the linecount of a file in real-time.
+# See: TODO: URL for details
+
+function my_watchlines {
+    if [ -z "$1" ]; then
+        echo "Need to pass a filename!"
+        return 1
+    fi
+
+    while true; do
+        l=$(wc -l $1 | awk '{ printf "%s: %s", $2, $1 }')
+        echo -n -e "\r$l"
+        sleep 0
+    done
+}
+alias watchlines='my_watchlines'
+
+# Watch the output of an expression in real-time
+
+function my_watchexpr {
+    if [ -z "$1" ]; then
+        echo "Need to pass a command to execute!"
+        exit 1
+    fi
+
+    # So this is the way to store all arguments in an array, such that
+    # script.sh foo "bar baw" blob
+    # will be stored in a length-4 array.
+    stuff=("$@")
+
+    while true; do
+        # And this is how we correctly call the previously stored command
+        line=$( "${stuff[@]}" | tr -d '\r\n' )
+        echo -n -e "\r$line"
+        sleep 0
+    done
+}
+alias watchexpr='my_watchexpr'
+
 # The commented-out version would be better as it lets one specify the virtualenv dirname but
 # for some reason beyond my understanding, it doesn't work (my_mkenv unknown)
 
