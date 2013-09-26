@@ -107,6 +107,7 @@ set list
 """ Searching and Patterns
 set smarttab   " Handle tabs more intelligently
 set incsearch  " Incrementally search while typing a /regex
+set hlsearch   " Highlight all occurences of the search term. (stop with f+n)
 
 " ==========================================================
 " Automatic brackets
@@ -131,6 +132,8 @@ call arpeggio#map('niv', '', 1, 'jo', '<C-p>')
 call arpeggio#map('n', '', 1, 'jc', 'gcc')
 call arpeggio#map('v', '', 1, 'jc', 'gc')
 call arpeggio#map('i', '', 1, 'jc', '<ESC>gcca')
+" f+n for stopping highlighting of search results.
+call arpeggio#map('n', '', 1, 'fn', ':noh<CR>')
 
 " map w+hjkl to window movement.
 call arpeggio#map('nv', '', 1, 'wh', '<C-W>h')
