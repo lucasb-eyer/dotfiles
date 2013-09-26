@@ -17,7 +17,13 @@ fi
 
 # Setup go if it exists in the home folder.
 if [ -d ~/go ]; then
-    export GOROOT=~/go
+    # Differentiate between a global go install (my chakra) and a local one in home.
+    if [ -d /usr/lib/go ]; then
+        export GOROOT=/usr/lib/go
+    else
+        export GOROOT=~/go
+    fi
+
     export GOPATH=~/go/
     export PATH=$PATH:$GOROOT/bin
 fi
