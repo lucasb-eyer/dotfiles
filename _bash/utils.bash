@@ -92,3 +92,25 @@ function my_search {
 alias search='my_search'
 
 alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'
+
+# I got so pissed off by my notebook's battery always suddenly dying just
+# because the /etc/udev.rules for hibernate on low battery won't work that
+# I wrote this function which regularly checks the battery state.
+function watchbatt {
+    while true; do
+        battstt=`cat /sys/class/power_supply/BAT0/status`
+        if [ "$battstt" != "Discharging" ] ; then
+            sleep 120
+        else
+            battpct=$(echo "100 * `cat /sys/class/power_supply/BAT0/energy_now` / `cat /sys/class/power_supply/BAT0/energy_full`" | bc)
+            if [ "$battpct" -lt 10 ] ; then
+                echo "LOW BATTERY: $(echo "100 * $battnow / $battmax" | bc)"
+                [ `which mplayer` ] && [ -f /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga ] && mplayer /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga > /dev/null
+                sleep 120
+            elif [ "$battpct" -lt 2 ] ; then
+                hibernate
+                sleep 240
+            fi
+        fi
+    done
+}
