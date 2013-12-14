@@ -43,6 +43,7 @@ colorscheme solarized      " rock on
 filetype on                " try to detect filetypes
 filetype plugin on         " enable loading filetype plugins
 filetype plugin indent on  " enable loading indent file for filetype
+set hidden                 " Allow having multiple files opened w/o saving (including undo history)
 set number                 " Display line numbers
 set numberwidth=1          " using only 1 column (and 1 space) while possible
 if exists('+relativenumber')
