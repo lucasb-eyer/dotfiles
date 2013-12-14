@@ -1,10 +1,34 @@
 set nocompatible
 
-" ==========================================================
-" Pathogen - Allows us to organize our vim plugins
-" ==========================================================
-" Load pathogen with docs for all plugins
+" =====================
+" Vundle plugin manager
+" =====================
 filetype off
+
+" Load vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+
+" Vundle help
+""""""""""""""
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+
+" System
+Bundle 'kana/vim-arpeggio'
+Bundle 'kien/ctrlp.vim'
+
+" Fun, but not useful
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'ehamberg/vim-cute-python'
+
+" Required after vundle plugin definitions
+filetype plugin indent on
 
 " ==========================================================
 " Basic Settings
@@ -24,9 +48,6 @@ let g:solarized_termcolors=16
 set background=dark        " We are using dark background in vim
 colorscheme solarized      " rock on
 
-filetype on                " try to detect filetypes
-filetype plugin on         " enable loading filetype plugins
-filetype plugin indent on  " enable loading indent file for filetype
 set hidden                 " Allow having multiple files opened w/o saving (including undo history)
 set number                 " Display line numbers
 set numberwidth=1          " using only 1 column (and 1 space) while possible
