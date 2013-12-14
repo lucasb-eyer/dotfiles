@@ -15,6 +15,11 @@ host lbeyer
     user lucasb
 
 host github.com
-	HostName github.com
-	user git
-	IdentityFile ~/.ssh/id_rsa_github
+    HostName github.com
+    user git
+    IdentityFile ~/.ssh/id_rsa_github
+
+host karl
+    HostName 137.226.34.131
+    User demo
+    ForwardX11 yes
