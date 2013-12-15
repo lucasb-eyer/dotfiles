@@ -45,50 +45,55 @@ set rtp+=$GOROOT/misc/vim  " Go
 " don't have that as a default vim path...
 set rtp+=/usr/share/vim/addons
 
+""" Visual
 syntax on                  " syntax highlighing
-" See http://stackoverflow.com/a/5561823
-set t_Co=16
+set synmaxcol=2048         " because long lines are slow!
+
+set t_Co=16                " See http://stackoverflow.com/a/5561823
 let g:solarized_termcolors=16
 set background=dark        " We are using dark background in vim
 colorscheme solarized      " rock on
 
-set hidden                 " Allow having multiple files opened w/o saving (including undo history)
+set cursorline             " have a line indicate the cursor location
+set ruler                  " show the cursor position all the time
+set showmatch              " Briefly jump to a paren once it's balanced
+set nowrap                 " don't wrap text
+set linebreak              " don't wrap text in the middle of a word
+
+set listchars=tab:>-,trail:-,precedes:<,extends:>
+set list
+
 set number                 " Display line numbers
 set numberwidth=1          " using only 1 column (and 1 space) while possible
 if exists('+relativenumber')
     set relativenumber     " Display relative line numbers
 endif
 set title                  " show title in console title bar
-set wildmenu               " Menu completion in command mode on <Tab>
-set wildmode=full          " <Tab> cycles between all matching choices.
 
-" Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc
-set wildignore+=eggs/**
-set wildignore+=*.egg-info/**
-
-""" Moving Around/Editing
-" (commented out ones go nuts on my console, trying them on other consoles.)
-" set cursorline        " have a line indicate the cursor location
-set ruler             " show the cursor position all the time
-"set nostartofline     " Avoid moving cursor to BOL when jumping around
+""" Moving Around
+set nostartofline     " Don't put the cursor in the first col on pgup/down
 set virtualedit=block " Let cursor move past the last char in <C-v> mode
 set scrolloff=3       " Keep 3 context lines above and below the cursor
+set foldmethod=indent " allow us to fold on indents
+set foldlevel=99      " don't fold by default
+
+""" Searching
+set incsearch  " Incrementally search while typing a /regex
+
+""" Editing
 set backspace=2       " Allow backspacing over autoindent, EOL, and BOL
-set showmatch         " Briefly jump to a paren once it's balanced
-set nowrap            " don't wrap text
-set linebreak         " don't wrap text in the middle of a word
 set autoindent        " always set autoindenting on
 set nosmartindent     " don't use smart indent, it is annoying with #
+set smarttab          " handle tab keypresses more intelligently tho.
 set tabstop=4         " <tab> inserts 4 spaces
 set shiftwidth=4      " And an indent level is 4 spaces wide.
 set softtabstop=4     " <BS> over an autoindent deletes both spaces.
 set expandtab         " Use spaces, not tabs, for autoindent/tab key.
 set shiftround        " rounds indent to a multiple of shiftwidth
-set foldmethod=indent " allow us to fold on indents
-set foldlevel=99      " don't fold by default
 
 """" Reading/Writing
+set encoding=utf-8
+set hidden           " Allow having multiple files opened w/o saving (including undo history)
 set noautowrite      " Never write a file unless I request it.
 set noautowriteall   " NEVER.
 set noautoread       " Don't automatically re-read changed files.
@@ -97,6 +102,13 @@ set modelines=5      " they must be within the first or last 5 lines.
 set ffs=unix,dos,mac " Try recognizing dos, unix, and mac line endings.
 
 """" Messages, Info, Status
+set wildmenu         " Menu completion in command mode on <Tab>
+set wildmode=full    " <Tab> cycles between all matching choices.
+                     " ...except for these
+set wildignore+=*.o,*.obj,.git
+set wildignore+=*.pyc,eggs/**,*.egg-info/**
+
+" TODO: Use airline for statusline?
 set ls=2         " always show status line
 set confirm      " Y-N-C prompt if closing with unsaved changes.
 set showcmd      " Show incomplete normal mode commands as I type.
@@ -109,27 +121,16 @@ set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})
 " %{fugitive#statusline()} shows the current git branch.
 autocmd VimEnter * if exists('fugitive') | set statusline+=\ %{fugitive#statusline()} | endif
 
-" displays tabs with :set list & displays when a line runs off-screen
-" Add eol:$ to display line endings
-set listchars=tab:>-,trail:-,precedes:<,extends:>
-set list
-
-""" Searching and Patterns
-set smarttab   " Handle tabs more intelligently
-set incsearch  " Incrementally search while typing a /regex
-
 " ==========================================================
-" Automatic brackets
+" Keymaps
 " ==========================================================
-:inoremap ( ()<Esc>i
-:inoremap { {}<Esc>i
-:inoremap [ []<Esc>i
+
+""" Automatic brackets
+inoremap ( ()<Esc>i
+inoremap { {}<Esc>i
+inoremap [ []<Esc>i
 autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
-:inoremap " ""<Esc>i
-
-" ==========================================================
-" Shortcuts
-" ==========================================================
+inoremap " ""<Esc>i
 
 call arpeggio#load()
 
