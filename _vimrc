@@ -22,6 +22,7 @@ Bundle 'gmarik/vundle'
 " System
 Bundle 'kana/vim-arpeggio'
 Bundle 'kien/ctrlp.vim'
+Bundle 'scrooloose/nerdcommenter'
 
 " Fun, but not useful
 Bundle 'altercation/vim-colors-solarized'
@@ -134,9 +135,8 @@ call arpeggio#map('i', '', 1, 'jk', '<Esc>')
 " jo opens the ctrl-p file opener.
 call arpeggio#map('niv', '', 1, 'jo', '<C-p>')
 " jc toggles the current line's comment state.
-call arpeggio#map('n', '', 1, 'jc', 'gcc')
-call arpeggio#map('v', '', 1, 'jc', 'gc')
-call arpeggio#map('i', '', 1, 'jc', '<ESC>gcca')
+call arpeggio#map('nv', '', 1, 'jc', '<leader>c<space>')
+call arpeggio#map('i', '', 1, 'jc', '<ESC><leader>c<space>a')
 
 " map w+hjkl to window movement.
 call arpeggio#map('nv', '', 1, 'wh', '<C-W>h')
@@ -149,9 +149,6 @@ call arpeggio#map('nv', '', 1, 'fh', '^')
 call arpeggio#map('nv', '', 1, 'fj', '<C-D>')
 call arpeggio#map('nv', '', 1, 'fk', '<C-U>')
 call arpeggio#map('nv', '', 1, 'fl', '$')
-
-let g:tcommentOpModeExtra = '#'
-let g:tcommentModeExtra = '#'
 
 " shift-tab unindents
 imap <S-Tab> <C-o><<
