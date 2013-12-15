@@ -24,7 +24,10 @@ Bundle 'kana/vim-arpeggio'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 
-" Fun, but not useful
+" Syntaxes
+Bundle 'plasticboy/vim-markdown'
+
+"" Fun, but not useful
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'ehamberg/vim-cute-python'
 
@@ -213,12 +216,12 @@ endfunction
 au! Syntax opencl source ~/.vim/syntax/opencl.vim
 au BufRead,BufNewFile *.cl set filetype=opencl
 
-" Use GitHub-flavored Markdown by default.
-au BufRead,BufNewFile *.markdown,*.md set filetype=ghmarkdown
-
 " ===========================================================
 " FileType specific changes
 " ===========================================================
+
+" Markdown, don't fold anything initially.
+let g:vim_markdown_initial_foldlevel=5
 
 " Python
 " Don't let pyflakes use the quickfix window
