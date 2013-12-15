@@ -249,13 +249,6 @@ au BufNewFile,BufRead *.ptx set tabstop=8 " Because 4 looks ugly as fuck.
 " Enable wordwrapping for latex files
 au BufNewFile,BufRead *.tex set wrap
 au BufNewFile,BufRead *.tex set nolist
-" Make the up/down keys go up/down a visual line instead of an actual line.
-au BufNewFile,BufRead *.tex nnoremap <Down> gj
-au BufNewFile,BufRead *.tex nnoremap <Up> gk
-au BufNewFile,BufRead *.tex vnoremap <Down> gj
-au BufNewFile,BufRead *.tex vnoremap <Up> gk
-au BufNewFile,BufRead *.tex inoremap <Down> <C-o>gj
-au BufNewFile,BufRead *.tex inoremap <Up> <C-o>gk
 
 au FileType html set matchpairs+=<:>   " Match < to > just like ( to ) in HTML
 
@@ -265,4 +258,3 @@ au FileType html set matchpairs+=<:>   " Match < to > just like ( to ) in HTML
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-
