@@ -115,6 +115,9 @@ function watchbatt {
             elif [ "$battpct" -lt 2 ] ; then
                 hibernate
                 sleep 240
+            else
+                # Still lots of battery left.
+                sleep 120
             fi
         fi
     done
