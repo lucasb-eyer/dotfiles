@@ -37,30 +37,35 @@ function my_watchexpr {
 }
 alias watchexpr='my_watchexpr'
 
-# The commented-out version would be better as it lets one specify the virtualenv dirname but
-# for some reason beyond my understanding, it doesn't work (my_mkenv unknown)
+function my_fetchit {
+    command -v curl > /dev/null 2>&1
+    if [ $? = 0 ] ; then
+        curl $1 > `basename $1`
+    else
+        wget $1
+    fi
+}
 
+# Call like my_mkenv env-name [python-executable] [--sys]
 function my_mkenv {
-    function my_fetchit {
-        command -v curl > /dev/null 2>&1
-        if [ $? = 0 ] ; then
-            curl $1 > `basename $1`
-        else
-            wget $1
-        fi
-    }
 
+    opts=""
     name=${1:-"env"}
-    version=${2:-"1.10.1"}
-    my_fetchit https://pypi.python.org/packages/source/v/virtualenv/virtualenv-$version.tar.gz || exit 1
-    tar xzC /tmp < virtualenv-$version.tar.gz || exit 1
+    if [ "$2" == "--sys" ]; then opts="--system-site-packages"; shift; fi
+    py=${2:-"python"}
+    if [ "$3" == "--sys" ]; then opts="--system-site-packages"; fi
+
+    version="1.10.1"
+
+    my_fetchit https://pypi.python.org/packages/source/v/virtualenv/virtualenv-$version.tar.gz || return 1
+    tar xzC /tmp < virtualenv-$version.tar.gz || return 1
     # TODO: make sys an option.
-    python /tmp/virtualenv-$version/virtualenv.py --system-site-packages $name || exit 1
-    rm -Rf /tmp/virtualenv-$version || exit 1
+    $py /tmp/virtualenv-$version/virtualenv.py $opts $name || return 1
+    echo $py /tmp/virtualenv-$version/virtualenv.py $opts $name || return 1
+    rm -Rf /tmp/virtualenv-$version || return 1
     . $name/bin/activate
 }
 
-#alias mkenv='my_fetchit https://raw.github.com/pypa/virtualenv/master/virtualenv.py && python virtualenv.py env && rm virtualenv.py* && . env/bin/activate'
 alias mkenv='my_mkenv'
 
 function my_search {
