@@ -20,7 +20,7 @@ alias watchlines='my_watchlines'
 function my_watchexpr {
     if [ -z "$1" ]; then
         echo "Need to pass a command to execute!"
-        exit 1
+        return 1
     fi
 
     # So this is the way to store all arguments in an array, such that
