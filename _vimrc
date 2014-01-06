@@ -1,30 +1,49 @@
 set nocompatible
 
-" ==========================================================
-" Pathogen - Allows us to organize our vim plugins
-" ==========================================================
-" Load pathogen with docs for all plugins
+" =====================
+" Vundle plugin manager
+" =====================
 filetype off
 
-" To disable a plugin, add it's bundle name to the following list
-let g:pathogen_disabled = []
+" Load vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-" UltiSnips needs python > 3 in vim. I just disable it until they fixed it
-if !has('python3')
-    call add(g:pathogen_disabled, 'ultisnips')
-endif
-" Python-mode wants a python enabled vim, they check themselves but print an
-" annoying error if it's not present.
-if !has('python')
-    call add(g:pathogen_disabled, 'python-mode')
-endif
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
 
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+" Vundle help
+""""""""""""""
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+
+" System
+Bundle 'kana/vim-arpeggio'
+" Not decided on which of the two I'll use yet..
+"Bundle 'kien/ctrlp.vim'
+Bundle 'Shougo/unite.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'tpope/vim-surround'
+
+" Languages
+Bundle 'scrooloose/syntastic'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'JuliaLang/julia-vim'
+
+"" Fun, but not useful
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'ehamberg/vim-cute-python'
+
+" Required after vundle plugin definitions
+filetype plugin indent on
 
 " ==========================================================
 " Basic Settings
 " ==========================================================
+
+set encoding=utf-8
 
 " Add language/tool-specific paths
 set rtp+=$GOROOT/misc/vim  " Go
@@ -33,52 +52,57 @@ set rtp+=$GOROOT/misc/vim  " Go
 " don't have that as a default vim path...
 set rtp+=/usr/share/vim/addons
 
+""" Visual
 syntax on                  " syntax highlighing
-" See http://stackoverflow.com/a/5561823
-set t_Co=16
+set synmaxcol=2048         " because long lines are slow!
+
+set t_Co=16                " See http://stackoverflow.com/a/5561823
 let g:solarized_termcolors=16
 set background=dark        " We are using dark background in vim
 colorscheme solarized      " rock on
 
-filetype on                " try to detect filetypes
-filetype plugin on         " enable loading filetype plugins
-filetype plugin indent on  " enable loading indent file for filetype
+"set cursorline             " have a line indicate the cursor location
+set ruler                  " show the cursor position all the time
+set showmatch              " Briefly jump to a paren once it's balanced
+set nowrap                 " don't wrap text
+set linebreak              " don't wrap text in the middle of a word
+set listchars=tab:→·,trail:·,precedes:«,extends:»  " Could also use ▸ for tab?
+set list
+
 set number                 " Display line numbers
 set numberwidth=1          " using only 1 column (and 1 space) while possible
 if exists('+relativenumber')
     set relativenumber     " Display relative line numbers
 endif
 set title                  " show title in console title bar
-set wildmenu               " Menu completion in command mode on <Tab>
-set wildmode=full          " <Tab> cycles between all matching choices.
 
-" Ignore these files when completing
-set wildignore+=*.o,*.obj,.git,*.pyc
-set wildignore+=eggs/**
-set wildignore+=*.egg-info/**
-
-""" Moving Around/Editing
-" (commented out ones go nuts on my console, trying them on other consoles.)
-" set cursorline        " have a line indicate the cursor location
-set ruler             " show the cursor position all the time
-"set nostartofline     " Avoid moving cursor to BOL when jumping around
+""" Moving Around
+set nostartofline     " Don't put the cursor in the first col on pgup/down
 set virtualedit=block " Let cursor move past the last char in <C-v> mode
 set scrolloff=3       " Keep 3 context lines above and below the cursor
+set foldmethod=indent " allow us to fold on indents
+set foldlevel=99      " don't fold by default
+
+""" Searching
+set ignorecase " Ignore case when typing all lowercase...
+set smartcase  " ...but match case as soon as there's one uppercase
+set gdefault   " Always add a 'g' at the end: s/foo/bar/g
+set incsearch  " Incrementally search while typing a /regex
+set hlsearch   " Highlight all occurences of the search term. (stop with f+n)
+
+""" Editing
 set backspace=2       " Allow backspacing over autoindent, EOL, and BOL
-set showmatch         " Briefly jump to a paren once it's balanced
-set nowrap            " don't wrap text
-set linebreak         " don't wrap text in the middle of a word
 set autoindent        " always set autoindenting on
 set nosmartindent     " don't use smart indent, it is annoying with #
+set smarttab          " handle tab keypresses more intelligently tho.
 set tabstop=4         " <tab> inserts 4 spaces
 set shiftwidth=4      " And an indent level is 4 spaces wide.
 set softtabstop=4     " <BS> over an autoindent deletes both spaces.
 set expandtab         " Use spaces, not tabs, for autoindent/tab key.
 set shiftround        " rounds indent to a multiple of shiftwidth
-set foldmethod=indent " allow us to fold on indents
-set foldlevel=99      " don't fold by default
 
 """" Reading/Writing
+set hidden           " Allow having multiple files opened w/o saving (including undo history)
 set noautowrite      " Never write a file unless I request it.
 set noautowriteall   " NEVER.
 set noautoread       " Don't automatically re-read changed files.
@@ -87,6 +111,13 @@ set modelines=5      " they must be within the first or last 5 lines.
 set ffs=unix,dos,mac " Try recognizing dos, unix, and mac line endings.
 
 """" Messages, Info, Status
+set wildmenu         " Menu completion in command mode on <Tab>
+set wildmode=full    " <Tab> cycles between all matching choices.
+                     " ...except for these
+set wildignore+=*.o,*.obj,.git
+set wildignore+=*.pyc,eggs/**,*.egg-info/**
+
+" TODO: Use airline for statusline?
 set ls=2         " always show status line
 set confirm      " Y-N-C prompt if closing with unsaved changes.
 set showcmd      " Show incomplete normal mode commands as I type.
@@ -99,39 +130,37 @@ set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})
 " %{fugitive#statusline()} shows the current git branch.
 autocmd VimEnter * if exists('fugitive') | set statusline+=\ %{fugitive#statusline()} | endif
 
-" displays tabs with :set list & displays when a line runs off-screen
-" Add eol:$ to display line endings
-set listchars=tab:>-,trail:-,precedes:<,extends:>
-set list
-
-""" Searching and Patterns
-set smarttab   " Handle tabs more intelligently
-set incsearch  " Incrementally search while typing a /regex
-set hlsearch   " Highlight all occurences of the search term. (stop with f+n)
-
 " ==========================================================
+" Keymaps
+" ==========================================================
+
 " Automatic brackets
-" ==========================================================
-:inoremap ( ()<Esc>i
-:inoremap { {}<Esc>i
-:inoremap [ []<Esc>i
+inoremap ( ()<Esc>i
+inoremap { {}<Esc>i
+inoremap [ []<Esc>i
 autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
-:inoremap " ""<Esc>i
+inoremap " ""<Esc>i
 
-" ==========================================================
-" Shortcuts
-" ==========================================================
+" Makes the search be _v_ery magic by default
+nnoremap / /\v
+vnoremap / /\v
 
 call arpeggio#load()
 
+" For versions before 7.3.487, arpeggio will screp up jk columns.
+" On ubuntu, use https://launchpad.net/~nmi/+archive/vim-snapshots
+" Or just use a saner distro, like arch...
+
 " j and k at the same time instead of escape to leave edit mode
 call arpeggio#map('i', '', 1, 'jk', '<Esc>')
+
 " jo opens the ctrl-p file opener.
-call arpeggio#map('niv', '', 1, 'jo', '<C-p>')
+"call arpeggio#map('niv', '', 1, 'jo', ':CtrlP<cr>')
+call arpeggio#map('niv', '', 1, 'jo', '<space><space>')
+
 " jc toggles the current line's comment state.
-call arpeggio#map('n', '', 1, 'jc', 'gcc')
-call arpeggio#map('v', '', 1, 'jc', 'gc')
-call arpeggio#map('i', '', 1, 'jc', '<ESC>gcca')
+call arpeggio#map('nv', '', 1, 'jc', '<leader>c<space>')
+call arpeggio#map('i', '', 1, 'jc', '<ESC><leader>c<space>a')
 " f+n for stopping highlighting of search results.
 call arpeggio#map('n', '', 1, 'fn', ':noh<CR>')
 
@@ -147,14 +176,11 @@ call arpeggio#map('nv', '', 1, 'fj', '<C-D>')
 call arpeggio#map('nv', '', 1, 'fk', '<C-U>')
 call arpeggio#map('nv', '', 1, 'fl', '$')
 
-let g:tcommentOpModeExtra = '#'
-let g:tcommentModeExtra = '#'
-
-" shift-tab unindents
-imap <S-Tab> <C-o><<
+" Makes it easy to un-highlight the previous search.
+call arpeggio#map('nv', '', 1, 'fw', ':noh<cr>')
 
 " Run pep8
-let g:pep8_map='<leader>8'
+"let g:pep8_map='<leader>8'
 
 " vv splits the window vertically
 map vv <C-w>v<C-w>l
@@ -162,19 +188,10 @@ map vv <C-w>v<C-w>l
 " For mac os x if the terminal is setup as in
 " http://od-eon.com/blogs/liviu/macos-vim-controlarrow-functionality/
 " Still isn't perfect.
-:noremap <Esc>A <C-W>k
-:noremap <Esc>C <C-W>l
-:noremap <Esc>D <C-W>h
-:noremap <Esc>B <C-W>j
-" Use control+arrows to switch windows.
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs = 1
-
-" Go to the function definition (python)
-map <leader>j :RopeGotoDefinition<CR>
-
-" Rename the thing below the cursor (python)
-map <leader>r :RopeRename<CR>
+noremap <Esc>A <C-W>k
+noremap <Esc>C <C-W>l
+noremap <Esc>D <C-W>h
+noremap <Esc>B <C-W>j
 
 " Next and Last
 " -------------
@@ -208,26 +225,71 @@ function! s:NextTextObject(motion, dir)
 endfunction
 
 " ===========================================================
-" Add more file types
+" Unite settings
+" ===========================================================
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#set_profile('files', 'smartcase', 1)
+call unite#custom#source('line,outline','matchers','matcher_fuzzy')
+
+let g:unite_data_directory='~/.vim/.cache/unite'
+let g:unite_enable_start_insert=1                 " Start in insert mode - type away to search
+let g:unite_source_history_yank_enable=1
+let g:unite_source_rec_max_cache_files=5000
+let g:unite_prompt='» '
+
+if executable('ag')
+    let g:unite_source_grep_command='ag'
+    let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
+    let g:unite_source_grep_recursive_opt=''
+elseif executable('ack')
+    let g:unite_source_grep_command='ack'
+    let g:unite_source_grep_default_opts='--no-heading --no-color -a -C4'
+    let g:unite_source_grep_recursive_opt=''
+endif
+
+"function! s:unite_settings()
+    "nmap <buffer> Q <plug>(unite_exit)
+    "nmap <buffer> <esc> <plug>(unite_exit)
+    "imap <buffer> <esc> <plug>(unite_exit)
+"endfunction
+"autocmd FileType unite call s:unite_settings()
+
+nmap <space> [unite]
+nnoremap [unite] <nop>
+
+" TODO: If I ever get around installing Shougo/vimproc.vim, append '/async' to 'file_rec'
+nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec buffer file_mru bookmark<cr><c-u>
+nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec<cr><c-u>
+nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer<cr>
+" Argh, this requires Shougo/vimproc.vim too!
+" nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
+nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
+
+" ===========================================================
+" add more file types
 " ===========================================================
 au! Syntax opencl source ~/.vim/syntax/opencl.vim
 au BufRead,BufNewFile *.cl set filetype=opencl
-
-" Use GitHub-flavored Markdown by default.
-au BufRead,BufNewFile *.markdown,*.md set filetype=ghmarkdown
 
 " ===========================================================
 " FileType specific changes
 " ===========================================================
 
+" Markdown, don't fold anything initially.
+let g:vim_markdown_initial_foldlevel=5
+
 " Python
 " Don't let pyflakes use the quickfix window
-let g:pyflakes_use_quickfix = 0
+"let g:pyflakes_use_quickfix = 0
 
 " Tell supercomplete to be context-sensitive and show the doc
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
+"au FileType python set omnifunc=pythoncomplete#Complete
+"let g:SuperTabDefaultCompletionType = "context"
+"set completeopt=menuone,longest,preview
 
 " Add the virtualenv's site-packages to vim path
 if has('python')
@@ -249,13 +311,6 @@ au BufNewFile,BufRead *.ptx set tabstop=8 " Because 4 looks ugly as fuck.
 " Enable wordwrapping for latex files
 au BufNewFile,BufRead *.tex set wrap
 au BufNewFile,BufRead *.tex set nolist
-" Make the up/down keys go up/down a visual line instead of an actual line.
-au BufNewFile,BufRead *.tex nnoremap <Down> gj
-au BufNewFile,BufRead *.tex nnoremap <Up> gk
-au BufNewFile,BufRead *.tex vnoremap <Down> gj
-au BufNewFile,BufRead *.tex vnoremap <Up> gk
-au BufNewFile,BufRead *.tex inoremap <Down> <C-o>gj
-au BufNewFile,BufRead *.tex inoremap <Up> <C-o>gk
 
 au FileType html set matchpairs+=<:>   " Match < to > just like ( to ) in HTML
 
@@ -265,4 +320,3 @@ au FileType html set matchpairs+=<:>   " Match < to > just like ( to ) in HTML
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-
