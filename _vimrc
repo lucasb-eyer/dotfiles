@@ -79,6 +79,7 @@ set foldlevel=99      " don't fold by default
 
 """ Searching
 set incsearch  " Incrementally search while typing a /regex
+set hlsearch   " Highlight all occurences of the search term. (stop with f+n)
 
 """ Editing
 set backspace=2       " Allow backspacing over autoindent, EOL, and BOL
@@ -141,6 +142,8 @@ call arpeggio#map('niv', '', 1, 'jo', '<C-p>')
 " jc toggles the current line's comment state.
 call arpeggio#map('nv', '', 1, 'jc', '<leader>c<space>')
 call arpeggio#map('i', '', 1, 'jc', '<ESC><leader>c<space>a')
+" f+n for stopping highlighting of search results.
+call arpeggio#map('n', '', 1, 'fn', ':noh<CR>')
 
 " map w+hjkl to window movement.
 call arpeggio#map('nv', '', 1, 'wh', '<C-W>h')
