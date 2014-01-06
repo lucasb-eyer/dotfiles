@@ -56,5 +56,10 @@ Xft.hintstyle:  hintslight
 
 ! Adding tabs to urxvt
 URxvt.perl-ext-common: default,tabbed
-URxvt.scrollBar: false
 URxvt.tabbed.tab-bg: 11
+
+! Scrolling behaviour
+URxvt*scrollBar: false
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
