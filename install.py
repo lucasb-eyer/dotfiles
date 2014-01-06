@@ -1,5 +1,5 @@
 import os
-from os.path import expanduser as eu, dirname
+from os.path import expanduser as eu, dirname, exists
 from time import time
 from subprocess import call
 
@@ -58,6 +58,12 @@ def main():
     if call('git submodule update --init', shell=True) != 0:
         if input('Error during submodule (=plugin) init or update. Continue setup? [Y/n] ') not in ('y', 'Y', ''):
             return 1
+
+    # Pull in Vundle (for vim, should make it a submodule at some point?)
+    if not exists(here('_vim/bundle/vundle')):
+        if call('git clone https://github.com/gmarik/vundle.git ' + here('_vim/bundle/vundle'), shell=True) != 0:
+            if input('Error getting Vundle. Continue setup? [y/N]') not in ('y', 'Y'):
+                return 1
 
     global backup
     backup = raw_input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
