@@ -67,7 +67,14 @@ layouts =
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier
 }
--- }}}
+
+-- TODO: Automatically determine from folders in themes folder.
+themes =
+{
+    "solarized-dark",
+    "solarized-light"
+}
+itheme = 1
 
 loadrc("appearance")
 loadrc("tags")

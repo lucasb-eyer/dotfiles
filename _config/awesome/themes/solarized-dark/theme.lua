@@ -8,6 +8,7 @@
 
 -- {{{ Main
 theme = {}
+theme.path = os.getenv( "HOME" ) .. "/.config/awesome/themes/solarized-dark"
 theme.default_themes_path = "/usr/share/awesome/themes"
 theme.wallpaper_cmd = { "awsetbg "..theme.default_themes_path.."/zenburn/zenburn-background.png" }
 theme.colors = {}

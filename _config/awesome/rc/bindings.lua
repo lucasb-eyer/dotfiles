@@ -72,6 +72,7 @@ globalkeys = awful.util.table.join(
     keydoc.group("Misc"),
     awful.key({ }, "Scroll_Lock", function () awful.util.spawn("xscreensaver-command -lock") end, "Lock the session"),
     awful.key({ }, "Print", function () awful.util.spawn('gm import -window root "' .. os.getenv("HOME") .. os.date('/%Y-%m-%d_%H:%M:%S.png"')) end, "Screenshot"),
+    awful.key({ modkey }, "F5", switchtheme),
     awful.key({ modkey }, "w", function () mymainmenu:show({keygrabber=true}) end, "Open the menu"),
     awful.key({ modkey }, "F1", keydoc.display)
 )
