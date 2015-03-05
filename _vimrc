@@ -39,7 +39,8 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'ehamberg/vim-cute-python'
 
-" Required after vundle plugin definitions
+" Careful with this: http://stackoverflow.com/a/16433928
+syntax enable
 filetype plugin indent on
 
 " ==========================================================
@@ -56,7 +57,6 @@ set rtp+=$GOROOT/misc/vim  " Go
 set rtp+=/usr/share/vim/addons
 
 """ Visual
-syntax on                  " syntax highlighing
 set synmaxcol=2048         " because long lines are slow!
 
 set t_Co=16                " See http://stackoverflow.com/a/5561823
