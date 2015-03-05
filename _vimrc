@@ -28,6 +28,9 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
 
+" See https://cirw.in/blog/bracketed-paste
+Bundle 'ConradIrwin/vim-bracketed-paste'
+
 " Languages
 Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
