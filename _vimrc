@@ -33,6 +33,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'JuliaLang/julia-vim'
 Bundle 'dag/vim-fish'
+Bundle 'kchmck/vim-coffee-script'
 
 "" Fun, but not useful
 Bundle 'altercation/vim-colors-solarized'
@@ -242,6 +243,11 @@ au BufRead,BufNewFile *.cl set filetype=opencl
 
 " Markdown, don't fold anything initially.
 let g:vim_markdown_initial_foldlevel=5
+
+" Coffee: Fold using indentation
+autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+" Coffee: use 2-space indentation by default.
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " Python
 " Don't let pyflakes use the quickfix window
