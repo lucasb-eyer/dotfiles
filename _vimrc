@@ -35,9 +35,13 @@ Bundle 'JuliaLang/julia-vim'
 Bundle 'dag/vim-fish'
 Bundle 'kchmck/vim-coffee-script'
 
-"" Fun, but not useful
-Bundle 'altercation/vim-colors-solarized'
+" Fun, but not useful
 Bundle 'ehamberg/vim-cute-python'
+Bundle 'altercation/vim-colors-solarized'
+
+" Why is this not run automatically?
+source ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
+" Toggle background using F5
 
 " Careful with this: http://stackoverflow.com/a/16433928
 syntax enable
