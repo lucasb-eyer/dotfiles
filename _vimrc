@@ -24,9 +24,7 @@ Bundle 'gmarik/vundle'
 
 " System
 Bundle 'kana/vim-arpeggio'
-" Not decided on which of the two I'll use yet..
-"Bundle 'kien/ctrlp.vim'
-Bundle 'Shougo/unite.vim'
+Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
 
@@ -159,8 +157,7 @@ call arpeggio#load()
 call arpeggio#map('i', '', 1, 'jk', '<Esc>')
 
 " jo opens the ctrl-p file opener.
-"call arpeggio#map('niv', '', 1, 'jo', ':CtrlP<cr>')
-call arpeggio#map('niv', '', 1, 'jo', '<space><space>')
+call arpeggio#map('niv', '', 1, 'jo', ':CtrlP<cr>')
 
 " jc toggles the current line's comment state.
 call arpeggio#map('nv', '', 1, 'jc', '<leader>c<space>')
@@ -229,49 +226,9 @@ function! s:NextTextObject(motion, dir)
 endfunction
 
 " ===========================================================
-" Unite settings
+" Other plugin-specific settings
 " ===========================================================
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#set_profile('files', 'smartcase', 1)
-call unite#custom#source('line,outline','matchers','matcher_fuzzy')
 
-let g:unite_data_directory='~/.vim/.cache/unite'
-let g:unite_enable_start_insert=1                 " Start in insert mode - type away to search
-let g:unite_source_history_yank_enable=1
-let g:unite_source_rec_max_cache_files=5000
-let g:unite_prompt='» '
-
-if executable('ag')
-    let g:unite_source_grep_command='ag'
-    let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C4'
-    let g:unite_source_grep_recursive_opt=''
-elseif executable('ack')
-    let g:unite_source_grep_command='ack'
-    let g:unite_source_grep_default_opts='--no-heading --no-color -a -C4'
-    let g:unite_source_grep_recursive_opt=''
-endif
-
-"function! s:unite_settings()
-    "nmap <buffer> Q <plug>(unite_exit)
-    "nmap <buffer> <esc> <plug>(unite_exit)
-    "imap <buffer> <esc> <plug>(unite_exit)
-"endfunction
-"autocmd FileType unite call s:unite_settings()
-
-nmap <space> [unite]
-nnoremap [unite] <nop>
-
-" TODO: If I ever get around installing Shougo/vimproc.vim, append '/async' to 'file_rec'
-nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec buffer file_mru bookmark<cr><c-u>
-nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec<cr><c-u>
-nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
-nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
-nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer<cr>
-" Argh, this requires Shougo/vimproc.vim too!
-" nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
-nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
-nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
 
 " ===========================================================
 " add more file types
