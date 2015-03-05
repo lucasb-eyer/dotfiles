@@ -5,6 +5,9 @@ set nocompatible
 " =====================
 filetype off
 
+" Syntastic (and possibly other plugins?) don't work well with fish.
+set shell=bash
+
 " Load vundle
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -31,6 +34,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'JuliaLang/julia-vim'
+Bundle 'dag/vim-fish'
 
 "" Fun, but not useful
 Bundle 'altercation/vim-colors-solarized'
@@ -313,6 +317,9 @@ au BufNewFile,BufRead *.tex set wrap
 au BufNewFile,BufRead *.tex set nolist
 
 au FileType html set matchpairs+=<:>   " Match < to > just like ( to ) in HTML
+
+" Fish: fold blocks
+autocmd FileType fish setlocal foldmethod=expr
 
 " ===========================================================
 " Load local vimrc file if there is one
