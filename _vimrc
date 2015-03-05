@@ -68,7 +68,7 @@ let g:solarized_termcolors=16
 set background=dark        " We are using dark background in vim
 colorscheme solarized      " rock on
 
-"set cursorline             " have a line indicate the cursor location
+set cursorline             " have a line indicate the cursor location
 set ruler                  " show the cursor position all the time
 set showmatch              " Briefly jump to a paren once it's balanced
 set nowrap                 " don't wrap text
