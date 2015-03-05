@@ -137,12 +137,16 @@ autocmd VimEnter * if exists('fugitive') | set statusline+=\ %{fugitive#statusli
 " Keymaps
 " ==========================================================
 
-" Automatic brackets
-inoremap ( ()<Esc>i
-inoremap { {}<Esc>i
-inoremap [ []<Esc>i
-autocmd FileType python,c,cpp,html,js,css :inoremap ' ''<Esc>i
-inoremap " ""<Esc>i
+" Better automatic brackets
+inoremap        (  ()<Left>
+inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap        {  {}<Left>
+inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
+inoremap        [  []<Left>
+inoremap <expr> ]  strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+
+autocmd FileType python,c,cpp,html,js,coffee,css :inoremap ' ''<Left>
+inoremap " ""<Left>
 
 " Makes the search be _v_ery magic by default
 nnoremap / /\v
