@@ -249,7 +249,7 @@ au BufRead,BufNewFile *.cl set filetype=opencl
 " FileType specific changes
 " ===========================================================
 
-" Markdown, don't fold anything initially.
+" Markdown: don't fold anything initially.
 let g:vim_markdown_initial_foldlevel=5
 
 " Coffee: Fold using indentation
@@ -257,8 +257,7 @@ autocmd BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
 " Coffee: use 2-space indentation by default.
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
-" Python
-" Don't let pyflakes use the quickfix window
+" Python: Don't let pyflakes use the quickfix window
 "let g:pyflakes_use_quickfix = 0
 
 " Tell supercomplete to be context-sensitive and show the doc
@@ -266,7 +265,7 @@ autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 "let g:SuperTabDefaultCompletionType = "context"
 "set completeopt=menuone,longest,preview
 
-" Add the virtualenv's site-packages to vim path
+" Python: Add the virtualenv's site-packages to vim path
 if has('python')
     py << EOF
 import os.path
@@ -280,14 +279,15 @@ if 'VIRTUAL_ENV' in os.environ:
 EOF
 endif
 
-" PTX (nvidia's gpu assembler)
-au BufNewFile,BufRead *.ptx set tabstop=8 " Because 4 looks ugly as fuck.
+" PTX: (Nvidia's gpu assembler) tab=8 because 4 looks ugly as fuck.
+au BufNewFile,BufRead *.ptx set tabstop=8
 
-" Enable wordwrapping for latex files
+" LaTeX: Enable wordwrapping
 au BufNewFile,BufRead *.tex set wrap
 au BufNewFile,BufRead *.tex set nolist
 
-au FileType html set matchpairs+=<:>   " Match < to > just like ( to ) in HTML
+" HTML: Match < to > just like ( to )
+au FileType html set matchpairs+=<:>
 
 " Fish: fold blocks
 autocmd FileType fish setlocal foldmethod=expr
