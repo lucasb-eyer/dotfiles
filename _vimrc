@@ -27,6 +27,7 @@ Bundle 'kana/vim-arpeggio'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
+Bundle 'wesQ3/vim-windowswap'
 
 " See https://cirw.in/blog/bracketed-paste
 Bundle 'ConradIrwin/vim-bracketed-paste'
