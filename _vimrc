@@ -27,8 +27,8 @@ Bundle 'kana/vim-arpeggio'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'wesQ3/vim-windowswap'
-
 " See https://cirw.in/blog/bracketed-paste
 Bundle 'ConradIrwin/vim-bracketed-paste'
 
@@ -246,6 +246,11 @@ cmap w!! w !sudo tee > /dev/null %
 " Other plugin-specific settings
 " ===========================================================
 
+" Not sure what's up with Py3, watching https://github.com/Valloric/YouCompleteMe/issues/1278
+" YouCompleteMe doesn't work with python3, which is the default on Arch.
+"let g:ycm_path_to_python_interpreter = '/usr/bin/python2'
+" Doesn't the name say it all already?
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " ===========================================================
 " add more file types
