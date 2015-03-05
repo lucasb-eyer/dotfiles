@@ -238,6 +238,10 @@ function! s:NextTextObject(motion, dir)
   exe "normal! ".a:dir.c."v".a:motion.c
 endfunction
 
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+" Thank you http://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work
+cmap w!! w !sudo tee > /dev/null %
+
 " ===========================================================
 " Other plugin-specific settings
 " ===========================================================
