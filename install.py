@@ -93,6 +93,16 @@ def main():
     here_to_home('ipython/custom.js', 'ipython/profile_default/static/custom/custom.js')
     here_to_home('ipython/custom.js', 'ipython/profile_julia/static/custom/custom.js')
 
+    if os.path.isdir(eu('~/.config/fish')):
+        here_to_home('config/fish/solarized.fish')
+        here_to_home('config/fish/config.fish')
+        here_to_home('config/fish/functions/fish_prompt.fish')
+        here_to_home('config/fish/functions/grolschnext.fish')
+        here_to_home('config/fish/functions/grolschpp.fish')
+        here_to_home('config/fish/functions/grolschprev.fish')
+    else:
+        print("WARNING: skipped fish, it seems not to be installed.")
+
     # Reload some stuff
     if 'DISPLAY' in os.environ:
         call('xrdb -nocpp -merge ~/.Xresources', shell=True)
