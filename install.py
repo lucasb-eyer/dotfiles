@@ -94,7 +94,8 @@ def main():
     here_to_home('ipython/custom.js', 'ipython/profile_julia/static/custom/custom.js')
 
     # Reload some stuff
-    call('xrdb -nocpp -merge ~/.Xresources', shell=True)
+    if 'DISPLAY' in os.environ:
+        call('xrdb -nocpp -merge ~/.Xresources', shell=True)
 
     print("Don't forget to possibly run the following: ")
     print("- Open vim and run `:BundleInstall` or `:BundleUpdate`")
