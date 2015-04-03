@@ -93,5 +93,13 @@ def main():
     here_to_home('config/awesome')
     here_to_home('config/htop')
 
+    here_to_home('ipython/nbextensions/toc.css')
+    here_to_home('ipython/nbextensions/toc.js')
+    here_to_home('ipython/nbextensions/notify.js')
+    here_to_home('ipython/nbextensions/ExecuteTime.css')
+    here_to_home('ipython/nbextensions/ExecuteTime.js')
+    here_to_home('ipython/custom.js', 'ipython/profile_default/static/custom/custom.js')
+    here_to_home('ipython/custom.js', 'ipython/profile_julia/static/custom/custom.js')
+
 if __name__ == '__main__':
     main()
