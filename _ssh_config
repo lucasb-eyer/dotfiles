@@ -14,10 +14,93 @@ host riesling
 
 host github.com
     HostName github.com
-    user git
-    IdentityFile ~/.ssh/id_rsa_github
+    User git
+    IdentityFile ~/.ssh/github
+
+# Lab stuff
 
 host karl
     HostName 137.226.34.131
-    User demo
+    User beyer
     ForwardX11 yes
+
+host recog
+    HostName recog.vision.rwth-aachen.de
+    User beyer
+    IdentityFile ~/.ssh/grolsch
+
+host nom
+    HostName omnomnom.vision.rwth-aachen.de
+    User cookie
+    IdentityFile ~/.ssh/omnomnom
+
+host nom_gitlab
+    HostName omnomnom.vision.rwth-aachen.de
+    Port 50022
+    User git
+    IdentityFile ~/.ssh/id_rsa_gitlab_nom
+
+# SPENCER
+
+host bonomi
+    HostName 192.168.0.107
+    User spencer
+    IdentityFile ~/.ssh/bonomi
+
+host spfr
+    HostName spencer-freiburg.laas.fr
+    User spencer
+    IdentityFile ~/.ssh/spencer_freiburg
+    ForwardX11 yes
+
+# GTX 680
+
+# Lucas
+host mmp-grolsch
+    HostName grolsch
+# Alex
+host mmp-hund
+    HostName hund
+# Ishrat
+host mmp-kingfisher
+    HostName kingfisher
+# Michael
+host mmp-fix
+    HostName fix
+
+# GTX 780
+
+# Patrick
+host mmp-jever
+    HostName jever
+# Esther
+host mmp-delirium
+    HostName delirium
+# Stefan
+host mmp-duff
+    HostName duff
+# Aljosa
+host mmp-lasko
+    HostName lasko
+# Francis
+host mmp-tyskie
+    HostName tyskie
+# Dora
+host mmp-stella
+    HostName stella
+
+# GTX 980
+
+# Lucas
+host mmp-bush
+    User lucas
+    PreferredAuthentications password,publickey
+    HostName bush
+
+# Generic options for mmp-* machines need to come after the specific ones!
+host mmp*
+    User beyer
+    IdentityFile ~/.ssh/grolsch
+    ProxyCommand ssh recog nc -v %h %p
+    # For when my IPv4 internet is flaky but IPv6 internet is good:
+    #ProxyCommand ssh riesling ssh recog nc -v %h %p
