@@ -85,13 +85,16 @@ def main():
     here_to_home('config/awesome')
     here_to_home('config/htop')
 
-    here_to_home('ipython/nbextensions/toc.css')
-    here_to_home('ipython/nbextensions/toc.js')
-    here_to_home('ipython/nbextensions/notify.js')
-    here_to_home('ipython/nbextensions/ExecuteTime.css')
-    here_to_home('ipython/nbextensions/ExecuteTime.js')
-    here_to_home('ipython/custom.js', 'ipython/profile_default/static/custom/custom.js')
-    here_to_home('ipython/custom.js', 'ipython/profile_julia/static/custom/custom.js')
+    if os.path.isdir(eu('~/.ipython')):
+        here_to_home('ipython/nbextensions/toc.css')
+        here_to_home('ipython/nbextensions/toc.js')
+        here_to_home('ipython/nbextensions/notify.js')
+        here_to_home('ipython/nbextensions/ExecuteTime.css')
+        here_to_home('ipython/nbextensions/ExecuteTime.js')
+        here_to_home('ipython/custom.js', 'ipython/profile_default/static/custom/custom.js')
+        here_to_home('ipython/custom.js', 'ipython/profile_julia/static/custom/custom.js')
+    else:
+        print("WARNING: skipped IPython/Jupyter, it seems not to be installed.")
 
     if os.path.isdir(eu('~/.config/fish')):
         here_to_home('config/fish/solarized.fish')
