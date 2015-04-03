@@ -4,16 +4,8 @@ from time import time
 from subprocess import call
 
 # Compatibility between py2 and py3:
-try:
-    raw_input
-
-    # We are in py2. Rename input to raw_input.
-    import __builtin__
-    del __builtin__.input
-    __builtin__.input = lambda *args, **kwargs: raw_input(*args, **kwargs)
-except NameError:
-    # We are in py3 for which input already is raw_input
-    pass
+try: input = raw_input
+except NameError: pass
 
 backup = True
 
@@ -66,7 +58,7 @@ def main():
                 return 1
 
     global backup
-    backup = raw_input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
+    backup = input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
 
     here_to_home('bash')
     bashrc = eu('~/.bashrc')
