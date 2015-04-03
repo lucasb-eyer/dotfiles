@@ -16,7 +16,7 @@ Updating
 1. Get new version of stuff: `git pull`.
 2. Create new links, get new submodules etc: `python install.py`
 
-Adding vim pathogen plugins
-===========================
+TODO
+====
 
-> git submodule add https://github.com/tpope/vim-fugitive.git \_vim/bundle/vim-fugitive
+1. Waiting for an IPython 3.0 theme for solarized, then add theme switching: https://www.pfenninger.org/posts/ipython-notebook-extensions-to-ease-day-to-day-work/.
