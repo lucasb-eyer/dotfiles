@@ -6,13 +6,11 @@ host rwth
     HostName cluster-linux.rz.rwth-aachen.de
     User lb380118
 
-host beyer
+host riesling
+    #HostName 2a03:b0c0:2:d0::11d:7001
     HostName eyer.be
-    User b
-
-host lbeyer
-    HostName eyer.be
-    user lucasb
+    User root
+    IdentityFile ~/.ssh/digitalocean
 
 host github.com
     HostName github.com
