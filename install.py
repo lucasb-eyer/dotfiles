@@ -75,6 +75,7 @@ def main():
 
     here_to_home('vimrc')
     here_to_home('vim')
+    here_to_home('tmux.conf')
     here_to_home('inputrc')
     here_to_home('Xresources')
     here_to_home('gitconfig')
