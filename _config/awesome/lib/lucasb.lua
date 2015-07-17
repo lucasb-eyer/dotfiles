@@ -76,4 +76,47 @@ lucasb.focus_global_bydirection = function (dir)
     end
 end
 
+lucasb.file_exists = function(name)
+    local f = io.open(name, "r")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else
+        return false
+    end
+end
+
+lucasb.random_file = function(directory, types)
+    filt = ""
+    if type(types) == "table" then
+        filt = "-name '" .. table.concat(types, "' -o -name '") .. "'"
+    elseif type(types) == "string" then
+        filt = "-name '" .. types .. "'"
+    end
+
+    return awful.util.pread("find " .. directory .. " -maxdepth 1 -type f " .. filt .. " | shuf -n 1 | xargs echo -n")
+end
+
+-- Totally undocumented, but the return value of these functions is used
+-- by the menu: https://github.com/awesomeWM/awesome/blob/0f02ed0e/lib/awful/menu.lua.in#L259-L270
+-- false/nil = close menu, true = redraw menu.
+lucasb.lockscreen = function()
+    -- spawn returns a pid on success, a string on fail.
+    if type(awful.util.spawn("xscreensaver-command -lock")) == "number" then
+        return
+    elseif type(awful.util.spawn("i3lock -i '" .. lucasb.random_file("~/.config/wallpapers", "*.png") .. "'")) == "number" then
+        return
+    end
+end
+
+lucasb.standby = function()
+    -- Another option is `echo mem > /sys/power/state
+    awful.util.spawn("systemctl suspend")
+end
+
+lucasb.hibernate = function()
+    -- Another option is `echo disk > /sys/power/state
+    awful.util.spawn("systemctl hibernate")
+end
+
 return lucasb

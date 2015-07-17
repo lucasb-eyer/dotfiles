@@ -1,5 +1,6 @@
 -- Document key bindings
--- from: https://github.com/vincentbernat/awesome-configuration/
+-- adapted from: https://github.com/vincentbernat/awesome-configuration/
+local keydoc = {}
 
 local awful     = require("awful")
 local table     = table
@@ -15,8 +16,6 @@ local capi      = {
    root = root,
    client = client
 }
-
-module("vbe/keydoc")
 
 local doc = { }
 local currentgroup = "Misc"
@@ -71,7 +70,7 @@ local function unilen(str)
 end
 
 -- Start a new group
-function group(name)
+keydoc.group = function(name)
    currentgroup = name
    return {}
 end
@@ -123,3 +122,4 @@ function display()
               timeout = 30 }).id
 end
 
+return keydoc

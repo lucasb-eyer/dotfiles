@@ -1,19 +1,15 @@
--- Standard awesome library
-require("awful")
-require("awful.autofocus")
-require("awful.rules")
--- Theme handling library
-require("beautiful")
--- Notification library
-require("naughty")
+-- Standard awesome libs
+gears = require("gears")
+awful = require("awful")
+awful.rules = require("awful.rules")
+wibox = require("wibox")
+beautiful = require("beautiful")
+naughty = require("naughty")
+menubar = require("menubar")
 
 -- Simple function to load additional LUA files from rc/.
-function loadrc(name, mod)
-    -- Which file? In rc/ or in lib/?
-    local path = awful.util.getdir("config") .. (mod and "/lib/" or "/rc/") .. name .. ".lua"
-
-    -- If the module is already loaded, don't load it again
-    if mod and package.loaded[mod] then return package.loaded[mod] end
+function loadrc(name)
+    local path = awful.util.getdir("config") .. "/rc/" .. name .. ".lua"
 
     -- Execute the RC/module file
     local success
@@ -28,20 +24,15 @@ function loadrc(name, mod)
         return print("E: error loading RC file '" .. name .. "': " .. result)
     end
 
-    -- Is it a module?
-    if mod then
-        return package.loaded[mod]
-    end
-
     return result
 end
 
 loadrc("errors")
+lucasb = dofile(awful.util.getdir("config") .. "/lib/lucasb.lua")
 
--- {{{ Variable definitions
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
-editor = os.getenv("EDITOR") or "editor"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -75,6 +66,9 @@ themes =
     "solarized-light"
 }
 itheme = 1
+
+-- Focus automatically following the mouse.
+require("awful.autofocus")
 
 loadrc("appearance")
 loadrc("tags")
