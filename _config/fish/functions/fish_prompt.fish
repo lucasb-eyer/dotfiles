@@ -16,11 +16,11 @@ function prompt_status -d "the symbols for exit status and background jobs"
 
     # Time taken display (undocumented)
     # http://geraldkaszuba.com/tweaking-fish-shell/
-    if [ $CMD_DURATION ]
+    if [ "$CMD_DURATION" -gt 999 ]
         # Would be nice to use a time-related unicode symbol here, one of:
         # http://stackoverflow.com/questions/5437674/what-utf-8-symbol-is-a-good-mark-of-time
         # but oh, my current font doesn't have any :(
-        printf "$CMD_DURATION "
+        printf $CMD_DURATION"ms "
     end
 
     # Jobs display
