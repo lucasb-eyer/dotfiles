@@ -104,7 +104,7 @@ end
 
 -- Display help in a naughty notification
 local nid = nil
-function display()
+keydoc.display = function()
    local strings = awful.util.table.join(
       markup(capi.root.keys()),
       capi.client.focus and markup(capi.client.focus:keys()) or {})
