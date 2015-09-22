@@ -81,6 +81,7 @@ def main():
     here_to_home('gitconfig')
     here_to_home('gitignore')
     here_to_home('pythonrc.py')
+    here_to_home('juliarc.jl')
     here_to_home('ssh_config', 'ssh/config')
     here_to_home('config/awesome')
     here_to_home('config/htop')
