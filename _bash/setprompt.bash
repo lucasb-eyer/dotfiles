@@ -70,8 +70,7 @@ prt_virtualenv () {
 
 prt_git () {
     # Check if inside a git repo
-    git branch > /dev/null 2>&1
-    if [ $? -ne 0 ]; then
+    if ! git rev-parse --is-inside-work-tree >&/dev/null 2>&1; then
         return 0
     fi
 
@@ -87,30 +86,26 @@ prt_git () {
         state="${RED}"
     fi
 
-    # Set arrow icon based on status against remote.
-    remote_pattern="# Your branch is (.*) of"
-    if [[ ${git_status} =~ ${remote_pattern} ]]; then
-        if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-            remote="↑"
-        else
-            remote="↓"
-        fi
-    else
-        remote=""
-    fi
-    diverge_pattern="# Your branch and (.*) have diverged"
-    if [[ ${git_status} =~ ${diverge_pattern} ]]; then
-        remote="↕"
+    # Get the name of the branch.
+    branch=`git symbolic-ref --quiet --short HEAD`
+    if [[ $? -gt 0 ]]; then
+        branch=`git log -n 1 --pretty=%h HEAD`
     fi
 
-    # Get the name of the branch.
-    branch_pattern="^# On branch ([^${IFS}]*)"
-    if [[ ${git_status} =~ ${branch_pattern} ]]; then
-         branch=${BASH_REMATCH[1]}
+    # Set arrow icon based on status against remote.
+    remote=`git config branch.${branch}.remote`
+    ahead=`git rev-list --count $remote/${branch}..HEAD`
+    behind=`git rev-list --count HEAD..$remote/$branch`
+    if [[ $ahead -gt 0 ]] && [[ $behind -gt 0 ]]; then
+        remotestat="↕+$ahead-$behind"
+    elif [[ $ahead -gt 0 ]]; then
+        remotestat="↑$ahead"
+    elif [[ $behind -gt 0 ]]; then
+        remotestat="↓$behind"
     fi
 
     # Set the final branch string.
-    echo "${state}(${branch})${remote}${DEFAULT}"
+    echo "${state}(${branch})${remotestat}${DEFAULT}"
 }
 
 prt_username () {
