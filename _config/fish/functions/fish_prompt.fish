@@ -120,16 +120,17 @@ function prompt_git -d "Display the current git state"
         set_color green
     end
 
-    set -l branch
-    printf "(%s)" (_git_branch_name)
+    set -l branch (_git_branch_name)
+    printf "(%s)" $branch
 
-    # The following does only work/make sense when there's a remote 'origin'.
-    if command git show-ref --verify --quiet refs/remotes/origin/HEAD
-        set -l ahead (_git_ahead origin)
-        set -l behind (_git_behind origin)
+    # Find out which remote to use.
+    set -l remote (git config branch.$branch.remote)
+    if [ $remote ]
+        set -l ahead (_git_ahead $remote/$branch)
+        set -l behind (_git_behind $remote/$branch)
 
         if [ $ahead -gt 0 -a $behind -gt 0 ]
-            printf "↕$ahead+$behind"
+            printf "↕+$ahead-$behind"
         else if [ $ahead -gt 0 ]
             printf "↑$ahead"
         else if [ $behind -gt 0 ]
