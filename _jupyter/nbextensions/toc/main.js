@@ -1,17 +1,3 @@
-/*
-Add this file and neighboring toc.css to $(ipython locate)/nbextensions/
-
-And load it with:
-
-require(["nbextensions/toc"], function (toc) {
-console.log('Table of Contents extension loaded');
-toc.load_ipython_extension();
-// If you want to load the toc by default, add:
-// $([IPython.events]).on("notebook_loaded.Notebook", toc.table_of_contents);
-});
-
-*/
-
 // adapted from https://gist.github.com/magican/5574556
 
 define(["require", "jquery", "base/js/namespace"], function (require, $, IPython) {
@@ -47,16 +33,31 @@ define(["require", "jquery", "base/js/namespace"], function (require, $, IPython
         $('#toc').slideToggle();
         $('#toc-wrapper').toggleClass('closed');
         if ($('#toc-wrapper').hasClass('closed')){
-          $('#toc-wrapper .hide-btn').text('[+]');
+          $('#toc-wrapper .hide-btn')
+          .text('[+]')
+          .attr('title', 'Show ToC');
         } else {
-          $('#toc-wrapper .hide-btn').text('[-]');
+          $('#toc-wrapper .hide-btn')
+          .text('[-]')
+          .attr('title', 'Hide ToC');
         }
         return false;
       }).append(
         $("<a/>")
         .attr("href", "#")
         .addClass("hide-btn")
+        .attr('title', 'Hide ToC')
         .text("[-]")
+      ).append(
+        $("<a/>")
+        .attr("href", "#")
+        .addClass("reload-btn")
+        .text("  \u21BB")
+        .attr('title', 'Reload ToC')
+        .click( function(){
+          table_of_contents();
+          return false;
+        })
       )
     ).append(
         $("<div/>").attr("id", "toc")
@@ -74,6 +75,7 @@ define(["require", "jquery", "base/js/namespace"], function (require, $, IPython
     }
   
     var ol = $("<ol/>");
+    ol.addClass("toc-item");
     $("#toc").empty().append(ol);
     
     $("#notebook").find(":header").map(function (i, h) {
@@ -88,6 +90,7 @@ define(["require", "jquery", "base/js/namespace"], function (require, $, IPython
       // walk down levels
       for (; depth < level; depth++) {
         var new_ol = $("<ol/>");
+        new_ol.addClass("toc-item");
         ol.append(new_ol);
         ol = new_ol;
       }
@@ -127,7 +130,7 @@ define(["require", "jquery", "base/js/namespace"], function (require, $, IPython
           'icon'    : 'fa-list',
           'callback': toggle_toc,
           'id'      : 'toc_button'
-        },
+        }
       ]);
     }
   };
@@ -136,7 +139,7 @@ define(["require", "jquery", "base/js/namespace"], function (require, $, IPython
     var link = document.createElement("link");
     link.type = "text/css";
     link.rel = "stylesheet";
-    link.href = require.toUrl("./toc.css");
+    link.href = require.toUrl("./main.css");
     document.getElementsByTagName("head")[0].appendChild(link);
   };
   
@@ -144,13 +147,13 @@ define(["require", "jquery", "base/js/namespace"], function (require, $, IPython
     load_css();
     toc_button();
     // $([IPython.events]).on("notebook_loaded.Notebook", table_of_contents);
+    $([IPython.events]).on("notebook_saved.Notebook", table_of_contents);
+    $([IPython.events]).on("rendered.MarkdownCell", table_of_contents);
   };
 
   return {
     load_ipython_extension : load_ipython_extension,
     toggle_toc : toggle_toc,
-    table_of_contents : table_of_contents,
-    
+    table_of_contents : table_of_contents
   };
-
 });

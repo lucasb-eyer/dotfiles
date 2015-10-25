@@ -1,5 +1,5 @@
 import os
-from os.path import expanduser as eu, dirname, exists
+from os.path import expanduser as eu, dirname, exists, join as pjoin
 from time import time
 from subprocess import call
 
@@ -7,19 +7,31 @@ from subprocess import call
 try: input = raw_input
 except NameError: pass
 
+# See if we've got Jupyter.
+try:
+    from notebook.nbextensions import install_nbextension, jupyter_data_dir
+    from notebook.services.config import ConfigManager
+    jupyter_nb = True
+except ImportError:
+    jupyter_nb = False
+
 backup = True
+
+
+def makedirs(dirs):
+    # Create the folder in case it doesn't exist.
+    try:
+        os.makedirs(dirs)
+    except OSError as e:
+        if e.errno != 17:  # 17 means directory already exists
+            raise
 
 
 def link_with_backup(source, link_name):
     full_link_name = eu(link_name)
     print('Installing ' + source + ' -> ' + full_link_name)
 
-    # Create the folder in case it doesn't exist.
-    try:
-        os.makedirs(dirname(full_link_name))
-    except OSError as e:
-        if e.errno != 17:  # 17 means directory already exists
-            raise
+    makedirs(dirname(full_link_name))
 
     try:
         os.symlink(source, full_link_name)
@@ -38,11 +50,35 @@ def link_with_backup(source, link_name):
 def here(f):
     import inspect
     me = inspect.getsourcefile(here)
-    return os.path.join(os.path.dirname(os.path.abspath(me)), f)
+    return pjoin(os.path.dirname(os.path.abspath(me)), f)
 
 
 def here_to_home(name, toname=None):
     link_with_backup(here('_' + name), '~/.' + (toname if toname else name))
+
+
+# Install extensions.
+def nb_ext(files, subdir='', prefix='_jupyter/nbextensions', enable=True):
+    if not jupyter_nb:
+        print("WARNING: Couldn't import Jupyter, skipped nbext.")
+        return
+
+    # Assumption: the first entry in `files` is the main file.
+    print("Jupyter nbext", pjoin(subdir, files[0]))
+
+    makedirs(pjoin(jupyter_data_dir(), 'nbextensions', subdir))
+
+    for fname in files:
+        install_nbextension(pjoin(prefix, subdir, fname),
+            destination=pjoin(subdir, fname),
+            user=True,
+            symlink=True,
+            verbose=False)
+    ConfigManager().update('notebook', {
+        'load_extensions': {
+            pjoin(subdir, files[0][:-3]): True if enable else None,
+        }
+    })
 
 
 def main():
@@ -86,16 +122,14 @@ def main():
     here_to_home('config/awesome')
     here_to_home('config/htop')
 
-    if os.path.isdir(eu('~/.ipython')):
-        here_to_home('ipython/nbextensions/toc.css')
-        here_to_home('ipython/nbextensions/toc.js')
-        here_to_home('ipython/nbextensions/notify.js')
-        here_to_home('ipython/nbextensions/ExecuteTime.css')
-        here_to_home('ipython/nbextensions/ExecuteTime.js')
-        here_to_home('ipython/custom.js', 'ipython/profile_default/static/custom/custom.js')
-        here_to_home('ipython/custom.js', 'ipython/profile_julia/static/custom/custom.js')
-    else:
-        print("WARNING: skipped IPython/Jupyter, it seems not to be installed.")
+    # Disabled ones don't seem to work.
+    nb_ext(['autoscroll.js'], enable=False)
+    nb_ext(['breakpoints.js'], enable=False)
+    nb_ext(['init_cell.js'])
+    nb_ext(['notify.js'])
+    nb_ext(['main.js', 'button.png'], 'equation_numbering')
+    nb_ext(['ExecuteTime.js', 'ExecuteTime.css'], 'execute_time')
+    nb_ext(['main.js', 'main.css'], 'toc')
 
     if os.path.isdir(eu('~/.config/fish')):
         here_to_home('config/fish/solarized.fish')
