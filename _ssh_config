@@ -27,7 +27,7 @@ host karl
 host recog
     HostName recog.vision.rwth-aachen.de
     User beyer
-    IdentityFile ~/.ssh/grolsch
+    IdentityFile ~/.ssh/beyer_vision
 
 host nom
     HostName omnomnom.vision.rwth-aachen.de
@@ -100,7 +100,7 @@ host mmp-bush
 # Generic options for mmp-* machines need to come after the specific ones!
 host mmp*
     User beyer
-    IdentityFile ~/.ssh/grolsch
+    IdentityFile ~/.ssh/beyer_vision
     ProxyCommand ssh recog nc -v %h %p
     # For when my IPv4 internet is flaky but IPv6 internet is good:
     #ProxyCommand ssh riesling ssh recog nc -v %h %p
