@@ -25,7 +25,9 @@ run_once("taralli")
 local wp_timer = timer({timeout = 5*60})
 wp_timer:connect_signal("timeout", function()
     local wp = lucasb.random_file("~/.config/wallpapers")
-    gears.wallpaper.maximized(wp)
+    if wp ~= '' then
+        gears.wallpaper.maximized(wp)
+    end
 end)
 wp_timer:start()
 wp_timer:emit_signal("timeout")
