@@ -97,6 +97,17 @@ host mmp-bush
     PreferredAuthentications password,publickey
     HostName bush
 
+# Lucas 2
+host mmp-mickeys
+    User lucas
+    PreferredAuthentications password,publickey
+    HostName 134.130.139.80
+
+# GTX 980Ti
+
+host mmp-einhorn
+    HostName 134.130.139.101
+
 # Generic options for mmp-* machines need to come after the specific ones!
 host mmp*
     User beyer
