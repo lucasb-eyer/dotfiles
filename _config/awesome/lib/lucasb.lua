@@ -106,6 +106,8 @@ lucasb.lockscreen = function()
         return
     elseif type(awful.util.spawn("i3lock -i '" .. lucasb.random_file("~/.config/wallpapers", "*.png") .. "'")) == "number" then
         return
+    elseif type(awful.util.spawn("gnome-screensaver-command --lock")) == "number" then
+        return
     end
 end
 
