@@ -83,13 +83,13 @@ def nb_ext(files, subdir='', prefix='_jupyter/nbextensions', enable=True):
 
 def main():
     # Pull in the plugins
-    if call('git submodule update --init', shell=True) != 0:
+    if call(['git', 'submodule', 'update', '--init']) != 0:
         if input('Error during submodule (=plugin) init or update. Continue setup? [Y/n] ') not in ('y', 'Y', ''):
             return 1
 
     # Pull in Vundle (for vim, should make it a submodule at some point?)
     if not exists(here('_vim/bundle/vundle')):
-        if call('git clone https://github.com/gmarik/vundle.git ' + here('_vim/bundle/vundle'), shell=True) != 0:
+        if call(['git', 'clone', 'https://github.com/gmarik/vundle.git', here('_vim/bundle/vundle')]) != 0:
             if input('Error getting Vundle. Continue setup? [y/N]') not in ('y', 'Y'):
                 return 1
 
@@ -143,7 +143,7 @@ def main():
 
     # Reload some stuff
     if 'DISPLAY' in os.environ:
-        call('xrdb -nocpp -merge ~/.Xresources', shell=True)
+        call(['xrdb', '-nocpp', '-merge', '~/.Xresources'], shell=True)
 
     print("Don't forget to possibly run the following: ")
     print("- Open vim and run `:BundleInstall` or `:BundleUpdate`")
