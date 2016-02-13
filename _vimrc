@@ -128,6 +128,8 @@ set wildmode=full    " <Tab> cycles between all matching choices.
 set wildignore+=*.o,*.obj,.git
 set wildignore+=*.pyc,eggs/**,*.egg-info/**
 
+set lazyredraw       " This speeds up repeated macro execution.
+
 " TODO: Use airline for statusline?
 set ls=2         " always show status line
 set confirm      " Y-N-C prompt if closing with unsaved changes.
