@@ -23,6 +23,7 @@ host karl
     HostName 137.226.34.131
     User beyer
     ForwardX11 yes
+    IdentityFile ~/.ssh/grolsch
 
 host recog
     HostName recog.vision.rwth-aachen.de
@@ -95,6 +96,7 @@ host mmp-stella
 host mmp-bush
     User lucas
     PreferredAuthentications password,publickey
+    IdentityFile ~/.ssh/beyer_vision
     HostName bush
 
 # Lucas 2
