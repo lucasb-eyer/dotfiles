@@ -55,7 +55,7 @@ Xft.hinting:    true
 Xft.hintstyle:  hintslight
 
 ! Adding tabs to urxvt
-URxvt.perl-ext-common: default,tabbed
+URxvt.perl-ext-common: default,tabbed,clipboard
 URxvt.tabbed.tab-bg: 11
 
 ! Scrolling behaviour
@@ -63,3 +63,13 @@ URxvt*scrollBar: false
 URxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
+
+! Using the `clipboard` perl extension, automatically put stuff from PRIMARY
+! into CLIPBOARD, effectively making it Ctrl+V pasteable by others, such as
+! IPython notebook in firefox.
+URxvt*clipboard.autocopy: true
+
+! Fixing the copy-paste thing..
+! From http://www.davidsimmons.com/soft/xtermhacks/#copynpastenopatch
+! Doesn't seem to work with URxvt.
+URxvt*translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
