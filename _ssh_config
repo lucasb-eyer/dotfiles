@@ -110,6 +110,9 @@ host mmp-mickeys
 host mmp-einhorn
     HostName 134.130.139.101
 
+host mmp-kriek
+    HostName kriek
+
 # Generic options for mmp-* machines need to come after the specific ones!
 host mmp*
     User beyer
