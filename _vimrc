@@ -155,9 +155,6 @@ inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}
 inoremap        [  []<Left>
 inoremap <expr> ]  strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
 
-autocmd FileType python,c,cpp,html,js,coffee,css :inoremap ' ''<Left>
-inoremap " ""<Left>
-
 " Makes the search be _v_ery magic by default
 nnoremap / /\v
 vnoremap / /\v
