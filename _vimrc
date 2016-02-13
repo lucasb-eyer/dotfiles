@@ -155,10 +155,6 @@ inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}
 inoremap        [  []<Left>
 inoremap <expr> ]  strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
 
-" Makes the search be _v_ery magic by default
-nnoremap / /\v
-vnoremap / /\v
-
 call arpeggio#load()
 
 " For versions before 7.3.487, arpeggio will screp up jk columns.
