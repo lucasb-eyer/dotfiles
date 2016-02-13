@@ -5,3 +5,7 @@ elseif Dates.hour(now()) < 18
 else
     println("こんばんは, Lucas!")
 end
+
+# Stolen from https://github.com/JuliaLang/julia/issues/3721
+Base.REPLCompletions.latex_symbols["\\koala"] = "\U1f428"
+Base.REPLCompletions.latex_symbols["\\slice"] = "\U1f355"
