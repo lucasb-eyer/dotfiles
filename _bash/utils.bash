@@ -62,7 +62,7 @@ function my_mkenv {
     # TODO: make sys an option.
     $py /tmp/virtualenv-$version/virtualenv.py $opts $name || return 1
     echo $py /tmp/virtualenv-$version/virtualenv.py $opts $name || return 1
-    rm -Rf "/tmp/virtualenv-$version" || return 1
+    rm -Rf "/tmp/virtualenv-$version" "virtualenv-$version.tar.gz" || return 1
     . $name/bin/activate
 }
 
