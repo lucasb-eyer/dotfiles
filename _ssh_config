@@ -35,7 +35,7 @@ host nom
     User cookie
     IdentityFile ~/.ssh/omnomnom
 
-host nom_gitlab
+host omnomnom.vision.rwth-aachen.de
     HostName omnomnom.vision.rwth-aachen.de
     Port 50022
     User git
