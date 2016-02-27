@@ -44,3 +44,10 @@ fi
 if [ -f /opt/ros/groovy/setup.bash ]; then
     . /opt/ros/groovy/setup.bash
 fi
+
+# MKL for Julia
+if [ -f /opt/intel_csxe_2013/mkl/bin/mklvars.sh ]; then
+    source /opt/intel_csxe_2013/mkl/bin/mklvars.sh intel64 ilp64
+    export MKL_INTERFACE_LAYER=ILP64
+fi
+
