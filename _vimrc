@@ -128,6 +128,8 @@ set wildmode=full    " <Tab> cycles between all matching choices.
 set wildignore+=*.o,*.obj,.git
 set wildignore+=*.pyc,eggs/**,*.egg-info/**
 
+set lazyredraw       " This speeds up repeated macro execution.
+
 " TODO: Use airline for statusline?
 set ls=2         " always show status line
 set confirm      " Y-N-C prompt if closing with unsaved changes.
@@ -152,13 +154,6 @@ inoremap        {  {}<Left>
 inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap        [  []<Left>
 inoremap <expr> ]  strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
-
-autocmd FileType python,c,cpp,html,js,coffee,css :inoremap ' ''<Left>
-inoremap " ""<Left>
-
-" Makes the search be _v_ery magic by default
-nnoremap / /\v
-vnoremap / /\v
 
 call arpeggio#load()
 

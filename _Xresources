@@ -12,11 +12,7 @@
 !    "solved" by prefixing with URxvt, since that is my terminal.
 
 
-! To only apply colors to your terminal, for example, prefix
-! the color assignment statement with its name. Example:
-!
-! URxvt*background: #002b36
-
+! Solarized Dark
 URxvt*background: #002b36
 URxvt*foreground: #839496
 URxvt*fading: 40
@@ -43,9 +39,13 @@ URxvt*color14: #93a1a1
 URxvt*color15: #fdf6e3
 
 ! The three most gorgeous monospace fonts I found.
+! List them using `fc-list | cut -f2 -d: | sort -u`
 URxvt.font: xft:Consolas:size=10
 ! URxvt.font: xft:Liberation Mono:size=10
 ! URxvt.font: xft:Ubuntu Mono:size=11
+! URxvt.font: xft:Inconsolata:size=12
+! This one is supposed to be very complete. But it's missing Julia's \slice for example.
+! URxvt.font: xft:Unifont:size=8
 
 ! Xft settings ----------------------------------------
 ! Xft.dpi:        96
@@ -55,7 +55,7 @@ Xft.hinting:    true
 Xft.hintstyle:  hintslight
 
 ! Adding tabs to urxvt
-URxvt.perl-ext-common: default,tabbed
+URxvt.perl-ext-common: default,tabbed,clipboard
 URxvt.tabbed.tab-bg: 11
 
 ! Scrolling behaviour
@@ -63,3 +63,13 @@ URxvt*scrollBar: false
 URxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
+
+! Using the `clipboard` perl extension, automatically put stuff from PRIMARY
+! into CLIPBOARD, effectively making it Ctrl+V pasteable by others, such as
+! IPython notebook in firefox.
+URxvt*clipboard.autocopy: true
+
+! Fixing the copy-paste thing..
+! From http://www.davidsimmons.com/soft/xtermhacks/#copynpastenopatch
+! Doesn't seem to work with URxvt.
+URxvt*translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)

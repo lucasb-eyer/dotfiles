@@ -112,6 +112,9 @@ lucasb.lockscreen = function()
 end
 
 lucasb.standby = function()
+    -- Necessary to avoid a crash on next usage of `optirun` after waking up on my laptop.
+    awful.util.spawn("systemctl stop bumblebeed.service")
+
     -- Another option is `echo mem > /sys/power/state
     awful.util.spawn("systemctl suspend")
 end

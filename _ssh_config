@@ -23,6 +23,7 @@ host karl
     HostName 137.226.34.131
     User beyer
     ForwardX11 yes
+    IdentityFile ~/.ssh/grolsch
 
 host recog
     HostName recog.vision.rwth-aachen.de
@@ -34,7 +35,7 @@ host nom
     User cookie
     IdentityFile ~/.ssh/omnomnom
 
-host nom_gitlab
+host omnomnom.vision.rwth-aachen.de
     HostName omnomnom.vision.rwth-aachen.de
     Port 50022
     User git
@@ -95,6 +96,7 @@ host mmp-stella
 host mmp-bush
     User lucas
     PreferredAuthentications password,publickey
+    IdentityFile ~/.ssh/beyer_vision
     HostName bush
 
 # Lucas 2
@@ -107,6 +109,9 @@ host mmp-mickeys
 
 host mmp-einhorn
     HostName 134.130.139.101
+
+host mmp-kriek
+    HostName kriek
 
 # Generic options for mmp-* machines need to come after the specific ones!
 host mmp*
