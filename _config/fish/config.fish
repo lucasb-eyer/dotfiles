@@ -3,6 +3,7 @@ set -x EDITOR vim
 # Add custom stuff to the path
 set -x PATH ~/inst/bin $PATH
 set -x LD_LIBRARY_PATH ~/inst/lib $LD_LIBRARY_PATH
+set -x CPATH ~/inst/include/ $CPATH
 
 # Add cuda stuff to the path
 set -x PATH /usr/local/cuda-7.0/bin $PATH
