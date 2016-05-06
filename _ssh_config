@@ -35,11 +35,11 @@ host nom
     User cookie
     IdentityFile ~/.ssh/omnomnom
 
-host omnomnom.vision.rwth-aachen.de
-    HostName omnomnom.vision.rwth-aachen.de
-    Port 50022
-    User git
-    IdentityFile ~/.ssh/id_rsa_gitlab_nom
+#host omnomnom.vision.rwth-aachen.de
+#    HostName omnomnom.vision.rwth-aachen.de
+#    Port 50022
+#    User git
+#    IdentityFile ~/.ssh/id_rsa_gitlab_nom
 
 # SPENCER
 
