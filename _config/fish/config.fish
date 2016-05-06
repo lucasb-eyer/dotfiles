@@ -55,15 +55,15 @@ add_unique_ldpath /usr/local/cuda/lib64
 add_unique_lpath /usr/local/cuda/lib64
 add_unique_cpath /usr/local/cuda/include
 # ...Ubuntu 14.04 again?
-add_unique_path /usr/local/cuda-7.0/bin
-add_unique_ldpath /usr/local/cuda-7.0/lib64
-add_unique_lpath /usr/local/cuda-7.0/lib64
-add_unique_cpath /usr/local/cuda-7.0/include
+add_unique_path /usr/local/cuda-7.5/bin
+add_unique_ldpath /usr/local/cuda-7.5/lib64
+add_unique_lpath /usr/local/cuda-7.5/lib64
+add_unique_cpath /usr/local/cuda-7.5/include
 
 # Setup cuDNN
-add_unique_ldpath ~/inst/cudnn3/lib64
-add_unique_lpath ~/inst/cudnn3/lib64
-add_unique_cpath ~/inst/cudnn3/include
+add_unique_ldpath ~/inst/cudnn5/lib64
+add_unique_lpath ~/inst/cudnn5/lib64
+add_unique_cpath ~/inst/cudnn5/include
 
 # Setup Julia (it can't use the fish shell.)
 set -xg JULIA_SHELL /bin/bash
