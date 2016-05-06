@@ -54,6 +54,11 @@ host spfr
     IdentityFile ~/.ssh/spencer_freiburg
     ForwardX11 yes
 
+host gitsvn-nt.oru.se
+    HostName gitsvn-nt.oru.se
+    User git
+    IdentityFile ~/.ssh/id_rsa_spencer
+
 # GTX 680
 
 # Lucas
