@@ -100,7 +100,7 @@ host mmp-bush
     HostName bush
 
 # Lucas 2
-host mmp-mickeys
+host mmp-mickey
     User lucas
     PreferredAuthentications password,publickey
     HostName 134.130.139.80
