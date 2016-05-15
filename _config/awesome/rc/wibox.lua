@@ -14,38 +14,32 @@ if lucasb.file_exists("/sys/class/power_supply/BAT0/status") then
     if not mybattery_timer then
         battery_timer = timer({timeout = 1})
         battery_timer:connect_signal("timeout", function()
-            local fcap = io.open("/sys/class/power_supply/BAT0/capacity", "r")
-            local fstat = io.open("/sys/class/power_supply/BAT0/status", "r")
-            if fcap and fstat then
-                local cap = tonumber(fcap:read())
-                local stat = fstat:read()
-                io.close(fcap)
-                io.close(fstat)
+            mybattery_tip:set_text(lucasb.batt_info())
 
-                mybattery:set_value(cap/100.0)
-                mybattery_tip:set_text(cap .. "%, " .. stat)
+            local cap = lucasb.batt_percent()
+            mybattery:set_value(cap/100.0)
 
-                if stat == "Charging" or stat == "Full" then
-                    mybattery:set_color(beautiful.bg_focus)
+            local stat = lucasb.batt_status()
+            if stat == "Charging" or stat == "Full" then
+                mybattery:set_color(beautiful.bg_focus)
+            else
+                if cap >= 3 then
+                    mybattery:set_color(beautiful.colors.yellow)
                 else
-                    if cap >= 3 then
-                        mybattery:set_color(beautiful.colors.yellow)
-                    else
-                        mybattery:set_color(beautiful.bg_urgent)
+                    mybattery:set_color(beautiful.bg_urgent)
 
-                        -- Don't spam that thing, that'd be annoying
-                        if lastalarm == 0 then
-                            naughty.notify({
-                                preset = naughty.config.presets.critical,
-                                title = "Low Battery",
-                                text = "Battery's almost empty! (" .. cap .. "% left)",
-                                font = "Liberation 20",
-                                timeout = 30
-                            })
-                        end
-                        lastalarm = lastalarm + 1
-                        if lastalarm > 30 then lastalarm = 0 end
+                    -- Don't spam that thing, that'd be annoying
+                    if lastalarm == 0 then
+                        naughty.notify({
+                            preset = naughty.config.presets.critical,
+                            title = "Low Battery",
+                            text = "Battery's almost empty! (" .. cap .. "% left)",
+                            font = "Liberation 20",
+                            timeout = 30
+                        })
                     end
+                    lastalarm = lastalarm + 1
+                    if lastalarm > 30 then lastalarm = 0 end
                 end
             end
         end)

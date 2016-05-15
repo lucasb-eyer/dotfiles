@@ -124,4 +124,42 @@ lucasb.hibernate = function()
     awful.util.spawn("systemctl hibernate")
 end
 
+-- Battery stuff
+
+lucasb.batt_percent = function()
+    local fcap = io.open("/sys/class/power_supply/BAT0/capacity", "r")
+    if fcap then
+        cap = tonumber(fcap:read())
+        io.close(fcap)
+        return cap
+    end
+    return 0
+end
+
+lucasb.batt_status = function()
+    local fstat = io.open("/sys/class/power_supply/BAT0/status", "r")
+    if fstat then
+        stat = fstat:read()
+        io.close(fstat)
+        return stat
+    end
+    return "Unknown"
+end
+
+lucasb.batt_info = function()
+    -- Try with `upower` first.
+    batt_info = awful.util.pread(
+        "upower -i `upower -e grep BAT`" .. -- info about the battery
+        "| grep -E 'state|time to|percent'" .. -- only the info we want
+        "| awk '{$1=$1};1'" .. -- condense all whitespace to a single one
+        "| head -c-1" -- remove single trailing newline.
+    )
+    if batt_info ~= '' then
+        return batt_info
+    end
+
+    -- Alternatively, get less info from `/sys`.
+    return lucasb.batt_percent() .. "%, " .. lucasb.batt_status()
+end
+
 return lucasb
