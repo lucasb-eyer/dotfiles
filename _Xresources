@@ -48,11 +48,13 @@ URxvt.font: xft:Consolas:size=10
 ! URxvt.font: xft:Unifont:size=8
 
 ! Xft settings ----------------------------------------
-! Xft.dpi:        96
+Xft.dpi:        180
 Xft.antialias:  true
 Xft.rgba:       rgb
 Xft.hinting:    true
-Xft.hintstyle:  hintslight
+Xft.hintstyle:  hintfull
+Xft.autohint:   false
+Xft.lcdfilter:  lcddefault
 
 ! Adding tabs to urxvt
 URxvt.perl-ext-common: default,tabbed,clipboard
