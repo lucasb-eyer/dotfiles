@@ -81,7 +81,9 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "Print", function () awful.util.spawn('gm import -window root "' .. os.getenv("HOME") .. os.date('/%Y-%m-%d_%H:%M:%S.png"')) end, "Screenshot"),
     awful.key({ modkey }, "F5", switchtheme),
     awful.key({ modkey }, "w", function () mymainmenu:show({keygrabber=true}) end, "Open the menu"),
-    awful.key({ modkey }, "F1", keydoc.display)
+    awful.key({ modkey }, "F1", keydoc.display),
+
+    awful.key({ }, "XF86Display", xrandr, "Display output configs")
 )
 
 clientkeys = awful.util.table.join(

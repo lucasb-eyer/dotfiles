@@ -29,6 +29,7 @@ end
 
 loadrc("errors")
 lucasb = dofile(awful.util.getdir("config") .. "/lib/lucasb.lua")
+xrandr = loadrc("multihead")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
