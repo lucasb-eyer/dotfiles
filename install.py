@@ -147,7 +147,7 @@ def main():
 
     print("Don't forget to possibly run the following: ")
     print("- Open vim and run `:BundleInstall` or `:BundleUpdate`")
-    print("- `cd _vim/bundle/YouCompleteMe/` and `./install.sh --clang-completer`")
+    print("- `cd _vim/bundle/YouCompleteMe/` and `python install.py --clang-completer/--all`")
 
 if __name__ == '__main__':
     main()
