@@ -34,6 +34,7 @@ Bundle 'ConradIrwin/vim-bracketed-paste'
 
 " Languages
 Bundle 'scrooloose/syntastic'
+"Bundle 'nvie/vim-flake8'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'JuliaLang/julia-vim'
 Bundle 'dag/vim-fish'
@@ -249,6 +250,8 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " Sensible "current dir" behaviour for ctrlp. ("nearest .git, ...")
 let g:ctrlp_working_path_mode = 'r'
+
+"let g:flake8_show_in_file=1
 
 " ===========================================================
 " add more file types
