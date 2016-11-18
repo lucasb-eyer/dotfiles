@@ -247,6 +247,9 @@ cmap w!! w !sudo tee > /dev/null %
 " Doesn't the name say it all already?
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
+" Sensible "current dir" behaviour for ctrlp. ("nearest .git, ...")
+let g:ctrlp_working_path_mode = 'r'
+
 " ===========================================================
 " add more file types
 " ===========================================================
