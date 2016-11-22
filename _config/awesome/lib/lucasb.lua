@@ -86,7 +86,14 @@ lucasb.file_exists = function(name)
     end
 end
 
-lucasb.random_file = function(directory, types)
+lucasb.random_file = function(directories, types)
+    dir = ""
+    if type(directories) == "table" then
+        dir = table.concat(directories, " ")
+    elseif type(directories) == "string" then
+        dir = directories
+    end
+
     filt = ""
     if type(types) == "table" then
         filt = "-name '" .. table.concat(types, "' -o -name '") .. "'"
@@ -94,7 +101,7 @@ lucasb.random_file = function(directory, types)
         filt = "-name '" .. types .. "'"
     end
 
-    return awful.util.pread("find " .. directory .. " -maxdepth 1 -type f " .. filt .. " | shuf -n 1 | xargs echo -n")
+    return awful.util.pread("find " .. dir .. " -maxdepth 1 -type f " .. filt .. " | shuf -n 1 | xargs echo -n")
 end
 
 -- Totally undocumented, but the return value of these functions is used
