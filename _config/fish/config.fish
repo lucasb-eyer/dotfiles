@@ -39,6 +39,9 @@ set -xg VISUAL vim
 # Also, most recently, activate.fish's prompt is broken fish code.
 set -xg VIRTUAL_ENV_DISABLE_PROMPT 1
 
+# Fix java rendering in non-reparenting WMs like awesomewm
+set -xg _JAVA_AWT_WM_NONREPARENTING 1
+
 # Add custom stuff to the path
 add_unique_path ~/inst/bin
 add_unique_ldpath ~/inst/lib
