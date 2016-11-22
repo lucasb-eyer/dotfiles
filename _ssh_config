@@ -113,10 +113,15 @@ host mmp-mickey
 # GTX 980Ti
 
 host mmp-einhorn
-    HostName 134.130.139.101
+    HostName einhorn
 
 host mmp-kriek
     HostName kriek
+
+# Titan X
+
+host mmp-grimbergen
+    HostName grimbergen
 
 # Generic options for mmp-* machines need to come after the specific ones!
 host mmp*
