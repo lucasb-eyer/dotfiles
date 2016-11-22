@@ -20,6 +20,7 @@ run_once("nm-applet", nil, nil)
 run_once("redshift-gtk", "-l 50.47:6.51", "redshift")
 run_once("volumeicon", nil, nil)
 run_once("taralli")
+run_once("dropbox")
 
 -- Goes through wallpapers in ~/.config/wallpapers
 local wp_timer = timer({timeout = 5*60})
