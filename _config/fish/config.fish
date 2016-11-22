@@ -35,6 +35,10 @@ end
 set -xg EDITOR vim
 set -xg VISUAL vim
 
+# Since I am building my own prompt, don't let virtualenv create one.
+# Also, most recently, activate.fish's prompt is broken fish code.
+set -xg VIRTUAL_ENV_DISABLE_PROMPT 1
+
 # Add custom stuff to the path
 add_unique_path ~/inst/bin
 add_unique_ldpath ~/inst/lib
