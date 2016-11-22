@@ -92,3 +92,8 @@ set -xg JULIA_SHELL /bin/bash
 set -xg LD_LIBRARY_PATH (printf '%s\n' $LD_LIBRARY_PATH | paste -sd:)
 set -xg LIBRARY_PATH (printf '%s\n' $LIBRARY_PATH | paste -sd:)
 set -xg CPATH (printf '%s\n' $CPATH | paste -sd:)
+
+# Screen scaling for HiDPI monitors (See wiki.archlinux.org/index.php/HiDPI)
+#set -xg QT_AUTO_SCREEN_SCALE_FACTOR 1
+#set -xg GDK_SCALE 2
+#set -xg GDK_DPI_SCALE=0.5
