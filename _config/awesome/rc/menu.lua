@@ -14,8 +14,8 @@ powermenu = {
     { "&shutdown", "systemctl poweroff", icondir .. "poweroff.png" },
     { "&reboot", "systemctl reboot", icondir .. "reboot.png" },
     { "s&uspend", lucasb.standby, icondir .. "suspend.png" },
-    { "&lock", lucasb.lockscreen, icondir .. "lock.png" },
-    { "l&ock & suspend", function() lucasb.lockscreen() lucasb.standby() end, icondir .. "lock-suspend.png" },
+    { "&lock", function() lucasb.lockscreen(get_wallpaper_file()) end, icondir .. "lock.png" },
+    { "l&ock & suspend", function() lucasb.lockscreen(get_wallpaper_file()) lucasb.standby() end, icondir .. "lock-suspend.png" },
 }
 
 mymainmenu = awful.menu.new({ items = {
