@@ -23,7 +23,7 @@ if lucasb.file_exists("/sys/class/power_supply/BAT0/status") then
             if stat == "Charging" or stat == "Full" then
                 mybattery:set_color(beautiful.bg_focus)
             else
-                if cap >= 3 then
+                if cap >= 5 then
                     mybattery:set_color(beautiful.colors.yellow)
                 else
                     mybattery:set_color(beautiful.bg_urgent)
