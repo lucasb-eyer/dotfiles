@@ -32,7 +32,8 @@ function add_unique_cpath -d 'Add an element to $CPATH if it exists and is not a
     end
 end
 
-#set -x EDITOR vim
+set -xg EDITOR vim
+set -xg VISUAL vim
 
 # Add custom stuff to the path
 add_unique_path ~/inst/bin
