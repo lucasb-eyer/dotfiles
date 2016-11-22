@@ -49,16 +49,16 @@ add_unique_lpath ~/inst/lib
 add_unique_cpath ~/inst/include
 
 # Setup go if it exists in the home folder.
-if test -d ~/go
+if test -d ~/inst/go
     # Differentiate between a global go install (my chakra) and a local one in home.
     if test -d /usr/lib/go
         set -xg GOROOT /usr/lib/go
     else
-        set -xg GOROOT ~/go
+        set -xg GOROOT ~/inst/go
     end
 
-    set -xg GOPATH ~/go
-    add_unique_path ~/go/bin
+    set -xg GOPATH ~/inst/go
+    add_unique_path ~/inst/go/bin
 end
 
 # Setup CUDA for...
