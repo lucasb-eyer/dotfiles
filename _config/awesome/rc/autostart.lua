@@ -16,9 +16,9 @@ awful.util.spawn("setxkbmap -variant altgr-intl")
 awful.util.spawn("synclient HorizTwoFingerScroll=1 VertScrollDelta=-101 HorizScrollDelta=-101")
 
 -- run_once("xscreensaver", "-nosplash", nil)
-run_once("nm-applet", nil, nil)
-run_once("redshift-gtk", "-l 50.47:6.51", "redshift")
-run_once("volumeicon", nil, nil)
+run_once("nm-applet")
+run_once("redshift-gtk", "-l 50.47:6.51", "redshift")  -- Los-Angeles: 34.00:-118.46
+run_once("volumeicon")
 run_once("taralli")
 run_once("dropbox")
 
