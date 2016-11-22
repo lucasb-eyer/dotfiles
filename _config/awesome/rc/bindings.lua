@@ -77,8 +77,8 @@ globalkeys = awful.util.table.join(
     -- awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -q sset Master 2dB+") end, "Increase sound volume"),
 
     keydoc.group("Misc"),
-    awful.key({ }, "Scroll_Lock", lucasb.lockscreen, "Lock the session"),
-    awful.key({ modkey }, "End", lucasb.lockscreen, "Lock the session"),
+    awful.key({ }, "Scroll_Lock", function() lucasb.lockscreen(get_wallpaper_file()) end, "Lock the session"),
+    awful.key({ modkey }, "End", function() lucasb.lockscreen(get_wallpaper_file()) end, "Lock the session"),
     awful.key({ }, "Print", function () awful.util.spawn('gm import -window root "' .. os.getenv("HOME") .. os.date('/%Y-%m-%d_%H:%M:%S.png"')) end, "Screenshot"),
     awful.key({ modkey }, "F5", switchtheme),
     awful.key({ modkey }, "w", function () mymainmenu:show({keygrabber=true}) end, "Open the menu"),

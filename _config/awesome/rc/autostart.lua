@@ -24,7 +24,7 @@ run_once("taralli")
 -- Goes through wallpapers in ~/.config/wallpapers
 local wp_timer = timer({timeout = 5*60})
 wp_timer:connect_signal("timeout", function()
-    local wp = lucasb.random_file("~/.config/wallpapers")
+    local wp = get_wallpaper_file()
     if wp ~= '' then
         gears.wallpaper.maximized(wp)
     end

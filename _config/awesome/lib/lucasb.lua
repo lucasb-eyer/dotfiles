@@ -107,11 +107,11 @@ end
 -- Totally undocumented, but the return value of these functions is used
 -- by the menu: https://github.com/awesomeWM/awesome/blob/0f02ed0e/lib/awful/menu.lua.in#L259-L270
 -- false/nil = close menu, true = redraw menu.
-lucasb.lockscreen = function()
+lucasb.lockscreen = function(imgfile)
     -- spawn returns a pid on success, a string on fail.
     if type(awful.util.spawn("xscreensaver-command -lock")) == "number" then
         return
-    elseif type(awful.util.spawn("i3lock -i '" .. lucasb.random_file("~/.config/wallpapers", "*.png") .. "'")) == "number" then
+    elseif type(awful.util.spawn("i3lock -i '" .. imgfile .. "'")) == "number" then
         return
     elseif type(awful.util.spawn("gnome-screensaver-command --lock")) == "number" then
         return
