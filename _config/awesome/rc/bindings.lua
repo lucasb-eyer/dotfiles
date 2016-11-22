@@ -93,7 +93,6 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end, "Close"),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end, "Swap with master"),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        , "Move to screen"),
-    awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end, "Redraw"),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end, "Toggle ontop"),
     awful.key({ modkey, "Control" }, "space",
         function (c)
