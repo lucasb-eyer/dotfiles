@@ -1,3 +1,13 @@
+# Import variables set by /etc/profile and included therein.
+# Based upon https://wiki.archlinux.org/index.php/Fish#.2Fetc.2Fprofile_and_.7E.2F.profile_compatibility
+#
+# This is especially important for LANG from /etc/locale.conf, see discussion here:
+# https://github.com/fish-shell/fish-shell/issues/3092
+env -i HOME=$HOME sh -c 'printenv' | sed -e '/_/d ; /PWD/d ; /SHLVL/d ; /PATH/s/:/ /g ; s/=/ / ; s/^/set -x /' | source
+
+# Except that it doesn't seem to work and I'm tired of it, so just setting LANG here:
+set -xg LANG en_US.UTF-8
+
 function add_unique_path -d 'Add an element to $PATH if it exists and is not already in there.'
     if begin; test -d $argv[1]; and not contains $argv[1] $PATH; end
         set -xg PATH $argv[1] $PATH
