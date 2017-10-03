@@ -33,6 +33,7 @@ Bundle 'wesQ3/vim-windowswap'
 Bundle 'ConradIrwin/vim-bracketed-paste'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
+Bundle 'haya14busa/vim-poweryank'
 
 " Languages
 Bundle 'scrooloose/syntastic'
@@ -197,6 +198,9 @@ call arpeggio#map('nv', '', 1, 'fw', ':noh<cr>')
 
 " vv splits the window vertically
 map vv <C-w>v<C-w>l
+
+" Yank over SSH
+map <Leader>y <Plug>(operator-poweryank-osc52)
 
 " For mac os x if the terminal is setup as in
 " http://od-eon.com/blogs/liviu/macos-vim-controlarrow-functionality/
