@@ -31,6 +31,8 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'wesQ3/vim-windowswap'
 " See https://cirw.in/blog/bracketed-paste
 Bundle 'ConradIrwin/vim-bracketed-paste'
+Bundle 'scrooloose/nerdtree'
+Bundle 'Xuyuanp/nerdtree-git-plugin'
 
 " Languages
 Bundle 'scrooloose/syntastic'
@@ -165,8 +167,9 @@ call arpeggio#load()
 " j and k at the same time instead of escape to leave edit mode
 call arpeggio#map('i', '', 1, 'jk', '<Esc>')
 
-" jo opens the ctrl-p file opener.
+" jo opens the ctrl-p file opener, fe the NERDTree.
 call arpeggio#map('niv', '', 1, 'jo', ':CtrlP<cr>')
+call arpeggio#map('niv', '', 1, 'fe', ':NERDTreeFocus<cr>')
 
 " jc toggles the current line's comment state.
 call arpeggio#map('nv', '', 1, 'jc', '<leader>c<space>')
