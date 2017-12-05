@@ -27,14 +27,17 @@ def makedirs(dirs):
             raise
 
 
-def link_with_backup(source, link_name):
+def link_with_backup(source, link_name, symbolic=True):
     full_link_name = eu(link_name)
     print('Installing ' + source + ' -> ' + full_link_name)
 
     makedirs(dirname(full_link_name))
 
     try:
-        os.symlink(source, full_link_name)
+        if symbolic:
+            os.symlink(source, full_link_name)
+        else:
+            os.link(source, full_link_name)
     except OSError:
         if backup:
             os.rename(full_link_name, full_link_name + '.' + str(int(time())) + '.dotfiles_backup')
@@ -53,8 +56,8 @@ def here(f):
     return pjoin(os.path.dirname(os.path.abspath(me)), f)
 
 
-def here_to_home(name, toname=None):
-    link_with_backup(here('_' + name), '~/.' + (toname if toname else name))
+def here_to_home(name, toname=None, symbolic=True):
+    link_with_backup(here('_' + name), '~/.' + (toname if toname else name), symbolic=symbolic)
 
 
 # Install extensions.
@@ -118,7 +121,7 @@ def main():
     here_to_home('gitignore')
     here_to_home('pythonrc.py')
     here_to_home('juliarc.jl')
-    here_to_home('ssh_config', 'ssh/config')
+    here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
     here_to_home('config/awesome')
     here_to_home('config/htop')
 
