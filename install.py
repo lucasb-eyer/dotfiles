@@ -134,7 +134,8 @@ def main():
     nb_ext(['ExecuteTime.js', 'ExecuteTime.css'], 'execute_time')
     nb_ext(['main.js', 'main.css'], 'toc')
 
-    if os.path.isfile('/usr/bin/fish'):
+    from distutils import spawn
+    if spawn.find_executable('fish'):
         here_to_home('config/fish/solarized.fish')
         here_to_home('config/fish/config.fish')
         here_to_home('config/fish/functions/fish_prompt.fish')
