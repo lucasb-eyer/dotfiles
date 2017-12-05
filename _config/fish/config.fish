@@ -92,3 +92,11 @@ set -xg JULIA_SHELL /bin/bash
 set -xg LD_LIBRARY_PATH (printf '%s\n' $LD_LIBRARY_PATH | paste -sd:)
 set -xg LIBRARY_PATH (printf '%s\n' $LIBRARY_PATH | paste -sd:)
 set -xg CPATH (printf '%s\n' $CPATH | paste -sd:)
+
+# Until they hopefully get into the defaults:
+# https://github.com/fish-shell/fish-shell/issues/180#issuecomment-349293667
+# https://stackoverflow.com/q/16660301/2366315
+function fish_user_key_bindings
+  bind \e\[7~ beginning-of-line
+  bind \e\[8~ end-of-line
+end

@@ -1,6 +1,17 @@
-# Makes the home/end keys work. Does it?
+# Include system wide settings which are ignored
+# by default if one has their own .inputrc
+$include /etc/inputrc
+
+# Makes the home/end keys work in weird systems.
+# See https://wiki.archlinux.org/index.php/Home_and_End_keys_not_working#Readline
 "\e[1~": beginning-of-line
 "\e[4~": end-of-line
+"\e[7~": beginning-of-line
+"\e[8~": end-of-line
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+"\e[H": beginning-of-line
+"\e[F": end-of-line
 
 # Control-left/right keys.
 "\e[5C": forward-word
