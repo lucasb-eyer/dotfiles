@@ -25,23 +25,22 @@ Bundle 'gmarik/vundle'
 " System
 Bundle 'kana/vim-arpeggio'
 Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdcommenter'
+" Bundle 'scrooloose/nerdcommenter'
 Bundle 'tpope/vim-surround'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'wesQ3/vim-windowswap'
+" Bundle 'wesQ3/vim-windowswap'
 " See https://cirw.in/blog/bracketed-paste
 Bundle 'ConradIrwin/vim-bracketed-paste'
-Bundle 'scrooloose/nerdtree'
-Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'haya14busa/vim-poweryank'
 
 " Languages
-Bundle 'scrooloose/syntastic'
-"Bundle 'nvie/vim-flake8'
+" Bundle 'scrooloose/syntastic'
+" Bundle 'nvie/vim-flake8'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'JuliaLang/julia-vim'
 Bundle 'dag/vim-fish'
+Bundle 'vim-python/python-syntax'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'plasticboy/vim-markdown'
 
 " Fun, but not useful
 Bundle 'ehamberg/vim-cute-python'
@@ -60,9 +59,6 @@ filetype plugin indent on
 " ==========================================================
 
 set encoding=utf-8
-
-" Add language/tool-specific paths
-set rtp+=$GOROOT/misc/vim  " Go
 
 " On silly ubuntu, they install vim stuff into that, but
 " don't have that as a default vim path...
@@ -110,9 +106,9 @@ set backspace=2       " Allow backspacing over autoindent, EOL, and BOL
 set autoindent        " always set autoindenting on
 set nosmartindent     " don't use smart indent, it is annoying with #
 set smarttab          " handle tab keypresses more intelligently tho.
-set tabstop=4         " <tab> inserts 4 spaces
-set shiftwidth=4      " And an indent level is 4 spaces wide.
-set softtabstop=4     " <BS> over an autoindent deletes both spaces.
+set tabstop=2         " <tab> inserts 4 spaces
+set shiftwidth=2      " And an indent level is 4 spaces wide.
+set softtabstop=2     " <BS> over an autoindent deletes both spaces.
 set expandtab         " Use spaces, not tabs, for autoindent/tab key.
 set shiftround        " rounds indent to a multiple of shiftwidth
 
@@ -133,6 +129,8 @@ set wildignore+=*.o,*.obj,.git
 set wildignore+=*.pyc,eggs/**,*.egg-info/**
 
 set lazyredraw       " This speeds up repeated macro execution.
+
+set belloff=all  " I don't like beeping all the time.
 
 " TODO: Use airline for statusline?
 set ls=2         " always show status line
@@ -170,7 +168,6 @@ call arpeggio#map('i', '', 1, 'jk', '<Esc>')
 
 " jo opens the ctrl-p file opener, fe the NERDTree.
 call arpeggio#map('niv', '', 1, 'jo', ':CtrlP<cr>')
-call arpeggio#map('niv', '', 1, 'fe', ':NERDTreeFocus<cr>')
 
 " jc toggles the current line's comment state.
 call arpeggio#map('nv', '', 1, 'jc', '<leader>c<space>')
@@ -249,12 +246,6 @@ cmap w!! w !sudo tee > /dev/null %
 " Other plugin-specific settings
 " ===========================================================
 
-" Not sure what's up with Py3, watching https://github.com/Valloric/YouCompleteMe/issues/1278
-" YouCompleteMe doesn't work with python3, which is the default on Arch.
-"let g:ycm_path_to_python_interpreter = '/usr/bin/python2'
-" Doesn't the name say it all already?
-let g:ycm_autoclose_preview_window_after_insertion = 1
-
 " Sensible "current dir" behaviour for ctrlp. ("nearest .git, ...")
 let g:ctrlp_working_path_mode = 'r'
 
@@ -280,11 +271,6 @@ autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " Python: Don't let pyflakes use the quickfix window
 "let g:pyflakes_use_quickfix = 0
-
-" Tell supercomplete to be context-sensitive and show the doc
-"au FileType python set omnifunc=pythoncomplete#Complete
-"let g:SuperTabDefaultCompletionType = "context"
-"set completeopt=menuone,longest,preview
 
 " Python: Add the virtualenv's site-packages to vim path
 if has('python')
