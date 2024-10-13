@@ -1,0 +1,68 @@
+! Solarized Light
+*background: #fdf6e3
+*foreground: #657b83
+*fadeColor: #fdf6e3
+*cursorColor: #586e75
+*pointerColorBackground:#93a1a1
+*pointerColorForeground:#586e75
+
+!! black dark/light
+*color0: #073642
+*color8: #002b36
+!! red dark/light
+*color1: #dc322f
+*color9: #cb4b16
+!! green dark/light
+*color2: #859900
+*color10: #586e75
+!! yellow dark/light
+*color3: #b58900
+*color11: #657b83
+!! blue dark/light
+*color4: #268bd2
+*color12: #839496
+!! magenta dark/light
+*color5: #d33682
+*color13: #6c71c4
+!! cyan dark/light
+*color6: #2aa198
+*color14: #93a1a1
+!! white dark/light
+*color7: #eee8d5
+*color15: #fdf6e3
+
+! The three most gorgeous monospace fonts I found.
+! List them using `fc-list | cut -f2 -d: | sort -u`
+! URxvt.font: xft:Consolas:size=10
+! URxvt.font: xft:YaHei Consolas Hybrid:size=10
+URxvt.font: xft:Roboto Mono:size=10
+! URxvt.font: xft:Liberation Mono:size=10
+! URxvt.font: xft:Ubuntu Mono:size=11
+! URxvt.font: xft:Inconsolata:size=11
+! This one is supposed to be very complete. But it's missing Julia's \slice for example.
+! URxvt.font: xft:Unifont:size=8
+URxvt.letterSpace: 0
+
+! Extensions
+URxvt.perl-ext-common: default,tabbed,matcher,selection-to-clipboard
+URxvt.tabbed.tab-bg: 11
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 2
+
+! Scrolling behaviour
+URxvt*scrollBar: false
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+
+! Fixing the copy-paste thing..
+! From http://www.davidsimmons.com/soft/xtermhacks/#copynpastenopatch
+! Doesn't seem to work with URxvt.
+URxvt*translations: #override <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
+
+! Xft settings ----------------------------------------
+Xft.dpi: 192
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
