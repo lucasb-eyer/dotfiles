@@ -99,30 +99,14 @@ def main():
     global backup
     backup = input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
 
-    here_to_home('bash')
-    bashrc = eu('~/.bashrc')
-    bashappend = open('_bashrc.append').read()
-    try:
-        if bashappend not in open(bashrc).read():
-            with open(bashrc, 'a') as f:
-                f.write(bashappend)
-    except IOError:
-        # Assume non-existing file. Create one.
-        # (Or no permission, this wont change anything in that case.)
-        with open(bashrc, 'w+') as f:
-            f.write(bashappend)
-
     here_to_home('vimrc')
-    here_to_home('vim')
     here_to_home('tmux.conf')
     here_to_home('inputrc')
     here_to_home('Xresources')
     here_to_home('gitconfig')
     here_to_home('gitignore')
     here_to_home('pythonrc.py')
-    here_to_home('juliarc.jl')
     here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
-    here_to_home('config/awesome')
     here_to_home('config/htop')
 
     # Disabled ones don't seem to work.
