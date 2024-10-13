@@ -109,6 +109,8 @@ def main():
     here_to_home('gitignore')
     here_to_home('pythonrc.py')
     here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
+    here_to_home('config/i3/config')
+    here_to_home('config/i3status/config')
 
     # Disabled ones don't seem to work.
     nb_ext(['autoscroll.js'], enable=False)
