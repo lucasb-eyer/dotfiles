@@ -32,8 +32,8 @@ function add_unique_cpath -d 'Add an element to $CPATH if it exists and is not a
     end
 end
 
-set -xg EDITOR vim
-set -xg VISUAL vim
+set -xg EDITOR nvim
+set -xg VISUAL nvim
 
 # Since I am building my own prompt, don't let virtualenv create one.
 # Also, most recently, activate.fish's prompt is broken fish code.
@@ -67,16 +67,6 @@ add_unique_path /opt/cuda/bin
 add_unique_ldpath /opt/cuda/lib64
 add_unique_lpath /opt/cuda/lib64
 add_unique_cpath /opt/cuda/include
-# ...Ubuntu 14.04
-add_unique_path /usr/local/cuda/bin
-add_unique_ldpath /usr/local/cuda/lib64
-add_unique_lpath /usr/local/cuda/lib64
-add_unique_cpath /usr/local/cuda/include
-# ...Ubuntu 14.04 again?
-add_unique_path /usr/local/cuda-7.5/bin
-add_unique_ldpath /usr/local/cuda-7.5/lib64
-add_unique_lpath /usr/local/cuda-7.5/lib64
-add_unique_cpath /usr/local/cuda-7.5/include
 
 # Setup cuDNN
 add_unique_ldpath ~/inst/cudnn5/lib64
