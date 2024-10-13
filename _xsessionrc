@@ -1,0 +1,33 @@
+#!/bin/sh
+
+export PATH=$PATH:~/.local/bin
+
+# Necessary to make chrome pick up the proxy settings stored in gconf.
+export DESKTOP_SESSION=cinnamon
+
+# Desktop background color.
+xsetroot -solid "#333333"
+
+# Set keyboard layout and options
+setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps ctrl:swap_lalt_lctl
+
+# Natural scrolling direction for the touchpad.
+xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+
+# Start urxvtd
+urxvtd -q -f -o
+export TERMINAL=urxvtc
+
+export SHELL=/usr/bin/fish
+
+xrdb -nocpp -merge ~/.Xresources
+
+# export GDK_SCALE=2
+# export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+# Settings for the screen locker
+export XSECURELOCK_SAVER=saver_mpv
+export XSECURELOCK_LIST_VIDEOS_COMMAND="find ~/Pictures/wallpapers/orig/ -type f"
+export XSECURELOCK_IMAGE_DURATION_SECONDS=15
+export XSECURELOCK_PASSWORD_PROMPT=disco
+export XSECURELOCK_FONT="DejaVu Sans"

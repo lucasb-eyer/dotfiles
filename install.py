@@ -104,6 +104,7 @@ def main():
     here_to_home('inputrc')
     here_to_home('Xresources')
     here_to_home('Xresources.light')
+    here_to_home('xsessionrc')
     here_to_home('gitconfig')
     here_to_home('gitignore')
     here_to_home('pythonrc.py')
