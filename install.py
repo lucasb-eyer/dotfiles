@@ -2,18 +2,7 @@ import os
 from os.path import expanduser as eu, dirname, exists, join as pjoin
 from time import time
 from subprocess import call
-
-# Compatibility between py2 and py3:
-try: input = raw_input
-except NameError: pass
-
-# See if we've got Jupyter.
-try:
-    from notebook.nbextensions import install_nbextension, jupyter_data_dir
-    from notebook.services.config import ConfigManager
-    jupyter_nb = True
-except ImportError:
-    jupyter_nb = False
+import shutil
 
 backup = True
 
@@ -60,30 +49,6 @@ def here_to_home(name, toname=None, symbolic=True):
     link_with_backup(here('_' + name), '~/.' + (toname if toname else name), symbolic=symbolic)
 
 
-# Install extensions.
-def nb_ext(files, subdir='', prefix='_jupyter/nbextensions', enable=True):
-    if not jupyter_nb:
-        print("WARNING: Couldn't import Jupyter, skipped nbext.")
-        return
-
-    # Assumption: the first entry in `files` is the main file.
-    print("Jupyter nbext", pjoin(subdir, files[0]))
-
-    makedirs(pjoin(jupyter_data_dir(), 'nbextensions', subdir))
-
-    for fname in files:
-        install_nbextension(pjoin(prefix, subdir, fname),
-            destination=pjoin(subdir, fname),
-            user=True,
-            symlink=True,
-            verbose=False)
-    ConfigManager().update('notebook', {
-        'load_extensions': {
-            pjoin(subdir, files[0][:-3]): True if enable else None,
-        }
-    })
-
-
 def main():
     # Pull in the plugins
     if call(['git', 'submodule', 'update', '--init']) != 0:
@@ -112,23 +77,10 @@ def main():
     here_to_home('config/i3/config')
     here_to_home('config/i3status/config')
 
-    # Disabled ones don't seem to work.
-    nb_ext(['autoscroll.js'], enable=False)
-    nb_ext(['breakpoints.js'], enable=False)
-    nb_ext(['init_cell.js'])
-    nb_ext(['notify.js'])
-    nb_ext(['main.js', 'button.png'], 'equation_numbering')
-    nb_ext(['ExecuteTime.js', 'ExecuteTime.css'], 'execute_time')
-    nb_ext(['main.js', 'main.css'], 'toc')
-
-    from distutils import spawn
-    if spawn.find_executable('fish'):
+    if shutil.which('fish'):
         here_to_home('config/fish/solarized.fish')
         here_to_home('config/fish/config.fish')
         here_to_home('config/fish/functions/fish_prompt.fish')
-        here_to_home('config/fish/functions/grolschnext.fish')
-        here_to_home('config/fish/functions/grolschpp.fish')
-        here_to_home('config/fish/functions/grolschprev.fish')
     else:
         print("WARNING: skipped fish, it seems not to be installed.")
 
