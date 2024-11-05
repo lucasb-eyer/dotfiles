@@ -1,9 +1,14 @@
 #!/bin/sh
 
-export PATH=$PATH:~/.local/bin
+# First, start system xinitrc's that may be added by packages:
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+ for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+  [ -x "$f" ] && . "$f"
+ done
+ unset f
+fi
 
-# Necessary to make chrome pick up the proxy settings stored in gconf.
-export DESKTOP_SESSION=cinnamon
+export PATH=$PATH:~/.local/bin
 
 # Desktop background color.
 xsetroot -solid "#333333"
@@ -13,6 +18,8 @@ setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps ctrl:swap_lalt_lctl
 
 # Natural scrolling direction for the touchpad.
 xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+xinput set-prop "ASUF1208:00 2808:0218 Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "ASUF1208:00 2808:0218 Touchpad" "libinput Natural Scrolling Enabled" 1
 
 # Start urxvtd
 urxvtd -q -f -o
@@ -31,3 +38,5 @@ export XSECURELOCK_LIST_VIDEOS_COMMAND="find ~/Pictures/wallpapers/orig/ -type f
 export XSECURELOCK_IMAGE_DURATION_SECONDS=15
 export XSECURELOCK_PASSWORD_PROMPT=disco
 export XSECURELOCK_FONT="DejaVu Sans"
+
+exec /usr/bin/i3
