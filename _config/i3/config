@@ -158,8 +158,17 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# For exiting, require two keys to avoid fat-finger:
+mode "exit: [s]uspend, [o]ff, [l]ogout, [r]eboot" {
+  bindsym l exec i3-msg exit
+  bindsym r exec systemctl reboot
+  bindsym s exec systemctl suspend
+  bindsym o exec systemctl shutdown
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+}
+bindsym $mod+x mode "exit: [s]uspend, [o]ff, [l]ogout, [r]eboot" 
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -217,18 +226,11 @@ bar {
   }
 }
 
-# LUCAS custom extras for laptop
-# bindsym $mod+backslash exec google-chrome-stable --disable-gpu
-bindsym $mod+backslash exec google-chrome-stable
-
 # Lock screen
 # ; exec xset dpms force off
 
 # Fancy screenshot, see https://github.com/lupoDharkael/flameshot/issues/557#issuecomment-546738133
 bindsym Print exec --no-startup-id flameshot gui -r | xclip -selection clipboard -t image/png
-
-# Firefox on last/personal one
-assign [class="Firefox"] $ws10
 
 # Autostart, mainly applets.
 exec --no-startup-id /usr/bin/blueman-applet
@@ -239,11 +241,9 @@ exec --no-startup-id /usr/libexec/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 
 # Scratchpad calculator.
-# for_window [instance="math"] floating enable, resize set 1280 720, move scratchpad, border pixel 5
 for_window [instance="math"] floating enable, move scratchpad, border pixel 5
 bindsym $mod+Escape [instance="math"] scratchpad show, move position center
-# exec --no-startup-id /usr/bin/urxvt -name math -e /home/lbeyer/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner=''
-exec --no-startup-id /usr/bin/urxvt -name math -geometry 80x20 -e /home/lbeyer/start_jupyter.fish
+exec --no-startup-id /usr/bin/urxvt -name math -geometry 80x20 -e ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner=''
 
 # Make matplotlib's window floating
 for_window [class="Display-im6.q16"] floating enable, move position center
