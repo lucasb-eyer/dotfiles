@@ -35,7 +35,6 @@ Bundle 'haya14busa/vim-poweryank'
 " Languages
 " Bundle 'scrooloose/syntastic'
 " Bundle 'nvie/vim-flake8'
-Bundle 'plasticboy/vim-markdown'
 Bundle 'JuliaLang/julia-vim'
 Bundle 'dag/vim-fish'
 Bundle 'vim-python/python-syntax'

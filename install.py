@@ -64,6 +64,7 @@ def main():
     global backup
     backup = input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
 
+    here_to_home('vim')
     here_to_home('vimrc')
     here_to_home('tmux.conf')
     here_to_home('inputrc')
