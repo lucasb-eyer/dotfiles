@@ -233,7 +233,8 @@ function fish_prompt
     prompt_load
     prompt_virtualenv
     prompt_centralblock
-    prompt_git
+    # TODO: Update - currently broken
+    # prompt_git
 
     # Line 2
     echo

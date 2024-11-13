@@ -85,8 +85,9 @@ def main():
         print("WARNING: skipped fish, it seems not to be installed.")
 
     # Reload some stuff
-    if 'DISPLAY' in os.environ:
-        call(['xrdb', '-nocpp', '-merge', '~/.Xresources'], shell=True)
+    # TODO: update - currently hangs?
+    # if 'DISPLAY' in os.environ:
+    #     call(['xrdb', '-nocpp', '-merge', '~/.Xresources'], shell=True)
 
     print("Don't forget to possibly run the following: ")
     print("- Open vim and run `:BundleInstall` or `:BundleUpdate`")
