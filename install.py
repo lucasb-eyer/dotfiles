@@ -78,6 +78,8 @@ def main():
     here_to_home('gitignore')
     here_to_home('pythonrc.py')
     here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
+    here_to_home('config/nvim/init.lua')
+    here_to_home('config/nvim/color')
     here_to_home('config/i3/config')
     here_to_home('config/i3status/config')
     here_to_home('config/xsettingsd/xsettingsd.conf')
