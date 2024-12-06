@@ -77,6 +77,8 @@ def main():
     here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
     here_to_home('config/i3/config')
     here_to_home('config/i3status/config')
+    here_to_home('config/kitty/kitty.conf')
+    here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
 
     if shutil.which('fish'):
         here_to_home('config/fish/solarized.fish')
