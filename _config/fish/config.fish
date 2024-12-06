@@ -8,6 +8,8 @@ env -i HOME=$HOME sh -c 'printenv' | sed -e '/_/d ; /PWD/d ; /SHLVL/d ; /PATH/s/
 # Except that it doesn't seem to work and I'm tired of it, so just setting LANG here:
 set -xg LANG en_US.UTF-8
 
+alias startx="ssh-agent startx"
+
 function add_unique_path -d 'Add an element to $PATH if it exists and is not already in there.'
     if begin; test -d $argv[1]; and not contains $argv[1] $PATH; end
         set -xg PATH $argv[1] $PATH
