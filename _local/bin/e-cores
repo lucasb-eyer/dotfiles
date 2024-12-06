@@ -1,0 +1,12 @@
+#!/usr/bin/env fish
+
+# Turn on or off e-cores from lunar-lake CPUs.
+# Turning them off is currently a workaround to the stuttering.
+# A proper fix is hopefully landing in kernel 6.13:
+# https://bugzilla.kernel.org/show_bug.cgi?id=219364#c31
+
+set -l value (echo $argv[1] | sed 's/on/1/g;s/off/0/g')
+
+for i in 4 5 6 7
+	sudo sh -c "echo $value > /sys/devices/system/cpu/cpu$i/online"
+end
