@@ -7,7 +7,7 @@ import shutil
 backup = True
 
 
-def makedirs(dirs):
+def _makedirs(dirs):
     # Create the folder in case it doesn't exist.
     try:
         os.makedirs(dirs)
@@ -17,26 +17,27 @@ def makedirs(dirs):
 
 
 def link_with_backup(source, link_name, symbolic=True):
-    full_link_name = eu(link_name)
-    print('Installing ' + source + ' -> ' + full_link_name)
+    link_name = eu(link_name)
+    source = eu(source)
+    print('Installing ' + source + ' -> ' + link_name)
 
-    makedirs(dirname(full_link_name))
+    _makedirs(dirname(link_name))
 
     try:
         if symbolic:
-            os.symlink(source, full_link_name)
+            os.symlink(source, link_name)
         else:
-            os.link(source, full_link_name)
+            os.link(source, link_name)
     except OSError:
         if backup:
-            os.rename(full_link_name, full_link_name + '.' + str(int(time())) + '.dotfiles_backup')
+            os.rename(link_name, f'{link_name}.{int(time())}.dotfiles_backup')
         else:
             # Try to remove this thing. Non-empty directories don't work yet.
             try:
-                os.remove(full_link_name)
+                os.remove(link_name)
             except OSError as e:
-                os.rmdir(full_link_name)
-        os.symlink(source, full_link_name)
+                os.rmdir(link_name)
+        os.symlink(source, link_name)
 
 
 def here(f):
