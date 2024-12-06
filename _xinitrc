@@ -22,8 +22,12 @@ xinput set-prop "ASUF1208:00 2808:0218 Touchpad" "libinput Tapping Enabled" 1
 xinput set-prop "ASUF1208:00 2808:0218 Touchpad" "libinput Natural Scrolling Enabled" 1
 
 # Start urxvtd
-urxvtd -q -f -o
-export TERMINAL=urxvtc
+# urxvtd -q -f -o
+# export TERMINAL=urxvtc
+
+# And now I am moving over to kitty
+# TODO: How to pre-start it?
+export TERMINAL="`which kitty` -1"
 
 export SHELL=/usr/bin/fish
 
