@@ -233,10 +233,9 @@ bindsym Print exec --no-startup-id flameshot gui -r | xclip -selection clipboard
 
 # Autostart, mainly applets.
 exec --no-startup-id /usr/bin/blueman-applet
-exec --no-startup-id /usr/bin/start-pulseaudio-x11
 exec --no-startup-id /usr/bin/pasystray
 exec --no-startup-id nm-applet
-exec --no-startup-id /usr/libexec/geoclue-2.0/demos/agent
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 
 # Scratchpad calculator.
