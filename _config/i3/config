@@ -44,8 +44,8 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+ && $refre
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# start a terminal. i3-sensible-terminal doesn't allow flags.
+bindsym $mod+Return exec kitty -1
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -240,9 +240,11 @@ exec --no-startup-id /usr/libexec/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 
 # Scratchpad calculator.
-for_window [instance="math"] floating enable, move scratchpad, border pixel 5
-bindsym $mod+Escape [instance="math"] scratchpad show, move position center
-exec --no-startup-id /usr/bin/urxvt -name math -geometry 80x20 -e ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner=''
+for_window [title="Lucas scratchpad"] floating enable, border pixel 5, resize set 1440 900, move position center, move scratchpad
+bindsym $mod+Escape [title="Lucas scratchpad"] scratchpad show, move position center
+exec --no-startup-id kitty --title "Lucas scratchpad" ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner=''
+
+# Here's more scratchpad ideas: https://www.reddit.com/r/i3wm/comments/d27jkn/reloading_i3_with_marked_windows_in_scratchpad/
 
 # Make matplotlib's window floating
 for_window [class="Display-im6.q16"] floating enable, move position center
