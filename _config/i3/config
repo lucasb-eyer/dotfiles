@@ -58,6 +58,9 @@ bindsym $mod+Shift+c kill
 # installed.
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+bindsym $mod+XF86MonBrightnessDown exec --no-startup-id lightswitch dark
+bindsym $mod+XF86MonBrightnessUp exec --no-startup-id lightswitch light
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down

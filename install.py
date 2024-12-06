@@ -70,7 +70,9 @@ def main():
     here_to_home('tmux.conf')
     here_to_home('inputrc')
     here_to_home('Xresources')
-    here_to_home('Xresources.light')
+    here_to_home('Xresources.solarized-dark')
+    here_to_home('Xresources.solarized-light')
+    link_with_backup('.Xresources.solarized-dark', '~/.Xresources.colors')
     here_to_home('xinitrc')
     here_to_home('gitconfig')
     here_to_home('gitignore')
@@ -78,8 +80,12 @@ def main():
     here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
     here_to_home('config/i3/config')
     here_to_home('config/i3status/config')
+    here_to_home('config/xsettingsd/xsettingsd.conf')
     here_to_home('config/kitty/kitty.conf')
     here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
+
+    # My util scripts
+    here_to_home('local/bin/lightswitch')
 
     if shutil.which('fish'):
         here_to_home('config/fish/solarized.fish')
