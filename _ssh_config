@@ -13,3 +13,8 @@ host github.com
     HostName github.com
     User git
     IdentityFile ~/.ssh/github
+
+host runpod*
+    User root
+    IdentityFile ~/.ssh/runpod
+    ForwardAgent yes
