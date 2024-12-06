@@ -7,6 +7,7 @@ host riesling
     HostName eyer.be
     User root
     IdentityFile ~/.ssh/digitalocean
+    ForwardAgent yes
 
 host github.com
     HostName github.com
