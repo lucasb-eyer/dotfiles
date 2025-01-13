@@ -51,6 +51,8 @@ set -xg VIRTUAL_ENV_DISABLE_PROMPT 1
 set -xg _JAVA_AWT_WM_NONREPARENTING 1
 
 # Add custom stuff to the path
+add_unique_path ~/.local/bin
+
 add_unique_path ~/inst/bin
 add_unique_ldpath ~/inst/lib
 add_unique_lpath ~/inst/lib
