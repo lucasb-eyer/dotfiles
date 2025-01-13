@@ -33,6 +33,8 @@ vim.opt.foldmethod = 'indent'  -- allow us to fold on indents
 vim.opt.foldlevel = 99         -- but don't fold anything right away!
 vim.opt.autoread = false       -- Don't automatically re-read changed files, ask!
 
+vim.opt.gdefault = true  -- /g on by default, writing /g turns it off.
+
 -- vv splits the window vertically
 vim.keymap.set('', 'vv', '<C-w>v<C-w>l')
 
