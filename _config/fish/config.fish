@@ -5,6 +5,11 @@
 # https://github.com/fish-shell/fish-shell/issues/3092
 env -i HOME=$HOME sh -c 'printenv' | sed -e '/_/d ; /PWD/d ; /SHLVL/d ; /PATH/s/:/ /g ; s/=/ / ; s/^/set -x /' | source
 
+# For homebrew setup on mac os:
+if test -d /usr/local/bin/brew
+  /usr/local/bin/brew shellenv | source
+end
+
 # Except that it doesn't seem to work and I'm tired of it, so just setting LANG here:
 set -xg LANG en_US.UTF-8
 
