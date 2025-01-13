@@ -168,13 +168,10 @@ function prompt_battery -d "shows whether the laptop battery is charging or disc
 end
 
 function prompt_load -d "shows the cpu load if it was relatively high in the past minute."
-    # For mac
-    if not [ -e /proc/loadavg ]
-        return
-    end
-
-    set -l load1m (command cut -d ' ' -f 1 /proc/loadavg)
+    # Python works across OS'es, /proc/loadavg not!
+    set -l load1m (python -c 'import os ; print(os.getloadavg()[0])')
     set -l load1m100 (math $load1m \* 100 / 1)
+
     if [ $load1m100 -gt 200 ]
         set_color red
         printf "⚡$load1m "
