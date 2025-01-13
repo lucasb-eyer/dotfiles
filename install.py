@@ -63,18 +63,15 @@ def main(mode):
     here_to_home('config/nvim/color')
     here_to_home('config/kitty/kitty.conf')
     here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
+    here_to_home('config/fish/solarized.fish')
+    here_to_home('config/fish/config.fish')
+    here_to_home('config/fish/functions/fish_prompt.fish')
 
     # My util scripts
     here_to_home('local/bin/imshow')
     here_to_home('local/bin/lightswitch')
     here_to_home('local/bin/togif')
 
-    if shutil.which('fish'):
-        here_to_home('config/fish/solarized.fish')
-        here_to_home('config/fish/config.fish')
-        here_to_home('config/fish/functions/fish_prompt.fish')
-    else:
-        print("WARNING: skipped fish, it seems not to be installed.")
 
     if mode == 'linux':
         here_to_home('inputrc')
@@ -97,6 +94,8 @@ def main(mode):
     # TODO: update - currently hangs?
     # if 'DISPLAY' in os.environ:
     #     call(['xrdb', '-nocpp', '-merge', '~/.Xresources'], shell=True)
+    if not shutil.which('fish'):
+        print("WARNING: no fish installed?")
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:
