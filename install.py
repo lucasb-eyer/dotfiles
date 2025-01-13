@@ -51,26 +51,16 @@ def here_to_home(name, toname=None, symbolic=True):
     link_with_backup(here('_' + name), '~/.' + (toname if toname else name), symbolic=symbolic)
 
 
-def main():
+def main(mode='all'):
     global backup
     backup = input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
 
+    # Things I install on all machines (lin/mac laptops, servers)
     here_to_home('tmux.conf')
-    here_to_home('inputrc')
-    here_to_home('Xresources')
-    here_to_home('Xresources.solarized-dark')
-    here_to_home('Xresources.solarized-light')
-    link_with_backup('.Xresources.solarized-dark', '~/.Xresources.colors')
-    here_to_home('xinitrc')
-    here_to_home('gitconfig')
     here_to_home('gitignore')
     here_to_home('pythonrc.py')
-    here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
     here_to_home('config/nvim/init.lua')
     here_to_home('config/nvim/color')
-    here_to_home('config/i3/config')
-    here_to_home('config/i3status/config')
-    here_to_home('config/xsettingsd/xsettingsd.conf')
     here_to_home('config/kitty/kitty.conf')
     here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
 
@@ -84,10 +74,25 @@ def main():
     else:
         print("WARNING: skipped fish, it seems not to be installed.")
 
+    if mode == 'linux':
+        here_to_home('inputrc')
+        here_to_home('Xresources')
+        here_to_home('Xresources.solarized-dark')
+        here_to_home('Xresources.solarized-light')
+        link_with_backup('.Xresources.solarized-dark', '~/.Xresources.colors')
+        here_to_home('xinitrc')
+        here_to_home('gitconfig')
+        here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
+        here_to_home('config/i3/config')
+        here_to_home('config/i3status/config')
+        here_to_home('config/xsettingsd/xsettingsd.conf')
+    elif mode == 'mac':
+        here_to_home('local/bin/aerospace_scratch')
+
     # Reload some stuff
     # TODO: update - currently hangs?
     # if 'DISPLAY' in os.environ:
     #     call(['xrdb', '-nocpp', '-merge', '~/.Xresources'], shell=True)
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1])
