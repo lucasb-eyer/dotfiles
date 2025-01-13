@@ -1,0 +1,70 @@
+#!/usr/bin/env python
+# Inspired by the following, but completely rewritten for speed and logic:
+#   https://github.com/nikitabobko/AeroSpace/issues/510#issuecomment-2439585933
+#
+# Don't forget to run this once to allow dragging floats with cmd+ctrl:
+#   defaults write -g NSWindowShouldDragOnGesture YES
+
+import os
+import sys
+import time
+
+def exc(cmd):
+    return os.popen(cmd).read().strip()
+
+
+CURR_WS = exc('aerospace list-workspaces --focused')
+
+
+def get_window_id(title):
+    ret = exc('aerospace list-windows --all --format "%{window-id} | %{workspace} | %{window-title}"')
+    for line in ret.splitlines():
+        wid, ws, wtitle = line.split(' | ')
+        if title in wtitle:
+            return wid, ws
+    return None, None
+
+
+def focus_app(win_id):
+    exc(f'aerospace move-node-to-workspace {CURR_WS} --window-id {win_id}')
+    exc(f'aerospace focus --window-id {win_id}')
+    exc('aerospace layout floating')
+
+
+def move_to_stash(win_id):
+    os.system(f'aerospace move-node-to-workspace STASH --window-id {win_id}')
+
+
+def start_app(open_cmd):
+  os.system(f'open -na {open_cmd}')
+  time.sleep(0.5)
+
+  # Now, let's move the window to the middle of the screen and resize it to ~80%
+
+  # 1. This way seems to not work with floating windows altogether:
+  # set -l wid (get_window_id "$WIN_TITLE")[1]
+  # aerospace resize --window-id $wid width 800
+  # aerospace resize --window-id $wid height 400
+
+  # This one kinda works, but not for kitty?
+  os.system('''
+osascript -e "
+   tell application \"System Events\"
+     set _app to name of first application process whose frontmost is true
+     tell process _app
+       set position of front window to {300, 200}
+       set size of front window to {1200, 800}
+     end tell
+   end tell"
+end
+''')
+
+
+if __name__ == '__main__':
+    win_id, win_ws = get_window_id(sys.argv[1])
+    if win_id is None:
+        start_app(sys.argv[2:])
+    elif win_ws == CURR_WS:  # Visible? -> Move to stash.
+        move_to_stash(win_id)
+    else:  # Invisible but exists? -> Move to front, focus.
+        focus_app(win_id)

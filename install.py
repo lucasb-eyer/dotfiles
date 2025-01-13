@@ -90,6 +90,7 @@ def main(mode):
         here_to_home('local/bin/e-cores')
         here_to_home('local/bin/reset-inputs')
     elif mode == 'mac':
+        here_to_home('config/aerospace/aerospace.toml')
         here_to_home('local/bin/aerospace_scratch')
 
     if not shutil.which('fish'):
