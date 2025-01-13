@@ -57,91 +57,54 @@ function prompt_centralblock -d "the central part with username, host, dir and t
     printf ']'
 end
 
-function _git_branch_name -d "returns the name of the current branch, or a commit hash if in detached head"
-    set -l branch (command git symbolic-ref --quiet --short HEAD)
-    if [ $status -gt 0 ]
-        set branch (git log -n 1 --pretty=%h HEAD)
-    end
-    printf $branch
-end
-
-function _git_has_staged_changes -d "returns 0 if there are staged changes, 1 if there aren't."
-    if command git diff-index --quiet --cached HEAD
-        return 1
-    else
-        return 0
-    end
-end
-
-function _git_has_unstaged_changes -d "returns 0 if there are unstaged changes, 1 if there aren't."
-    command git update-index -q --refresh
-    if command git diff-index --quiet HEAD
-        return 1
-    else
-        return 0
-    end
-end
-
-function _git_has_untracked_unignored_files -d "returns 0 if there are untracked (and not .gitignored) files, 1 if there aren't"
-    set -l nfiles (git ls-files --other --exclude-standard --error-unmatch . ^&- | wc -l)
-    if [ $nfiles -eq 0 ]
-        return 1
-    else
-        return 0
-    end
-end
-
-function _git_ahead -d "prints by how many commits we are ahead of remote ARG1"
-    printf (command git rev-list --count $argv[1]..HEAD)
-end
-
-function _git_behind -d "prints how many commits we are behind remote ARG1"
-    printf (command git rev-list --count HEAD..$argv[1])
-end
-
 function prompt_git -d "Display the current git state"
-    # Quickly leave if not in a git repo.
-    if not command git rev-parse --is-inside-work-tree >&- ^&-
-        return
+  set -l gitstatus (git status --porcelain=v2 -b --show-stash --ahead-behind -unormal 2>&-)
+
+  if test -z "$gitstatus"
+    return
+  end
+
+  # Is there a stash?
+  if string match -q -r '# stash (?<stash>.+)' $gitstatus
+    printf " %d" $stash
+  end
+
+  set -l branchfmt "(%s)"
+
+  # Is there any unresolved merge conflicts?
+  if string match -q -r '^u .*$' $gitstatus
+    set_color red
+    set -l branchfmt "❗%s❗"
+  # Is there any change that's staged? -> Orange
+  else if string match -q -r '^(1|2) [^.].*$' $gitstatus
+    set_color yellow
+  # Is there any unstaged changes?
+  else if string match -q -r '^(1|2) \.[^.].*' $gitstatus
+    set_color red
+  # Only untracked files, but no unchanged ones?
+  else if string match -q -r '^\? .*$' $gitstatus
+    set_color cyan
+  # Green means we got a clean slate:
+  else
+    set_color green
+  end
+
+  # Show branch name in parens
+  string match -q -r 'branch.head (?<branch>.+)' $gitstatus
+  printf $branchfmt $branch
+
+  # Get ahead/behind info into variables $a and $b:
+  if string match -q -r 'branch.ab \+(?<a>\\d+) -(?<b>\\d+)' $gitstatus
+    if [ $a != "0" -a $b != "0" ]
+      printf "↕+$a-$b"
+    else if [ $a != "0" ]
+      printf "↑$a"
+    else if [ $b != "0" ]
+      printf "↓$b"
     end
+  end
 
-    # Special case for the empty git repo.
-    if not command git rev-parse HEAD >&- ^&-
-        set_color red
-        printf "(empty)"
-        set_color normal
-        return
-    end
-
-    if _git_has_staged_changes
-        set_color yellow
-    else if _git_has_unstaged_changes
-        set_color red
-    else if _git_has_untracked_unignored_files
-        set_color cyan
-    else
-        set_color green
-    end
-
-    set -l branch (_git_branch_name)
-    printf "(%s)" $branch
-
-    # Find out which remote to use.
-    set -l remote (git config branch.$branch.remote)
-    if [ $remote ]
-        set -l ahead (_git_ahead $remote/$branch)
-        set -l behind (_git_behind $remote/$branch)
-
-        if [ $ahead -gt 0 -a $behind -gt 0 ]
-            printf "↕+$ahead-$behind"
-        else if [ $ahead -gt 0 ]
-            printf "↑$ahead"
-        else if [ $behind -gt 0 ]
-            printf "↓$behind"
-        end
-    end
-
-    set_color normal
+  set_color normal
 end
 
 function _two_last_names -a dir -d "print the last two components of a path"
@@ -225,8 +188,7 @@ function fish_prompt
     prompt_load
     prompt_virtualenv
     prompt_centralblock
-    # TODO: Update - currently broken
-    # prompt_git
+    prompt_git
 
     # Line 2
     echo
