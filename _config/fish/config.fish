@@ -13,7 +13,7 @@ end
 # Except that it doesn't seem to work and I'm tired of it, so just setting LANG here:
 set -xg LANG en_US.UTF-8
 
-alias startx="ssh-agent startx"
+abbr -a -- startx ssh-agent startx
 
 function add_unique_path -d 'Add an element to $PATH if it exists and is not already in there.'
     if begin; test -d $argv[1]; and not contains $argv[1] $PATH; end
@@ -41,6 +41,7 @@ end
 
 set -xg EDITOR nvim
 set -xg VISUAL nvim
+abbr -a -- vim nvim
 
 # Since I am building my own prompt, don't let virtualenv create one.
 # Also, most recently, activate.fish's prompt is broken fish code.
