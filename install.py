@@ -92,10 +92,6 @@ def main(mode):
     elif mode == 'mac':
         here_to_home('local/bin/aerospace_scratch')
 
-    # Reload some stuff
-    # TODO: update - currently hangs?
-    # if 'DISPLAY' in os.environ:
-    #     call(['xrdb', '-nocpp', '-merge', '~/.Xresources'], shell=True)
     if not shutil.which('fish'):
         print("WARNING: no fish installed?")
 
