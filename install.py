@@ -65,7 +65,9 @@ def main(mode='all'):
     here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
 
     # My util scripts
+    here_to_home('local/bin/imshow')
     here_to_home('local/bin/lightswitch')
+    here_to_home('local/bin/togif')
 
     if shutil.which('fish'):
         here_to_home('config/fish/solarized.fish')
@@ -86,6 +88,8 @@ def main(mode='all'):
         here_to_home('config/i3/config')
         here_to_home('config/i3status/config')
         here_to_home('config/xsettingsd/xsettingsd.conf')
+        here_to_home('local/bin/e-cores')
+        here_to_home('local/bin/reset-inputs')
     elif mode == 'mac':
         here_to_home('local/bin/aerospace_scratch')
 
