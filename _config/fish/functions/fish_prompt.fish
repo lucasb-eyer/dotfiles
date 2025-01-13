@@ -116,7 +116,7 @@ function prompt_virtualenv -d "display all currently active language environment
     # Python virtualenvs
     if [ $VIRTUAL_ENV ]
         set_color magenta
-        printf "(%s) " (_two_last_names $VIRTUAL_ENV)
+        printf "(%s) " (_two_last_names $VIRTUAL_ENV | sed 's:.virtualenvs/::')
         set_color normal
     end
 
@@ -168,6 +168,11 @@ function prompt_battery -d "shows whether the laptop battery is charging or disc
 end
 
 function prompt_load -d "shows the cpu load if it was relatively high in the past minute."
+    # For mac
+    if not [ -e /proc/loadavg ]
+        return
+    end
+
     set -l load1m (command cut -d ' ' -f 1 /proc/loadavg)
     set -l load1m100 (math $load1m \* 100 / 1)
     if [ $load1m100 -gt 200 ]
