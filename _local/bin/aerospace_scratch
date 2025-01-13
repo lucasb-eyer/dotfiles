@@ -1,0 +1,88 @@
+#!/usr/bin/env fish
+# Inspired by: (but completely rewritten)
+# https://github.com/nikitabobko/AeroSpace/issues/510#issuecomment-2439585933
+# Don't forget to run this once to allow dragging floats with cmd+ctrl:
+# defaults write -g NSWindowShouldDragOnGesture YES
+
+# set -euo pipefail
+
+function mylog
+  set -l now (python -c 'from datetime import datetime; print(datetime.now().strftime("%H:%M:%S.%f"), end="")')
+  echo $now $argv >>/tmp/foobar.txt
+  echo $now $argv
+end
+
+mylog $argv
+
+if test (count $argv) -lt 1
+  echo "Not enough arguments"
+  exit 1
+end
+
+set WIN_TITLE $argv[1]
+set OPEN_CMD $argv[2..-1]
+mylog "pre-list-ws"
+set CURR_WS (aerospace list-workspaces --focused)
+mylog "post-list-ws"
+
+function get_window_id --argument-names title
+  string split ' | ' (
+    aerospace list-windows --all --format '%{window-id} | %{workspace} | %{window-title}' \
+    | grep "$title"
+  )
+end
+
+function focus_app --argument-names win_id
+  aerospace move-node-to-workspace "$CURR_WS" --window-id $win_id
+  aerospace focus --window-id $win_id
+  aerospace layout floating
+end
+
+function move_to_stash --argument-names win_id
+  aerospace move-node-to-workspace STASH --window-id $win_id
+end
+
+function start_app
+  open -na $OPEN_CMD
+  sleep 0.5
+  # Now, let's move the window to the middle of the screen and resize it to ~80%
+
+  # 1. This way seems to not work with floating windows altogether:
+  # set -l wid (get_window_id "$WIN_TITLE")[1]
+  # aerospace resize --window-id $wid width 800
+  # aerospace resize --window-id $wid height 400
+
+  # This one kinda works, but not for kitty?
+  osascript -e "
+   tell application \"System Events\"
+     set _app to name of first application process whose frontmost is true
+     tell process _app
+       set position of front window to {300, 200}
+       set size of front window to {1200, 800}
+     end tell
+   end tell"
+end
+
+function main
+  mylog "pre-get-win-id"
+  set -l WIN_DATA (get_window_id "$WIN_TITLE")
+  mylog "post-get-win-id"
+  set -l WIN_ID $WIN_DATA[1]
+  set -l WIN_WS $WIN_DATA[2]
+
+  if test -z "$WIN_ID"  # No window ID -> is closed
+    mylog "Opening!"
+    start_app
+    mylog "Opening done!"
+  else if test "$WIN_WS" = "$CURR_WS"  # Visible? -> Move to stash.
+    mylog "Stashing!"
+    move_to_stash $WIN_ID
+    mylog "Stashing done!"
+  else
+    mylog "Recovering and focusing!"
+    focus_app $WIN_ID
+    mylog "Recovering and focusing done!"
+  end
+end
+
+main
