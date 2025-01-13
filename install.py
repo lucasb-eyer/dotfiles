@@ -51,7 +51,7 @@ def here_to_home(name, toname=None, symbolic=True):
     link_with_backup(here('_' + name), '~/.' + (toname if toname else name), symbolic=symbolic)
 
 
-def main(mode='all'):
+def main(mode):
     global backup
     backup = input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
 
@@ -99,4 +99,8 @@ def main(mode='all'):
     #     call(['xrdb', '-nocpp', '-merge', '~/.Xresources'], shell=True)
 
 if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        assert sys.argv[1] in ('server', 'linux', 'mac')
+    else:
+        print("Specify install mode: server, linux, mac")
     main(sys.argv[1])
