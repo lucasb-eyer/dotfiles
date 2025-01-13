@@ -15,20 +15,12 @@ function prompt_status -d "the symbols for exit status and background jobs"
     end
 
     # Time taken display (undocumented)
-    # Old fish versions (2.0.0 at work, Ubuntu 14.04!!) had a weird format:
-    switch "$FISH_VERSION"
-        case 2.1.2 2.1.1 2.1.0 2.0.0
-            if [ $CMD_DURATION ]  # Only set if more than 1s inside fish (https://github.com/fish-shell/fish-shell/commit/bcda3f1baa07576de45963722c4b3d8f9cb03ceb)
-                printf $CMD_DURATION" "
-            end
-        case '*'
-            # http://geraldkaszuba.com/tweaking-fish-shell/
-            if [ "$CMD_DURATION" -gt 999 ]
-                # Would be nice to use a time-related unicode symbol here, one of:
-                # http://stackoverflow.com/questions/5437674/what-utf-8-symbol-is-a-good-mark-of-time
-                # but oh, my current font doesn't have any :(
-                printf $CMD_DURATION"ms "
-            end
+    # http://geraldkaszuba.com/tweaking-fish-shell/
+    if [ "$CMD_DURATION" -gt 999 ]
+        # Would be nice to use a time-related unicode symbol here, one of:
+        # http://stackoverflow.com/questions/5437674/what-utf-8-symbol-is-a-good-mark-of-time
+        # but oh, my current font doesn't have any :(
+        printf $CMD_DURATION"ms "
     end
 
     # Jobs display
@@ -239,7 +231,6 @@ function fish_prompt
     # Line 2
     echo
     set_color blue
-    #printf '$ '
     printf "$c3>$c2<$c1($c0($c1($c2\"$c3> "
     set_color normal
 end
