@@ -61,8 +61,6 @@ def main(mode):
     here_to_home('pythonrc.py')
     here_to_home('config/nvim/init.lua')
     here_to_home('config/nvim/color')
-    here_to_home('config/kitty/kitty.conf')
-    here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
     here_to_home('config/fish/solarized.fish')
     here_to_home('config/fish/config.fish')
     here_to_home('config/fish/functions/fish_prompt.fish')
@@ -72,6 +70,10 @@ def main(mode):
     here_to_home('local/bin/lightswitch')
     here_to_home('local/bin/togif')
 
+    # Things for any desktop/laptop, but not server.
+    if mode != 'server':
+        here_to_home('config/kitty/kitty.conf')
+        here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
 
     if mode == 'linux':
         here_to_home('inputrc')
