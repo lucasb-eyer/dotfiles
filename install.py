@@ -95,6 +95,12 @@ def main(mode):
     if not shutil.which('fish'):
         print("WARNING: no fish installed?")
 
+    try:
+        import lb_secret
+        lb_secret.install(mode, here_to_home)
+    except ImportError:
+        pass
+
 if __name__ == '__main__':
     if len(sys.argv) == 2:
         assert sys.argv[1] in ('server', 'linux', 'mac')
