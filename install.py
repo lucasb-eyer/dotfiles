@@ -5,7 +5,7 @@ from subprocess import call
 import shutil
 import sys
 
-backup = True
+backup = False
 
 
 def _makedirs(dirs):
@@ -52,8 +52,9 @@ def here_to_home(name, toname=None, symbolic=True):
 
 
 def main(mode):
-    global backup
-    backup = input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
+    if mode != 'server':
+        global backup
+        backup = input('Delete existing files (no backs them up)? [y/N]: ') not in ('y', 'Y')
 
     # Things I install on all machines (lin/mac laptops, servers)
     here_to_home('tmux.conf')
