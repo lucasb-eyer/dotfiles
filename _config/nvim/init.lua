@@ -234,6 +234,8 @@ require("lazy").setup {
     { 'echasnovski/mini.diff', version = false, config = true, opts = { view = { style = "sign", signs = { add = '+', change = '▒', delete = '-' }, } } },
     { 'echasnovski/mini.surround', version = false, config = true },
 
+    { 'vim-scripts/CursorLineCurrentWindow' },
+
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
