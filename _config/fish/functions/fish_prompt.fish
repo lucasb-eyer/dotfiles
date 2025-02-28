@@ -102,6 +102,8 @@ function prompt_git -d "Display the current git state"
     else if [ $b != "0" ]
       printf "↓$b"
     end
+  else
+    printf '?'  # No ahead-behind, means no tracking upstream.
   end
 
   set_color normal
