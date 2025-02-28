@@ -232,6 +232,7 @@ require("lazy").setup {
     { 'echasnovski/mini.animate', version = false, opts = { cursor = { enable = false } } },
     { 'echasnovski/mini.cursorword', version = false, opts = { delay = 1000 } },
     { 'echasnovski/mini.diff', version = false, config = true, opts = { view = { style = "sign", signs = { add = '+', change = '▒', delete = '-' }, } } },
+    { 'echasnovski/mini.surround', version = false, config = true },
 
   },
   -- Configure any other settings here. See the documentation for more details.
