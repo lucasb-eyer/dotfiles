@@ -100,3 +100,7 @@ function fish_user_key_bindings
   bind \e\[7~ beginning-of-line
   bind \e\[8~ end-of-line
 end
+
+# Some aliases for commands I frequently use.
+abbr -a -- glo "git log --oneline origin/master.."
+abbr -a -- gsl 'git log -g --pretty="%C(yellow)%gd %C(blue)%ci%C(reset) %s" refs/stash'
