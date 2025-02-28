@@ -171,6 +171,20 @@ require("lazy").setup {
         reload()
 
         vim.cmd.colorscheme 'solarized'
+
+        vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { link = "DiffAdd", bold = true })
+        vim.api.nvim_set_hl(0, "MiniDiffSignChange", { link = "DiffChange", bold = true })
+        vim.api.nvim_set_hl(0, "MiniDiffSignDelete", { link = "DiffDelete", bold = true })
+        local curr = vim.api.nvim_get_hl_by_name("DiffChange", true)
+        curr.bold = true
+        vim.api.nvim_set_hl(0, "MiniDiffSignChange", curr)
+        local curr = vim.api.nvim_get_hl_by_name("DiffDelete", true)
+        curr.bold = true
+        vim.api.nvim_set_hl(0, "MiniDiffSignDelete", curr)
+        local curr = vim.api.nvim_get_hl_by_name("DiffAdd", true)
+        curr.bold = true
+        vim.api.nvim_set_hl(0, "MiniDiffSignAdd", curr)
+
       end,
     },
     -- Almost! But import is white+bold, why!? Pretty numbers in violet though.
@@ -217,6 +231,7 @@ require("lazy").setup {
     { 'echasnovski/mini.ai', version = false, config = true },
     { 'echasnovski/mini.animate', version = false, opts = { cursor = { enable = false } } },
     { 'echasnovski/mini.cursorword', version = false, opts = { delay = 1000 } },
+    { 'echasnovski/mini.diff', version = false, config = true, opts = { view = { style = "sign", signs = { add = '+', change = '▒', delete = '-' }, } } },
 
   },
   -- Configure any other settings here. See the documentation for more details.
