@@ -5,7 +5,9 @@
 # Don't forget to run this once to allow dragging floats with cmd+ctrl:
 #   defaults write -g NSWindowShouldDragOnGesture YES
 
+import json
 import os
+import re
 import sys
 import time
 
@@ -19,7 +21,7 @@ CURR_WS = exc('aerospace list-workspaces --focused')
 def get_window_id(title):
     ret = exc('aerospace list-windows --all --format "%{window-id} | %{workspace} | %{window-title}"')
     for line in ret.splitlines():
-        wid, ws, wtitle = line.split(' | ')
+        wid, ws, wtitle = line.split(' | ', maxsplit=2)
         if title in wtitle:
             return wid, ws
     return None, None
@@ -36,35 +38,49 @@ def move_to_stash(win_id):
 
 
 def start_app(open_cmd):
-  os.system(f'open -na {open_cmd}')
-  time.sleep(0.5)
+    os.system(f'open -na {open_cmd}')
 
-  # Now, let's move the window to the middle of the screen and resize it to ~80%
 
-  # 1. This way seems to not work with floating windows altogether:
-  # set -l wid (get_window_id "$WIN_TITLE")[1]
-  # aerospace resize --window-id $wid width 800
-  # aerospace resize --window-id $wid height 400
+def get_display_size():
+    monitor_name = json.loads(exc("aerospace list-monitors --json --focused"))[0]["monitor-name"]
+    ret = json.loads(exc("system_profiler SPDisplaysDataType -json"))
+    for bus in ret["SPDisplaysDataType"]:
+        for display in bus["spdisplays_ndrvs"]:
+            if display["_name"] == monitor_name:
+                # The string is something like "1710 x 1107 @ 60.00Hz"
+                if reg := re.match(r"(\d+) x (\d+).*", display["_spdisplays_resolution"]):
+                    return [int(s) for s in reg.groups()]
+    print("No res found, falling back")
+    return 3420 // 2, 2214 // 2
 
-  # This one kinda works, but not for kitty?
-  os.system('''
-osascript -e "
-   tell application \"System Events\"
-     set _app to name of first application process whose frontmost is true
-     tell process _app
-       set position of front window to {300, 200}
-       set size of front window to {1200, 800}
-     end tell
-   end tell"
-end
-''')
+
+def center_frontmost():
+    # it seems using only 'first window' or 'last window' (or 'front window') is not enough
+    # for some applications like Brave, Obsidian that have multiple windows and using both
+    # windows is necessary to centralize the focused window
+    # TODO: Determine resolution of the screen automatically.
+    sw, sh = get_display_size()
+    w, h = sw * 3 // 4, sh * 3 // 4
+    x, y = (sw - w) // 2, (sh - h) // 2
+    cmd = f'''
+osascript -e '
+tell application "System Events" to tell first application process whose frontmost is true
+  set position of first window to {{{x}, {y}}}
+  set position of last window to {{{x}, {y}}}
+  set size of first window to {{{w}, {h}}}
+  set size of last window to {{{w}, {h}}}
+end tell'
+'''
+    os.system(cmd)
 
 
 if __name__ == '__main__':
     win_id, win_ws = get_window_id(sys.argv[1])
     if win_id is None:
-        start_app(sys.argv[2:])
+        start_app(' '.join(sys.argv[2:]))
+        center_frontmost()
     elif win_ws == CURR_WS:  # Visible? -> Move to stash.
         move_to_stash(win_id)
     else:  # Invisible but exists? -> Move to front, focus.
         focus_app(win_id)
+        center_frontmost()
