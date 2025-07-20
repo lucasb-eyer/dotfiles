@@ -172,8 +172,8 @@ bindsym $mod+Shift+r restart
 mode "exit: [s]uspend, [o]ff, [l]ogout, [r]eboot" {
   bindsym l exec i3-msg exit
   bindsym r exec systemctl reboot
-  bindsym s exec systemctl suspend
-  bindsym o exec systemctl shutdown
+  bindsym s exec systemctl suspend; mode "default"
+  bindsym o exec systemctl poweroff
   bindsym Escape mode "default"
   bindsym Return mode "default"
 }
