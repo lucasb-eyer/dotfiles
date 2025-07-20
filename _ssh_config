@@ -18,3 +18,4 @@ host runpod*
     User root
     IdentityFile ~/.ssh/runpod
     ForwardAgent yes
+    StrictHostKeyChecking no   # warn but don’t abort
