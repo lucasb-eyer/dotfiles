@@ -65,6 +65,7 @@ def main(mode):
     here_to_home('config/fish/solarized.fish')
     here_to_home('config/fish/config.fish')
     here_to_home('config/fish/functions/fish_prompt.fish')
+    here_to_home('config/rofi/theme')
 
     # My util scripts
     here_to_home('local/bin/imshow')

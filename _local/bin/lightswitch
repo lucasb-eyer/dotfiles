@@ -31,8 +31,12 @@ xrdb -merge ~/.Xresources.colors
 # Vim
 echo "set background=$nextbg" > ~/.config/nvim/color
 
-# Rofi
-# echo "solarized-$nextbg" > ~/.config/rofi/theme
+# Rofi (TODO: choose/create the themes)
+if [ $nextbg = dark ]; then
+  echo "-theme solarized_alternate" > ~/.config/rofi/theme
+else
+  echo "" > ~/.config/rofi/theme
+fi
 
 # For triggering dark themes in GTK apps. Requires `gnome-themes-extra` to be
 # installed (for adwaita-dark). This is primarily for FF/Chrome.
