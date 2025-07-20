@@ -62,6 +62,9 @@ bindsym $mod+r exec "rofi -combi-modes drun,ssh,window,run -show combi -modes co
 bindsym $mod+XF86MonBrightnessDown exec --no-startup-id lightswitch dark
 bindsym $mod+XF86MonBrightnessUp exec --no-startup-id lightswitch light
 
+# lock the screen (TODO: auto-mute and un-mute after?)
+bindsym $mod+Ctrl+l exec xsecurelock
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
