@@ -125,6 +125,9 @@ bindsym $mod+d focus child
 # pin the focussed window to all workspaces
 bindsym $mod+p sticky toggle
 
+# cycle the workspace through screens/monitors.
+bindsym $mod+s move workspace to output next
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1🏢"
@@ -261,3 +264,16 @@ for_window [class="Display-im6.q16"] floating enable, move position center
 # client.focused_inactive #002b36 #073642 #839496 #073642
 # client.unfocused        #002b36 #073642 #839496 #073642
 # client.urgent           #002b36 #dc322f #fdf6e3 #002b36
+
+# For the rare occasion I have multi-screen, put all workspaces on the external one first, internal one only as backup.
+workspace $ws1 output HDMI-1 eDP-1
+workspace $ws2 output HDMI-1 eDP-1
+workspace $ws3 output HDMI-1 eDP-1
+workspace $ws4 output HDMI-1 eDP-1
+workspace $ws5 output HDMI-1 eDP-1
+workspace $ws6 output HDMI-1 eDP-1
+workspace $ws7 output HDMI-1 eDP-1
+workspace $ws8 output HDMI-1 eDP-1
+# In dual-screen we need at least one on the laptop by default, else the #2 goes there. Put my least used one there.
+workspace $ws9 output eDP-1 HDMI-1
+workspace $ws10 output HDMI-1 eDP-1
