@@ -72,6 +72,7 @@ def main(mode):
     here_to_home('urxvt_ext_52-osc', 'urxvt/ext/52-osc')
 
     # My util scripts
+    here_to_home('local/bin/colortest')
     here_to_home('local/bin/e-cores')
     here_to_home('local/bin/imshow')
     here_to_home('local/bin/lightswitch')
