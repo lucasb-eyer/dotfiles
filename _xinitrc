@@ -43,4 +43,18 @@ export XSECURELOCK_IMAGE_DURATION_SECONDS=15
 export XSECURELOCK_PASSWORD_PROMPT=disco
 export XSECURELOCK_FONT="DejaVu Sans"
 
+# external monitor
+# xrandr --output HDMI-1 --auto --primary \
+#        --output eDP-1 --auto --left-of HDMI-1
+# The above didn't work for my broken laptop, so /etc/X11/xorg.conf.d/10-monitor.conf:
+# Section "Monitor"
+#   Identifier "eDP-1"
+#   Option "Ignore" "true"
+# EndSection
+#
+# Section "Monitor"
+#   Identifier "HDMI-1"
+#   Option "Primary" "true"
+# EndSection
+
 exec /usr/bin/i3
