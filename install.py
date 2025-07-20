@@ -74,6 +74,7 @@ def main(mode):
     here_to_home('local/bin/imshow')
     here_to_home('local/bin/lightswitch')
     here_to_home('local/bin/togif')
+    here_to_home('local/bin/unthrottle')
 
     # Things for any desktop/laptop, but not server.
     if mode != 'server':

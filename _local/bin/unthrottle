@@ -1,0 +1,7 @@
+#!/bin/bash
+# Disable BD PROCHOT signal on ThinkPads to prevent throttling the CPU to min. freq.
+sudo modprobe msr
+reg="$(sudo rdmsr -d 0x1FC)"         # commands rdmsr and wrmsr provided by msr-tools on Arch
+if [ $((reg%2)) -eq 1 ]; then   # basically reg & 0xFFFE
+	sudo wrmsr 0x1FC $((reg-1))
+fi
