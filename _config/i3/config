@@ -102,9 +102,9 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+e layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+s layout toggle split
+# bindsym $mod+e layout stacking
+bindsym $mod+comma layout tabbed
+bindsym $mod+slash layout toggle split
 
 # Move all leaves to root (fix messy layout "undo")
 # bindsym $mod+u [tiling workspace="__focused__"] move workspace "__reorder__"; [workspace="__reorder__"] move workspace current
@@ -120,7 +120,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+d focus child
 
 # pin the focussed window to all workspaces
 bindsym $mod+p sticky toggle
