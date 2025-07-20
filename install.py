@@ -67,6 +67,7 @@ def main(mode):
     here_to_home('config/fish/functions/fish_prompt.fish')
     here_to_home('config/i3/config')
     here_to_home('config/i3status/config')
+    here_to_home('config/dunst/dunstrc')
     here_to_home('config/rofi/theme')
 
     # My util scripts

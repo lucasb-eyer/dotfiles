@@ -1,0 +1,4 @@
+# See /etc/dunst/dunstrc for all configs and their defaults.
+[global]
+  icon_theme = "Tela-circle, hicolor"
+  enable_recursive_icon_lookup = true
