@@ -71,8 +71,10 @@ def main(mode):
     here_to_home('config/rofi/theme')
 
     # My util scripts
+    here_to_home('local/bin/e-cores')
     here_to_home('local/bin/imshow')
     here_to_home('local/bin/lightswitch')
+    here_to_home('local/bin/reset-inputs')
     here_to_home('local/bin/togif')
     here_to_home('local/bin/unthrottle')
 
