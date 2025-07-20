@@ -69,6 +69,7 @@ def main(mode):
     here_to_home('config/i3status/config')
     here_to_home('config/dunst/dunstrc')
     here_to_home('config/rofi/theme')
+    here_to_home('urxvt_ext_52-osc', 'urxvt/ext/52-osc')
 
     # My util scripts
     here_to_home('local/bin/e-cores')
