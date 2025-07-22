@@ -74,6 +74,13 @@ def main(mode):
     here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
     here_to_home('urxvt_ext_52-osc', 'urxvt/ext/52-osc')
 
+    if mode == 'linux-wayland':
+        here_to_home('config/sway/config')
+        here_to_home('config/sway/colors', 'config/i3/colors')
+        here_to_home('local/share/applications/chrome-wayland.desktop')
+    elif mode == 'linux':
+        here_to_home('config/i3/colors')
+
     # My util scripts
     here_to_home('local/bin/colortest')
     here_to_home('local/bin/e-cores')
@@ -88,7 +95,7 @@ def main(mode):
         here_to_home('config/kitty/kitty.conf')
         here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
 
-    if mode == 'linux':
+    if 'linux' in mode:
         here_to_home('inputrc')
         here_to_home('Xresources')
         here_to_home('Xresources.solarized-dark')
@@ -117,7 +124,7 @@ def main(mode):
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:
-        assert sys.argv[1] in ('server', 'linux', 'mac')
+        assert sys.argv[1] in ('server', 'linux', 'linux-wayland', 'mac')
+        main(sys.argv[1])
     else:
-        print("Specify install mode: server, linux, mac")
-    main(sys.argv[1])
+        print("Specify install mode: server, linux, linux-wayland, mac")

@@ -1,0 +1,39 @@
+input "type:keyboard" {
+    xkb_layout us
+    xkb_variant altgr-intl
+    xkb_options ctrl:nocaps,ctrl:swap_lalt_lctl
+}
+
+# Touchpad, but TODO: Find out if it's really this.
+input type:touchpad {
+    left_handed enabled
+    tap enabled
+    tap_button_map lmr  # 1 finger=left, 2=middle, 3=right
+    drag enabled  # Tap and drag.
+    natural_scroll enabled
+    dwt enabled  # Disable while typing.
+    dwtp enabled  # Disable while using trackpoint.
+    accel_profile "flat"  # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
+    pointer_accel 0.5  # set mouse sensitivity (between -1 and 1)
+}
+
+# TODO: background image?
+output * bg #333333 solid_color
+
+# In wayland, to persist clipboard, we need a manager like clipman.
+exec --no-startup-id wl-paste -t text --watch clipman store --no-persist
+
+# Notifications control center.
+exec --no-startup-id swaync
+
+include ~/.config/i3/config
+include /etc/sway/config.d/*
+
+bindsym XF86SelectiveScreenshot exec --no-startup-id flameshot gui -c
+
+# Notifications control center toggle.
+bindcode 455 exec swaync-client -t -sw
+
+# Re-center it, and in sway, need to set half the size.
+# TODO: might not actually overwrite the one from i3 config.
+# for_window [title="Lucas scratchpad"] resize set 720 450, move position center

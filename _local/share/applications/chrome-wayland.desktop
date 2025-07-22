@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Google Chrome (Wayland, WChrome)
+Exec=/usr/bin/google-chrome-stable %U -enable-features=UseOzonePlatform -ozone-platform=wayland
+Terminal=false
+Icon=google-chrome
+Type=Application
