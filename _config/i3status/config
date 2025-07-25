@@ -36,13 +36,13 @@ ethernet _first_ {
 battery 0 {
   format = "%status%percentage %remaining (%emptytime %consumption)"
   format_down = "No battery"
-  status_bat = "↓"
-  status_chr = "↑"
-  status_full = "="
-  # status_chr = "⚡"
-  # status_bat = "🔋"
-  # status_unk = "?"
-  # status_full = "☻"
+  # status_bat = "↓"
+  # status_chr = "↑"
+  # status_full = "="
+  status_chr = "⚡"
+  status_bat = "🔋"
+  status_full = "☻"
+  status_unk = "?"
   path = "/sys/class/power_supply/BAT%d/uevent"
   low_threshold = 25
   threshold_type = "time"
@@ -55,7 +55,7 @@ load {
 
 cpu_temperature 0 {
   format = "T: %degrees°C"
-  path = "/sys/devices/platform/coretemp.0/hwmon/hwmon7/temp1_input"
+  path = "/sys/devices/platform/coretemp.0/hwmon/hwmon8/temp1_input"
   max_threshold = 85
 }
 
@@ -77,7 +77,7 @@ tztime local {
 volume master {
   format = "♪: %volume"
   format_muted = "♪: muted (%volume)"
-  device = "pulse:1"
+  device = "default"
 }
 
 read_file empty {
