@@ -54,6 +54,10 @@ set -xg VIRTUAL_ENV_DISABLE_PROMPT 1
 # Fix java rendering in non-reparenting WMs like awesomewm
 set -xg _JAVA_AWT_WM_NONREPARENTING 1
 
+# Not quite the right place, but in Wayland, make electron-apps look good:
+set -xg ELECTRON_OZONE_PLATFORM_HINT auto
+set -xg GDK_BACKEND wayland
+
 # Add custom stuff to the path
 add_unique_path ~/.local/bin
 
