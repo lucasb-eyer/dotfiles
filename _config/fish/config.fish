@@ -58,6 +58,8 @@ set -xg _JAVA_AWT_WM_NONREPARENTING 1
 set -xg ELECTRON_OZONE_PLATFORM_HINT auto
 set -xg GDK_BACKEND wayland
 
+add_unique_path /usr/libexec
+
 # Add custom stuff to the path
 add_unique_path ~/.local/bin
 
