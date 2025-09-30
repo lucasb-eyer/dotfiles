@@ -169,15 +169,15 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+r reload
 
 # For exiting, require two keys to avoid fat-finger:
-mode "exit: [s]uspend, [o]ff, [l]ogout, [r]eboot" {
-  bindsym l exec i3-msg exit; exec swaymsg exit
+mode "exit: [s]uspend, [o]ff, lo[g]out, [r]eboot" {
+  bindsym g exec i3-msg exit; exec swaymsg exit
   bindsym r exec systemctl reboot
   bindsym s exec systemctl suspend; mode "default"
   bindsym o exec systemctl poweroff
   bindsym Escape mode "default"
   bindsym Return mode "default"
 }
-bindsym $mod+x mode "exit: [s]uspend, [o]ff, [l]ogout, [r]eboot" 
+bindsym $mod+x mode "exit: [s]uspend, [o]ff, lo[g]out, [r]eboot"
 
 # resize window (you can also use the mouse for that)
 # mode "resize" {
@@ -232,15 +232,32 @@ exec --no-startup-id nm-applet
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 
-# Scratchpad calculator.
+# Scratchpads:
+
+# Esc: ipython
 for_window [title="Lucas scratchpad"] floating enable, border pixel 5, resize set 1440 900, move position center, move scratchpad
-bindsym $mod+Escape [title="Lucas scratchpad"] scratchpad show, move position center
+bindsym $mod+Escape [title="Lucas scratchpad"] scratchpad show, resize set 76 ppt 76 ppt, move position center
 exec --no-startup-id kitty --title "Lucas scratchpad" ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner=''
+
+# F2: ChatGPT
+for_window [app_id="chrome-chatgpt.com__-Default"] floating enable, border pixel 5, move scratchpad
+bindsym $mod+XF86AudioLowerVolume [app_id="chrome-chatgpt.com__-Default"] scratchpad show, resize set 76 ppt 76 ppt, move position center
+exec --no-startup-id google-chrome-stable -enable-features=UseOzonePlatform -ozone-platform=wayland --app='https://chatgpt.com'
 
 # Here's more scratchpad ideas: https://www.reddit.com/r/i3wm/comments/d27jkn/reloading_i3_with_marked_windows_in_scratchpad/
 
 # Make matplotlib's window floating
 for_window [class="Display-im6.q16"] floating enable, move position center
+
+# Generated windows.
+for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable;
+for_window [title="(?:Open|Save) (?:File|Folder|As)"] resize set 800 600
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
 
 ## Solarized
 # # colorclass            border  bg      text    indicator

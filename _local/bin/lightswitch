@@ -49,11 +49,13 @@ fi
 # Reload
 
 # Update Gtk apps. Potentially need to start xsettingsd if the first time:
-if systemctl --user is-active --quiet xsettingsd; then
-  killall -HUP xsettingsd  # Already running? Send signal to reload.
-else
-  systemctl --user start xsettingsd  # Not yet running? Start.
-fi
+# if systemctl --user is-active --quiet xsettingsd; then
+#   killall -HUP xsettingsd  # Already running? Send signal to reload.
+# else
+#   systemctl --user start xsettingsd  # Not yet running? Start.
+# fi
+gsettings set org.gnome.desktop.interface color-scheme prefer-$nextbg
+gsettings set org.gnome.desktop.interface gtk-theme Adwaita-$nextbg
 
 # Update i3
 # i3-msg reload
