@@ -121,6 +121,11 @@ function prompt_virtualenv -d "display all currently active language environment
         printf "(%s) " (_two_last_names $VIRTUAL_ENV | sed 's:.virtualenvs/::')
         set_color normal
     end
+    if [ $CONDA_PREFIX ]
+        set_color magenta
+        printf "(%s) " (_two_last_names $CONDA_PREFIX)
+        set_color normal
+    end
 
     # Node.js virtualenvs (created through nodeenv from pypi)
     if [ $NODE_VIRTUAL_ENV ]
