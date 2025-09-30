@@ -207,11 +207,6 @@ require("lazy").setup {
       -- automatically update the parsers with every new release of treesitter
       build = ":TSUpdate",
 
-      -- since treesitter's setup call is `require("nvim-treesitter.configs").setup`,
-      -- instead of `require("nvim-treesitter").setup` like other plugins do, we
-      -- need to tell lazy.nvim which module to via the `main` key
-      main = "nvim-treesitter.configs",
-
       opts = {
         highlight = { enable = true }, -- enable treesitter syntax highlighting
         indent = { enable = true }, -- better indentation behavior
@@ -222,6 +217,10 @@ require("lazy").setup {
           "python",
         },
       },
+      config = function(_, opts)
+        require("nvim-treesitter.install").prefer_git = true
+        require("nvim-treesitter.configs").setup(opts)
+      end,
     },
 
     -- Many cool plugins from mini!
