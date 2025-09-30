@@ -43,7 +43,9 @@ set -xg EDITOR nvim
 set -xg VISUAL nvim
 abbr -a -- vim nvim
 
-set -xg TERMINAL (which kitty) -1
+if type -q kitty
+  set -xg TERMINAL (which kitty) -1
+end
 
 # Since I am building my own prompt, don't let virtualenv create one.
 # Also, most recently, activate.fish's prompt is broken fish code.
