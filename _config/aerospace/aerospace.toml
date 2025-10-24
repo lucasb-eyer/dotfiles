@@ -19,7 +19,7 @@ run = ['layout floating']
 [mode.main.binding]
 
 ctrl-enter = 'exec-and-forget open -na /Applications/kitty.app --args -1'
-ctrl-shift-enter = 'exec-and-forget open -na "Google Chrome" --args --new-window "https://go/ask"'
+cmd-enter = 'exec-and-forget open -na /Applications/kitty.app --args -1'
 
 ctrl-f1 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-JUPYTER /Applications/kitty.app --args -T LB-SCRATCH-JUPYTER --instance-group scratch -o hide_window_decorations=titlebar-only jupyter console --ZMQTerminalInteractiveShell.banner='
 ctrl-f2 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-CHAT "Google Chrome" --args --new-window --window-name="LB-SCRATCH-CHAT" "https://chat.com/?sidebar=0"'
