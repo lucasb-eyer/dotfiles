@@ -227,11 +227,11 @@ require("lazy").setup {
     -------------------------------
 
     -- More "a"round/"i"n targets, like "n"ext and "p"rev.
-    { 'echasnovski/mini.ai', version = false, config = true },
-    { 'echasnovski/mini.animate', version = false, opts = { cursor = { enable = false } } },
-    { 'echasnovski/mini.cursorword', version = false, opts = { delay = 1000 } },
-    { 'echasnovski/mini.diff', version = false, config = true, opts = { view = { style = "sign", signs = { add = '+', change = '▒', delete = '-' }, } } },
-    { 'echasnovski/mini.surround', version = false, config = true },
+    { 'nvim-mini/mini.ai', version = false, config = true },
+    -- { 'nvim-mini/mini.animate', version = false, opts = { cursor = { enable = false } } },
+    { 'nvim-mini/mini.cursorword', version = false, opts = { delay = 1000 } },
+    { 'nvim-mini/mini.diff', version = false, config = true, opts = { view = { style = "sign", signs = { add = '+', change = '▒', delete = '-' }, } } },
+    { 'nvim-mini/mini.surround', version = false, config = true },
 
     { 'vim-scripts/CursorLineCurrentWindow' },
 
