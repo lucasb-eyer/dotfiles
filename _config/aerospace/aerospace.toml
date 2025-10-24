@@ -24,27 +24,27 @@ ctrl-shift-enter = 'exec-and-forget open -na "Google Chrome" --args --new-window
 ctrl-f1 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-JUPYTER /Applications/kitty.app --args -T LB-SCRATCH-JUPYTER --instance-group scratch -o hide_window_decorations=titlebar-only jupyter console --ZMQTerminalInteractiveShell.banner='
 ctrl-f2 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-CHAT "Google Chrome" --args --new-window --window-name="LB-SCRATCH-CHAT" "https://chat.com/?sidebar=0"'
 
-ctrl-1 = 'summon-workspace 1'
-ctrl-2 = 'summon-workspace 2'
-ctrl-3 = 'summon-workspace 3'
-ctrl-4 = 'summon-workspace 4'
-ctrl-5 = 'summon-workspace 5'
-ctrl-6 = 'summon-workspace 6'
-ctrl-7 = 'summon-workspace 7'
-ctrl-8 = 'summon-workspace 8'
-ctrl-9 = 'summon-workspace 9'
-ctrl-0 = 'summon-workspace 0'
+cmd-1 = 'summon-workspace 1'
+cmd-2 = 'summon-workspace 2'
+cmd-3 = 'summon-workspace 3'
+cmd-4 = 'summon-workspace 4'
+cmd-5 = 'summon-workspace 5'
+cmd-6 = 'summon-workspace 6'
+cmd-7 = 'summon-workspace 7'
+cmd-8 = 'summon-workspace 8'
+cmd-9 = 'summon-workspace 9'
+cmd-0 = 'summon-workspace 0'
 
-ctrl-shift-1 = ['move-node-to-workspace 1', 'summon-workspace 1']
-ctrl-shift-2 = ['move-node-to-workspace 2', 'summon-workspace 2']
-ctrl-shift-3 = ['move-node-to-workspace 3', 'summon-workspace 3']
-ctrl-shift-4 = ['move-node-to-workspace 4', 'summon-workspace 4']
-ctrl-shift-5 = ['move-node-to-workspace 5', 'summon-workspace 5']
-ctrl-shift-6 = ['move-node-to-workspace 6', 'summon-workspace 6']
-ctrl-shift-7 = ['move-node-to-workspace 7', 'summon-workspace 7']
-ctrl-shift-8 = ['move-node-to-workspace 8', 'summon-workspace 8']
-ctrl-shift-9 = ['move-node-to-workspace 9', 'summon-workspace 9']
-ctrl-shift-0 = ['move-node-to-workspace 0', 'summon-workspace 0']
+cmd-shift-1 = ['move-node-to-workspace 1', 'summon-workspace 1']
+cmd-shift-2 = ['move-node-to-workspace 2', 'summon-workspace 2']
+cmd-shift-3 = ['move-node-to-workspace 3', 'summon-workspace 3']
+cmd-shift-4 = ['move-node-to-workspace 4', 'summon-workspace 4']
+cmd-shift-5 = ['move-node-to-workspace 5', 'summon-workspace 5']
+cmd-shift-6 = ['move-node-to-workspace 6', 'summon-workspace 6']
+cmd-shift-7 = ['move-node-to-workspace 7', 'summon-workspace 7']
+cmd-shift-8 = ['move-node-to-workspace 8', 'summon-workspace 8']
+cmd-shift-9 = ['move-node-to-workspace 9', 'summon-workspace 9']
+cmd-shift-0 = ['move-node-to-workspace 0', 'summon-workspace 0']
 
 ctrl-slash = 'layout tiles horizontal vertical'
 ctrl-comma = 'layout accordion horizontal vertical'
