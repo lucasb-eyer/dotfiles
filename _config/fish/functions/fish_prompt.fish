@@ -89,17 +89,19 @@ function prompt_git -d "Display the current git state"
     set_color green
   end
 
+  # NOTE: For fish < 4, the capture to variable used below won't work.
+
   # Show branch name in parens
   string match -q -r 'branch.head (?<branch>.+)' $gitstatus
-  printf $branchfmt $branch
+  printf $branchfmt "$branch"
 
   # Get ahead/behind info into variables $a and $b:
   if string match -q -r 'branch.ab \+(?<a>\\d+) -(?<b>\\d+)' $gitstatus
-    if [ $a != "0" -a $b != "0" ]
+    if [ "$a" != "0" -a "$b" != "0" ]
       printf "↕+$a-$b"
-    else if [ $a != "0" ]
+    else if [ "$a" != "0" ]
       printf "↑$a"
-    else if [ $b != "0" ]
+    else if [ "$b" != "0" ]
       printf "↓$b"
     end
   else
