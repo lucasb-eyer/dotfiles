@@ -21,8 +21,8 @@ run = ['layout floating']
 ctrl-enter = 'exec-and-forget open -na /Applications/kitty.app --args -1'
 cmd-enter = 'exec-and-forget open -na /Applications/kitty.app --args -1'
 
-ctrl-f1 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-JUPYTER /Applications/kitty.app --args -T LB-SCRATCH-JUPYTER --instance-group scratch -o hide_window_decorations=titlebar-only jupyter console --ZMQTerminalInteractiveShell.banner='
-ctrl-f2 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-CHAT "Google Chrome" --args --new-window --window-name="LB-SCRATCH-CHAT" "https://chat.com/?sidebar=0"'
+cmd-f1 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-JUPYTER RECENTER /Applications/kitty.app --args -T LB-SCRATCH-JUPYTER --instance-group scratch -o hide_window_decorations=titlebar-only ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner='
+cmd-f2 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-LBQQ NOCENTER /Users/lb/sci-env/bin/lbqq --id LB-SCRATCH-LBQQ --title LB-SCRATCH-LBQQ --url https://chatgpt.com/g/g-p-68eb6162e0448191b758e04935fbf660-qqs/project'
 
 cmd-1 = 'summon-workspace 1'
 cmd-2 = 'summon-workspace 2'
