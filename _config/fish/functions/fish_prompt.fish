@@ -42,7 +42,7 @@ function prompt_centralblock -d "the central part with username, host, dir and t
     set_color normal
     printf '@'
     set_color blue
-    printf '%s' (hostname|cut -d . -f 1)
+    printf '%s' (uname -n|cut -d . -f 1)
     if [ -n "$SSH_CONNECTION" ]
         printf "$c0(ssh)"
     end
