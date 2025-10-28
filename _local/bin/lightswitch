@@ -5,11 +5,12 @@
 if [ -n "$1" ]; then
   nextbg=$1
 else  # Switch to the opposite of current mode:
-  if [ "$(readlink ~/.Xresources.colors)" = ".Xresources.solarized-light" ]; then
-    nextbg=dark
-  else
-    nextbg=light
-  fi
+  current_link="$(readlink "$HOME/.config/waybar/style.css" 2>/dev/null)"
+  case "$current_link" in
+    *style-light.css) nextbg=dark ;;
+    *style-dark.css) nextbg=light ;;
+    *) nextbg=dark ;;
+  esac
 fi
 
 # if [ -n "$1" ] && [ "$1" != "$nextbg" ]; then
@@ -19,14 +20,9 @@ fi
 #   exit 0
 # fi
 
-# Update color files
-
-# i3 and other applications that use X resources. The symlink is used to load
-# the correct color scheme on startup (.Xresources includes .Xresources.colors
-# via #include .Xresources.colors)
-ln -sf ".Xresources.solarized-$nextbg" ~/.Xresources.colors
-# Overwrite color configuration
-xrdb -merge ~/.Xresources.colors
+# Waybar theme
+ln -sf "$HOME/.config/waybar/style-$nextbg.css" "$HOME/.config/waybar/style.css"
+pkill -USR2 waybar 2>/dev/null || true
 
 # Vim
 echo "set background=$nextbg" > ~/.config/nvim/color
@@ -57,8 +53,6 @@ fi
 gsettings set org.gnome.desktop.interface color-scheme prefer-$nextbg
 gsettings set org.gnome.desktop.interface gtk-theme Adwaita-$nextbg
 
-# Update i3
-# i3-msg reload
 # Update terminal emulator
 kitty +kitten themes --reload-in=all "Solarized $(echo $nextbg | sed 's/dark/Dark Lucas/' | sed 's/light/Light/')"
 # NeoVim watches the color file and reloads itself.

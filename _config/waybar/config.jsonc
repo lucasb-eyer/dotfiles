@@ -1,0 +1,124 @@
+{
+  "layer": "top",
+  "position": "bottom",
+
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-right": [
+    "load",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery",
+    "backlight",
+    "pulseaudio",
+    "clock",
+    "systemd-failed-units",
+    "tray"
+  ],
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "format": "{name}",
+    "format-icons": {
+      "urgent": "",
+      "focused": "",
+      "default": ""
+    }
+  },
+
+  "load": {
+    "interval": 5,
+    "format": " {load15}",
+    "tooltip": "load: {load1} {load5} {load15}"
+  },
+
+  "cpu": {
+    "format": " {usage}%"
+  },
+
+  "memory": {
+    "interval": 5,
+    "format": " {used:0.1f}GiB",
+    "tooltip-format": "Memory\nUsed: {used:0.1f} GiB\nAvailable: {avail:0.1f} GiB\nTotal: {total:0.1f} GiB"
+  },
+
+  "temperature": {
+    "critical-threshold": 85,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": ["", "", ""]
+  },
+
+  "battery": {
+    "format": "{icon} {capacity}%  {power}W",
+    "format-charging": " {capacity}%  {power}W",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "tooltip-format": "{timeTo}\nCharge: {capacity}%\nPower: {power} Watt\nHealth: {health}%\nCycles seen: {cycles}"
+  },
+
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{icon} {percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "tooltip-format": "Backlight: {}%"
+  },
+
+  "pulseaudio": {
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+  },
+
+  "clock": {
+    // "tooltip-format": "<big>{:%A %d %B %Y}</big>\n{:%H:%M:%S}",
+    // "format": "ZRH: {:%a %m-%d %H:%M:%S}",
+    // "interval": 1
+    "timezones": ["Europe/Zurich", "America/Los_Angeles"],
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "interval": 5,
+    "format": "{:%m-%d %H:%M:%S %Z}",
+    "actions": {
+      "on-scroll-up": "tz_up",
+      "on-scroll-down": "tz_down"
+    },
+    "smooth-scrolling-threshold": 2,
+    "calendar": {
+      "mode"          : "year",
+      "mode-mon-col"  : 3,
+      "weeks-pos"     : "left",
+      "on-scroll"     : 1,
+      "format": {
+        "months":     "<span color='#b58900'><b>{}</b></span>",
+        "days":       "<span color='#93a1a1'><b>{}</b></span>",
+        "weeks":      "<span color='#586e75'><b>{}</b></span>",
+        "weekdays":   "<span color='#268bd2'><b>{}</b></span>",
+        "today":      "<span color='#dc322f'><b>{}</b></span>"
+      }
+    }
+  },
+
+  "tray": {
+    "icon-size": 12,
+    "spacing": 6
+  }
+}

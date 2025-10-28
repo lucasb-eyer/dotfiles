@@ -1,42 +1,204 @@
+include /etc/sway/config.d/*
+include ~/.config/sway/colors
+
+set $mod Mod4
+font pango:RobotoMono Nerd Font Mono 8
+
+workspace_layout tabbed
+title_align center
+default_border none
+workspace_auto_back_and_forth no
+floating_modifier $mod
+
+set $refresh_audio notify-send --icon audio-volume-high-symbolic -r 999 "$(wpctl get-volume @DEFAULT_AUDIO_SINK@)"
+set $refresh_screen notify-send --icon display-brightness-symbolic -r 998 `python -c "print(f'{$(brightnessctl get) / $(brightnessctl max):.0%}')"`
+
 input "type:keyboard" {
     xkb_layout us
     xkb_variant altgr-intl
     xkb_options ctrl:nocaps,ctrl:swap_lalt_lctl
 }
 
-# Touchpad, but TODO: Find out if it's really this.
 input type:touchpad {
-    left_handed enabled
+    # left_handed enabled
     tap enabled
-    tap_button_map lmr  # 1 finger=left, 2=middle, 3=right
+    # tap_button_map lmr  # 1 finger=left, 2=middle, 3=right
+    tap_button_map lrm  # 1 finger=left, 2=right, 3=middle
     drag enabled  # Tap and drag.
+    drag_lock disabled  # Release tap-drag immediately instead of staying latched.
     natural_scroll enabled
     dwt enabled  # Disable while typing.
     dwtp enabled  # Disable while using trackpoint.
+    scroll_factor 0.5  # Scale scroll speed; lower than 1.0 slows scrolling.
     accel_profile "flat"  # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
     pointer_accel 0.5  # set mouse sensitivity (between -1 and 1)
 }
 
-# TODO: background image?
-output * bg #333333 solid_color
+output * bg $color0 solid_color
+output * scale 2.0
 
-# In wayland, to persist clipboard, we need a manager like clipman.
-exec --no-startup-id wl-paste -t text --watch clipman store --no-persist
+# Autostart, mainly applets.
+exec --no-startup-id /usr/bin/blueman-applet
+exec --no-startup-id nm-applet --indicator
+# exec --no-startup-id wl-paste -t text --watch clipman store --no-persist
+# Find lat/long: curl -s https://ipinfo.io/loc
+exec wlsunset -l 47.3667 -L 8.5500 -t 3200
 
 # Notifications control center.
-exec --no-startup-id swaync
+# exec --no-startup-id swaync
 
-include ~/.config/i3/config
-include /etc/sway/config.d/*
+# Always restart waybar on reload so I don't have to remember reloading that one on config changes.
+exec_always --no-startup-id sh -c 'pkill -x waybar; waybar'
 
-bindsym XF86SelectiveScreenshot exec --no-startup-id flameshot gui -c
+bindsym Print exec --no-startup-id env QT_SCALE_FACTOR=0.5 flameshot gui -c
 
 # Notifications control center toggle.
 bindcode 455 exec swaync-client -t -sw
 
+# Volume adjustment buttons.
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && $refresh_audio
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $refresh_audio
+bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && $refresh_audio
+bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && $refresh_audio
+
+# Brightness control
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%- && $refresh_screen
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+ && $refresh_screen
+
+# start a terminal.
+bindsym $mod+Return exec kitty -1
+
+# kill focused window
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c kill
+
+# Program launcher
+bindsym $mod+r exec "rofi -combi-modes drun,ssh,window,run -show combi -modes combi $(cat ~/.config/rofi/theme)"
+
+bindsym $mod+XF86MonBrightnessDown exec --no-startup-id lightswitch dark
+bindsym $mod+XF86MonBrightnessUp exec --no-startup-id lightswitch light
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+grave focus right
+bindsym $mod+Tab focus next
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# splits and layouts
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+comma layout tabbed
+bindsym $mod+slash layout toggle split
+bindsym $mod+u [tiling workspace="__focused__"] move workspace "reorder"; [workspace="reorder"] move workspace current
+
+# floating and focus
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+d focus child
+bindsym $mod+p sticky toggle
+bindsym $mod+s move workspace to output next
+
+# Workspaces
+set $ws1 "1 🏢"
+set $ws2 "2 👨‍💻"
+set $ws3 "3 🚧"
+set $ws4 "4 💆"
+set $ws5 "5 🌐"
+set $ws6 "6 📏"
+set $ws7 "7 👗"
+set $ws8 "8 🔭"
+set $ws9 "9"
+set $ws10 "10 🏠"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+bindsym $mod+Shift+r reload
+
+mode "exit: [s]uspend, [o]ff, lo[g]out, [r]eboot" {
+  bindsym g exec swaymsg exit
+  bindsym r exec systemctl reboot
+  bindsym s exec systemctl suspend; mode "default"
+  bindsym o exec systemctl poweroff
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+}
+bindsym $mod+x mode "exit: [s]uspend, [o]ff, lo[g]out, [r]eboot"
+
+# Scratchpads
+for_window [title="Lucas scratchpad"] floating enable, border pixel 5, resize set 1440 900, move position center, move scratchpad
+bindsym $mod+Escape [title="Lucas scratchpad"] scratchpad show, resize set 76 ppt 76 ppt, move position center
+exec --no-startup-id kitty --title "Lucas scratchpad" ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner=''
+
+for_window [app_id="chrome-chatgpt.com__-Default"] floating enable, border pixel 5, move scratchpad
+bindsym $mod+XF86AudioLowerVolume [app_id="chrome-chatgpt.com__-Default"] scratchpad show, resize set 76 ppt 76 ppt, move position center
+exec --no-startup-id google-chrome-stable -enable-features=UseOzonePlatform -ozone-platform=wayland --app='https://chatgpt.com'
+
+for_window [class="Display-im6.q16"] floating enable, move position center
+for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable;
+for_window [title="(?:Open|Save) (?:File|Folder|As)"] resize set 800 600
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+client.focused          $color8 $color10 $color15 $color4
+client.focused_inactive $color8 $color0  $color12 $color0
+client.unfocused        $color8 $color0  $color12 $color0
+client.urgent           $color8 $color0  $color15 $color8
+
+workspace $ws1 output HDMI-1 eDP-1
+workspace $ws2 output HDMI-1 eDP-1
+workspace $ws3 output HDMI-1 eDP-1
+workspace $ws4 output HDMI-1 eDP-1
+workspace $ws5 output HDMI-1 eDP-1
+workspace $ws6 output HDMI-1 eDP-1
+workspace $ws7 output HDMI-1 eDP-1
+workspace $ws8 output HDMI-1 eDP-1
+workspace $ws9 output eDP-1 HDMI-1
+workspace $ws10 output HDMI-1 eDP-1
+
 # Re-center it, and in sway, need to set half the size.
-# TODO: might not actually overwrite the one from i3 config.
 # for_window [title="Lucas scratchpad"] resize set 720 450, move position center
 
 # Lock-screen in Sway
-bindsym $mod+Shift+x exec swaylock --scaling fit --color 000000 --image `find ~/Pictures/wallpapers/orig/ -type f | shuf | head -1`
+# bindsym Mod4+Ctrl+l exec swaylock --scaling fit --color 000000 --image `find ~/Pictures/wallpapers/orig/ -type f | shuf | head -1`

@@ -13,7 +13,7 @@ end
 # Except that it doesn't seem to work and I'm tired of it, so just setting LANG here:
 set -xg LANG en_US.UTF-8
 
-abbr -a -- startx ssh-agent startx
+abbr -a -- sway ssh-agent sway
 
 function add_unique_path -d 'Add an element to $PATH if it exists and is not already in there.'
     if begin; test -d $argv[1]; and not contains $argv[1] $PATH; end
@@ -51,12 +51,12 @@ end
 # Also, most recently, activate.fish's prompt is broken fish code.
 set -xg VIRTUAL_ENV_DISABLE_PROMPT 1
 
-# Fix java rendering in non-reparenting WMs like awesomewm
-set -xg _JAVA_AWT_WM_NONREPARENTING 1
-
-# Not quite the right place, but in Wayland, make electron-apps look good:
+# Various environment variables needed to make electron/gtk/qt apps look good on hidpi sway:
 set -xg ELECTRON_OZONE_PLATFORM_HINT auto
 set -xg GDK_BACKEND wayland
+set -xg QT_QPA_PLATFORM wayland
+# Seems like this is only needed for `flameshot gui`, not for others like `flameshot config`.
+# set -xg QT_SCALE_FACTOR 0.5555555555555555  # It's 1/1.8, 1.8 being used in sway config.
 
 add_unique_path /usr/libexec
 

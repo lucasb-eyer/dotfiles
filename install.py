@@ -65,8 +65,6 @@ def main(mode):
     here_to_home('config/fish/solarized.fish')
     here_to_home('config/fish/config.fish')
     here_to_home('config/fish/functions/fish_prompt.fish')
-    here_to_home('config/i3/config')
-    here_to_home('config/i3status/config')
     here_to_home('config/dunst/dunstrc')
     here_to_home('config/rofi/theme')
     here_to_home('config/xsettingsd/xsettingsd.conf')
@@ -74,12 +72,14 @@ def main(mode):
     here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
     here_to_home('urxvt_ext_52-osc', 'urxvt/ext/52-osc')
 
-    if mode == 'linux-wayland':
+    if mode == 'linux':
         here_to_home('config/sway/config')
-        here_to_home('config/sway/colors', 'config/i3/colors')
+        here_to_home('config/sway/colors')
+        here_to_home('config/waybar/config.jsonc')
+        here_to_home('config/waybar/style.css')
+        here_to_home('config/waybar/style-light.css')
+        here_to_home('config/waybar/style-dark.css')
         here_to_home('local/share/applications/chrome-wayland.desktop')
-    elif mode == 'linux':
-        here_to_home('config/i3/colors')
 
     # My util scripts
     here_to_home('local/bin/colortest')
@@ -95,18 +95,10 @@ def main(mode):
         here_to_home('config/kitty/kitty.conf')
         here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
 
-    if 'linux' in mode:
+    if mode == 'linux':
         here_to_home('inputrc')
-        here_to_home('Xresources')
-        here_to_home('Xresources.solarized-dark')
-        here_to_home('Xresources.solarized-light')
-        link_with_backup('.Xresources.solarized-dark', '~/.Xresources.colors')
-        here_to_home('xinitrc')
         here_to_home('gitconfig')
         here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
-        here_to_home('config/i3/config')
-        here_to_home('config/i3status/config')
-        here_to_home('config/xsettingsd/xsettingsd.conf')
         here_to_home('local/bin/e-cores')
         here_to_home('local/bin/reset-inputs')
     elif mode == 'mac':
@@ -124,7 +116,7 @@ def main(mode):
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:
-        assert sys.argv[1] in ('server', 'linux', 'linux-wayland', 'mac')
+        assert sys.argv[1] in ('server', 'linux', 'mac')
         main(sys.argv[1])
     else:
-        print("Specify install mode: server, linux, linux-wayland, mac")
+        print("Specify install mode: server, linux, mac")
