@@ -22,16 +22,14 @@ input "type:keyboard" {
 input type:touchpad {
     # left_handed enabled
     tap enabled
-    # tap_button_map lmr  # 1 finger=left, 2=middle, 3=right
-    tap_button_map lrm  # 1 finger=left, 2=right, 3=middle
     drag enabled  # Tap and drag.
     drag_lock disabled  # Release tap-drag immediately instead of staying latched.
     natural_scroll enabled
     dwt enabled  # Disable while typing.
-    dwtp enabled  # Disable while using trackpoint.
-    scroll_factor 0.5  # Scale scroll speed; lower than 1.0 slows scrolling.
-    accel_profile "flat"  # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
-    pointer_accel 0.5  # set mouse sensitivity (between -1 and 1)
+    # dwtp enabled  # Disable while using trackpoint.
+    # scroll_factor 0.5  # Scale scroll speed; lower than 1.0 slows scrolling.
+    # accel_profile "flat"  # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
+    # pointer_accel 0.5  # set mouse sensitivity (between -1 and 1)
 }
 
 output * scale 2.0
@@ -196,3 +194,6 @@ workspace $ws10 output HDMI-1 eDP-1
 
 # Lock-screen in Sway
 # bindsym Mod4+Ctrl+l exec swaylock --scaling fit --color 000000 --image `find ~/Pictures/wallpapers/orig/ -type f | shuf | head -1`
+
+# Workaround on mouse going crazy, until there's kernel fix.
+bindsym Mod4+Ctrl+M exec sudo ~/.local/bin/reset-inputs
