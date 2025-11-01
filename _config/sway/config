@@ -1,5 +1,5 @@
 include /etc/sway/config.d/*
-include ~/.config/sway/colors
+include ~/.config/sway/theme
 
 set $mod Mod4
 font pango:RobotoMono Nerd Font Mono 8
@@ -34,7 +34,6 @@ input type:touchpad {
     pointer_accel 0.5  # set mouse sensitivity (between -1 and 1)
 }
 
-output * bg $color0 solid_color
 output * scale 2.0
 
 # Autostart, mainly applets.
@@ -180,11 +179,6 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="Preferences"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
-
-client.focused          $color8 $color10 $color15 $color4
-client.focused_inactive $color8 $color0  $color12 $color0
-client.unfocused        $color8 $color0  $color12 $color0
-client.urgent           $color8 $color0  $color15 $color8
 
 workspace $ws1 output HDMI-1 eDP-1
 workspace $ws2 output HDMI-1 eDP-1

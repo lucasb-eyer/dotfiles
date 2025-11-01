@@ -1,0 +1,17 @@
+# vim: ft=i3config
+include solarized-colors
+
+set $S_background  $S_base03
+set $S_foreground  $S_base0
+set $S_fadeColor   $S_base03
+set $S_cursorColor $S_base1
+set $S_pointerColorBackground $S_base01
+set $S_pointerColorForeground $S_base1
+
+# window colors         border     backgnd    text      indicator
+client.focused          $S_base03  $S_base02  $S_base3  $S_blue
+client.focused_inactive $S_base03  $S_base02  $S_base0  $S_base02
+client.unfocused        $S_base03  $S_base02  $S_base0  $S_base02
+client.urgent           $S_base03  $S_base02  $S_base3  $S_base03
+
+output * bg $S_background solid_color

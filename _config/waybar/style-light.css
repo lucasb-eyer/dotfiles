@@ -1,58 +1,60 @@
+/* Define solarized colors. */
+@define-color S_base03  #002b36;
+@define-color S_base02  #073642;
+@define-color S_base01  #586e75;
+@define-color S_base00  #657b83;
+@define-color S_base0   #839496;
+@define-color S_base1   #93a1a1;
+@define-color S_base2   #eee8d5;
+@define-color S_base3   #fdf6e3;
+
+@define-color S_yellow  #b58900;
+@define-color S_orange  #cb4b16;
+@define-color S_red     #dc322f;
+@define-color S_magenta #d33682;
+@define-color S_violet  #6c71c4;
+@define-color S_blue    #268bd2;
+@define-color S_cyan    #2aa198;
+@define-color S_green   #859900;
+
 * {
   border: none;
   border-radius: 0;
   font-family: "RobotoMono Nerd Font Mono", FontAwesome, "Noto Sans", monospace;
   font-size: 8pt;
-  color: #657b83;
+  color: @S_base00;
 }
 
 window#waybar {
-  background: #fdf6e3;
-  color: #657b83;
-  padding: 0;
-}
-
-window#waybar > box {
-  padding: 0;
-  margin: 0;
-}
-
-/* Tighten vertical space so the bar is ~4px shorter overall. */
-label {
-  padding: 0;
-  margin: 0;
-}
-
-#workspaces {
-  margin: 0;
+  background: @S_base3;
+  color: @S_base00;
   padding: 0;
 }
 
 #workspaces button {
   background: transparent;
-  color: #586e75;
+  color: @S_base01;
   padding: 0 4px;
 }
 
-#workspaces button.focused,
-#workspaces button.visible {
-  color: #fdf6e3;
-  background: #93a1a1;
+#workspaces button.focused label,
+#workspaces button.visible label {
+  color: @S_base3;
 }
 
-#workspaces button.urgent {
-  color: #fdf6e3;
-  background: #dc322f;
+#workspaces button.urgent label {
+  color: @S_base3;
+  background: @S_red;
 }
 
 #workspaces button:hover {
-  box-shadow: inset 0 3px #93a1a1;
+  box-shadow: inset 0 3px @S_base1;
 }
 
 #mode {
   padding: 0 8px;
-  background: #b58900;
-  color: #fdf6e3;
+  background: @S_yellow;
+  color: @S_base3;
 }
 
 #window {
@@ -72,11 +74,11 @@ label {
 }
 
 #battery.warning {
-  color: #b58900;
+  color: @S_yellow;
 }
 
 #battery.critical:not(.charging) {
-  color: #dc322f;
+  color: @S_red;
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: steps(12);
@@ -85,9 +87,9 @@ label {
 }
 
 #pulseaudio.muted {
-  color: #93a1a1;
+  color: @S_base1;
 }
 
 .separator {
-  color: #93a1a1;
+  color: @S_base1;
 }

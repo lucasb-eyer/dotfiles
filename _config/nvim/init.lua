@@ -156,6 +156,7 @@ require("lazy").setup {
         local colorFile = vim.fn.stdpath("config") .. "/color"
         local function reload()
           vim.cmd("source ".. colorFile)
+          vim.cmd.colorscheme 'solarized'
         end
         local w = vim.loop.new_fs_event()
         local on_change
@@ -170,20 +171,11 @@ require("lazy").setup {
         watch_file(colorFile)
         reload()
 
-        vim.cmd.colorscheme 'solarized'
-
-        vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { link = "DiffAdd", bold = true })
-        vim.api.nvim_set_hl(0, "MiniDiffSignChange", { link = "DiffChange", bold = true })
-        vim.api.nvim_set_hl(0, "MiniDiffSignDelete", { link = "DiffDelete", bold = true })
-        local curr = vim.api.nvim_get_hl_by_name("DiffChange", true)
-        curr.bold = true
-        vim.api.nvim_set_hl(0, "MiniDiffSignChange", curr)
-        local curr = vim.api.nvim_get_hl_by_name("DiffDelete", true)
-        curr.bold = true
-        vim.api.nvim_set_hl(0, "MiniDiffSignDelete", curr)
-        local curr = vim.api.nvim_get_hl_by_name("DiffAdd", true)
-        curr.bold = true
-        vim.api.nvim_set_hl(0, "MiniDiffSignAdd", curr)
+        -- Unfortunately our solarized theme doesn't export the modern names that minidiff uses,
+        -- so we need to manually link them.
+        vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { link = "DiffAdd" })
+        vim.api.nvim_set_hl(0, "MiniDiffSignChange", { link = "DiffChange" })
+        vim.api.nvim_set_hl(0, "MiniDiffSignDelete", { link = "DiffDelete" })
 
       end,
     },
@@ -266,5 +258,3 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.foldmethod = "indent"
   end,
 })
-
-

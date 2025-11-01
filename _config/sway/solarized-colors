@@ -1,0 +1,45 @@
+# vim: ft=i3config
+# Translation of Xresources files.
+
+set $S_base03  #002b36
+set $S_base02  #073642
+set $S_base01  #586e75
+set $S_base00  #657b83
+set $S_base0   #839496
+set $S_base1   #93a1a1
+set $S_base2   #eee8d5
+set $S_base3   #fdf6e3
+
+set $S_yellow   #b58900
+set $S_orange   #cb4b16
+set $S_red      #dc322f
+set $S_magenta  #d33682
+set $S_violet   #6c71c4
+set $S_blue     #268bd2
+set $S_cyan     #2aa198
+set $S_green    #859900
+
+# black dark/light
+set $color0 $S_base02
+set $color8 $S_base03
+# red dark/light
+set $color1 $S_red
+set $color9 $S_orange
+# green dark/light
+set $color2  $S_green
+set $color10 $S_base01
+# yellow dark/light
+set $color3  $S_yellow
+set $color11 $S_base00
+# blue dark/light
+set $color4  $S_blue
+set $color12 $S_base0
+# magenta dark/light
+set $color5  $S_magenta
+set $color13 $S_violet
+# cyan dark/light
+set $color6  $S_cyan
+set $color14 $S_base1
+# white dark/light
+set $color7  $S_base2
+set $color15 $S_base3

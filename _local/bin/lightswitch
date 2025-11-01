@@ -20,6 +20,11 @@ fi
 #   exit 0
 # fi
 
+
+# Sway theme
+ln -sf "$HOME/.config/sway/solarized-$nextbg" "$HOME/.config/sway/theme"
+swaymsg reload
+
 # Waybar theme
 ln -sf "$HOME/.config/waybar/style-$nextbg.css" "$HOME/.config/waybar/style.css"
 pkill -USR2 waybar 2>/dev/null || true

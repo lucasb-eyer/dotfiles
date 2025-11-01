@@ -1,7 +1,7 @@
 import os
 from os.path import expanduser as eu, dirname, exists, join as pjoin
 from time import time
-from subprocess import call
+from subprocess import run
 import shutil
 import sys
 
@@ -74,9 +74,10 @@ def main(mode):
 
     if mode == 'linux':
         here_to_home('config/sway/config')
-        here_to_home('config/sway/colors')
+        here_to_home('config/sway/solarized-colors')
+        here_to_home('config/sway/solarized-light')
+        here_to_home('config/sway/solarized-dark')
         here_to_home('config/waybar/config.jsonc')
-        here_to_home('config/waybar/style.css')
         here_to_home('config/waybar/style-light.css')
         here_to_home('config/waybar/style-dark.css')
         here_to_home('local/share/applications/chrome-wayland.desktop')
@@ -113,6 +114,10 @@ def main(mode):
         lb_secret.install(mode, here_to_home)
     except ImportError:
         pass
+
+    # Create the correct themeing links
+    run(['_local/bin/lightswitch', 'dark'], check=True)
+
 
 if __name__ == '__main__':
     if len(sys.argv) == 2:
