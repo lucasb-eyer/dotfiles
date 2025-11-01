@@ -165,7 +165,7 @@ bindsym $mod+Escape [title="Lucas scratchpad"] scratchpad show, resize set 76 pp
 exec --no-startup-id kitty --title "Lucas scratchpad" ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner=''
 
 for_window [app_id="chrome-chatgpt.com__-Default"] floating enable, border pixel 5, move scratchpad
-bindsym $mod+XF86AudioLowerVolume [app_id="chrome-chatgpt.com__-Default"] scratchpad show, resize set 76 ppt 76 ppt, move position center
+bindsym $mod+F2 [app_id="chrome-chatgpt.com__-Default"] scratchpad show, resize set 76 ppt 76 ppt, move position center
 exec --no-startup-id google-chrome-stable -enable-features=UseOzonePlatform -ozone-platform=wayland --app='https://chatgpt.com'
 
 for_window [class="Display-im6.q16"] floating enable, move position center
@@ -189,11 +189,8 @@ workspace $ws8 output HDMI-1 eDP-1
 workspace $ws9 output eDP-1 HDMI-1
 workspace $ws10 output HDMI-1 eDP-1
 
-# Re-center it, and in sway, need to set half the size.
-# for_window [title="Lucas scratchpad"] resize set 720 450, move position center
-
 # Lock-screen in Sway
-# bindsym Mod4+Ctrl+l exec swaylock --scaling fit --color 000000 --image `find ~/Pictures/wallpapers/orig/ -type f | shuf | head -1`
+bindsym Mod4+Ctrl+l exec swaylock --scaling fit --color 000000 --image `find ~/Pictures/wallpapers/orig/ -type f | shuf | head -1`
 
 # Workaround on mouse going crazy, until there's kernel fix.
 bindsym Mod4+Ctrl+M exec sudo ~/.local/bin/reset-inputs
