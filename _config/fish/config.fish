@@ -112,6 +112,6 @@ function fish_user_key_bindings
 end
 
 # Some aliases for commands I frequently use.
-abbr -a -- glo "git log --oneline origin/master.."
+abbr -a -- glo "git log --oneline origin/main.."
 abbr -a -- gsl 'git log -g --pretty="%C(yellow)%gd %C(blue)%ci%C(reset) %s" refs/stash'
 abbr -a -- uncommit "git reset --soft HEAD~1"
