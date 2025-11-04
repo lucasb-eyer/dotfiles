@@ -115,3 +115,4 @@ end
 abbr -a -- glo "git log --oneline origin/main.."
 abbr -a -- gsl 'git log -g --pretty="%C(yellow)%gd %C(blue)%ci%C(reset) %s" refs/stash'
 abbr -a -- uncommit "git reset --soft HEAD~1"
+abbr -a --set-cursor -- sq "squeue -A % -O JobId:6,UserName:5,State:10,TimeUsed:9,NumCPUs:5,QOS:9,NumNodes:6,GRES:14,RestartCnt:4"
