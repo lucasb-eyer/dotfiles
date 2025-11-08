@@ -5,46 +5,42 @@
 if [ -n "$1" ]; then
   nextbg=$1
 else  # Switch to the opposite of current mode:
-  current_link="$(readlink "$HOME/.config/waybar/style.css" 2>/dev/null)"
-  case "$current_link" in
-    *style-light.css) nextbg=dark ;;
-    *style-dark.css) nextbg=light ;;
+  nextbg=`grep -oE 'light|dark' "$HOME/.config/nvim/color"`
+  case "$nextbg" in
+    light) nextbg=dark ;;
+    dark) nextbg=light ;;
     *) nextbg=dark ;;
   esac
 fi
 
-# if [ -n "$1" ] && [ "$1" != "$nextbg" ]; then
-#   # This is not that intuitive but if the requested mode is different from the
-#   # next mode then the _current_ mode is the same as the requested one and there
-#   # is nothing to do
-#   exit 0
-# fi
+# Wayland-related setup, detected from sway
+if [ -e "$HOME/.config/sway" ]; then
+  ln -sf "$HOME/.config/sway/solarized-$nextbg" "$HOME/.config/sway/theme"
+  swaymsg reload
 
+  # Waybar theme
+  ln -sf "$HOME/.config/waybar/style-$nextbg.css" "$HOME/.config/waybar/style.css"
+  pkill -USR2 waybar 2>/dev/null || true
 
-# Sway theme
-ln -sf "$HOME/.config/sway/solarized-$nextbg" "$HOME/.config/sway/theme"
-swaymsg reload
-
-# Waybar theme
-ln -sf "$HOME/.config/waybar/style-$nextbg.css" "$HOME/.config/waybar/style.css"
-pkill -USR2 waybar 2>/dev/null || true
-
-# Vim
-echo "set background=$nextbg" > ~/.config/nvim/color
-
-# Rofi (TODO: choose/create the themes)
-if [ $nextbg = dark ]; then
-  echo "-theme solarized_alternate" > ~/.config/rofi/theme
-else
-  echo "" > ~/.config/rofi/theme
+  # Rofi (TODO: choose/create the themes)
+  if [ $nextbg = dark ]; then
+    echo "-theme solarized_alternate" > ~/.config/rofi/theme
+  else
+    echo "" > ~/.config/rofi/theme
+  fi
 fi
+
+# NeoVim watches the color file and reloads itself.
+echo "set background=$nextbg" > ~/.config/nvim/color
 
 # For triggering dark themes in GTK apps. Requires `gnome-themes-extra` to be
 # installed (for adwaita-dark). This is primarily for FF/Chrome.
-if [ $nextbg = dark ]; then
-  sed -i 's/"Adwaita.*"/"Adwaita-dark"/' ~/.config/xsettingsd/xsettingsd.conf
-else
-  sed -i 's/"Adwaita.*"/"Adwaita"/' ~/.config/xsettingsd/xsettingsd.conf
+if [ -e "$HOME/.config/xsettingsd/xsettingsd.conf" ]; then
+  if [ $nextbg = dark ]; then
+    sed -i '' 's/"Adwaita[^"]*"/"Adwaita-dark"/' ~/.config/xsettingsd/xsettingsd.conf
+  else
+    sed -i '' 's/"Adwaita[^"]*"/"Adwaita"/' ~/.config/xsettingsd/xsettingsd.conf
+  fi
 fi
 
 # Reload
@@ -55,9 +51,10 @@ fi
 # else
 #   systemctl --user start xsettingsd  # Not yet running? Start.
 # fi
-gsettings set org.gnome.desktop.interface color-scheme prefer-$nextbg
-gsettings set org.gnome.desktop.interface gtk-theme Adwaita-$nextbg
+if command -v gsettings >/dev/null 2>&1; then
+  gsettings set org.gnome.desktop.interface color-scheme prefer-$nextbg
+  gsettings set org.gnome.desktop.interface gtk-theme Adwaita-$nextbg
+fi
 
 # Update terminal emulator
 kitty +kitten themes --reload-in=all "Solarized $(echo $nextbg | sed 's/dark/Dark Lucas/' | sed 's/light/Light/')"
-# NeoVim watches the color file and reloads itself.
