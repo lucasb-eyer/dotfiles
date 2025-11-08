@@ -19,7 +19,8 @@ run = ['layout floating']
 [mode.main.binding]
 
 ctrl-enter = 'exec-and-forget open -na /Applications/kitty.app --args -1'
-cmd-enter = 'exec-and-forget open -na /Applications/kitty.app --args -1'
+# Clashes with jupyter execute-and-remain-on cell
+# cmd-enter = 'exec-and-forget open -na /Applications/kitty.app --args -1'
 
 cmd-f1 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-JUPYTER RECENTER /Applications/kitty.app --args -T LB-SCRATCH-JUPYTER --instance-group scratch -o hide_window_decorations=titlebar-only ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner='
 cmd-f2 = 'exec-and-forget /usr/bin/python3 ~/.local/bin/aerospace_scratch LB-SCRATCH-LBQQ NOCENTER /Users/lb/sci-env/bin/lbqq --id LB-SCRATCH-LBQQ --title LB-SCRATCH-LBQQ --url https://chatgpt.com/g/g-p-68eb6162e0448191b758e04935fbf660-qqs/project'
