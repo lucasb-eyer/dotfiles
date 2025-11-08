@@ -69,6 +69,8 @@ def main(mode):
     here_to_home('config/rofi/theme')
     here_to_home('config/xsettingsd/xsettingsd.conf')
     here_to_home('config/kitty/kitty.conf')
+    if mode != 'server':
+        here_to_home(f'config/kitty/kitty.conf.{mode}', 'config/kitty/kitty.conf.local')
     here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
     here_to_home('urxvt_ext_52-osc', 'urxvt/ext/52-osc')
 
