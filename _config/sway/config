@@ -149,7 +149,8 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 bindsym $mod+Shift+r reload
 
-mode "exit: [s]uspend, [o]ff, lo[g]out, [r]eboot" {
+mode "exit: [l]ock, [s]uspend, [o]ff, lo[g]out, [r]eboot" {
+  bindsym l exec swaylock --scaling fit --color 000000 --image `find ~/Pictures/wallpapers/orig/ -type f | shuf | head -1`; mode "default"
   bindsym g exec swaymsg exit
   bindsym r exec systemctl reboot
   bindsym s exec systemctl suspend; mode "default"
@@ -157,7 +158,7 @@ mode "exit: [s]uspend, [o]ff, lo[g]out, [r]eboot" {
   bindsym Escape mode "default"
   bindsym Return mode "default"
 }
-bindsym $mod+x mode "exit: [s]uspend, [o]ff, lo[g]out, [r]eboot"
+bindsym $mod+x mode "exit: [l]ock, [s]uspend, [o]ff, lo[g]out, [r]eboot"
 
 # Scratchpads
 for_window [title="Lucas scratchpad"] floating enable, border pixel 5, resize set 1440 900, move position center, move scratchpad
@@ -190,7 +191,6 @@ workspace $ws9 output eDP-1 HDMI-1
 workspace $ws10 output HDMI-1 eDP-1
 
 # Lock-screen in Sway
-bindsym Mod4+Ctrl+l exec swaylock --scaling fit --color 000000 --image `find ~/Pictures/wallpapers/orig/ -type f | shuf | head -1`
 
 # Workaround on mouse going crazy, until there's kernel fix.
 bindsym Mod4+Ctrl+M exec sudo ~/.local/bin/reset-inputs
