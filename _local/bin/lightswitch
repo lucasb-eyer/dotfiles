@@ -57,4 +57,4 @@ if command -v gsettings >/dev/null 2>&1; then
 fi
 
 # Update terminal emulator
-kitty +kitten themes --reload-in=all "Solarized $(echo $nextbg | sed 's/dark/Dark Lucas/' | sed 's/light/Light/')"
+kitty +kitten themes --reload-in=all "Solarized $(echo $nextbg | sed 's/dark/Dark Lucas/' | sed 's/light/Light Lucas/')"
