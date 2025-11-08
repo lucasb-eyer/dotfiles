@@ -17,18 +17,25 @@ def _makedirs(dirs):
             raise
 
 
-def link_with_backup(source, link_name, symbolic=True):
+def link_with_backup(source, link_name, method="symlink"):
     link_name = eu(link_name)
     source = eu(source)
     print('Installing ' + source + ' -> ' + link_name)
 
     _makedirs(dirname(link_name))
 
-    try:
-        if symbolic:
+    def _dolink():
+        if method == "symlink":
             os.symlink(source, link_name)
-        else:
+        elif method == "hardlink":
             os.link(source, link_name)
+        elif method == "copy":
+            shutil.copy(source, link_name)
+        else:
+            raise ValueError("Bug!!")
+
+    try:
+        _dolink()
     except OSError:
         if backup:
             os.rename(link_name, f'{link_name}.{int(time())}.dotfiles_backup')
@@ -38,7 +45,7 @@ def link_with_backup(source, link_name, symbolic=True):
                 os.remove(link_name)
             except OSError as e:
                 os.rmdir(link_name)
-        os.symlink(source, link_name)
+        _dolink()
 
 
 def here(f):
@@ -47,8 +54,8 @@ def here(f):
     return pjoin(os.path.dirname(os.path.abspath(me)), f)
 
 
-def here_to_home(name, toname=None, symbolic=True):
-    link_with_backup(here('_' + name), '~/.' + (toname if toname else name), symbolic=symbolic)
+def here_to_home(name, toname=None, method="symlink"):
+    link_with_backup(here('_' + name), '~/.' + (toname if toname else name), method=method)
 
 
 def main(mode):
@@ -67,7 +74,7 @@ def main(mode):
     here_to_home('config/fish/functions/fish_prompt.fish')
     here_to_home('config/dunst/dunstrc')
     here_to_home('config/rofi/theme')
-    here_to_home('config/xsettingsd/xsettingsd.conf')
+    here_to_home('config/xsettingsd/xsettingsd.conf', method="copy")  # We're changing it with sed on lightswitch, and sed copies anyways.
     here_to_home('config/kitty/kitty.conf')
     if mode != 'server':
         here_to_home(f'config/kitty/kitty.conf.{mode}', 'config/kitty/kitty.conf.local')
@@ -100,7 +107,7 @@ def main(mode):
     if mode == 'linux':
         here_to_home('inputrc')
         here_to_home('gitconfig')
-        here_to_home('ssh_config', 'ssh/config', symbolic=False)  # Can't be symlink due to permissions.
+        here_to_home('ssh_config', 'ssh/config', method="hardlink")  # Can't be symlink due to permissions.
         here_to_home('local/bin/e-cores')
         here_to_home('local/bin/reset-inputs')
     elif mode == 'mac':
