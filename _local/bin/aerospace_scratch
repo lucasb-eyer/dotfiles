@@ -8,6 +8,7 @@
 import json
 import os
 import re
+import shutil
 import sys
 import time
 
@@ -16,7 +17,7 @@ def exc(cmd):
 
 
 # On some Mac OS X versions, just aerospace doesn't work because it has minimal PATH.
-AEROSPACE_BIN = "/usr/local/bin/aerospace"
+AEROSPACE_BIN = shutil.which("aerospace")
 
 
 CURR_WS = exc(f'{AEROSPACE_BIN} list-workspaces --focused')
