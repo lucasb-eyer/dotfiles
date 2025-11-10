@@ -103,6 +103,7 @@ def main(mode):
     if mode != 'server':
         here_to_home('config/kitty/kitty.conf')
         here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
+        here_to_home('config/kitty/themes/Solarized Light Lucas.conf')
 
     if mode == 'linux':
         here_to_home('inputrc')
