@@ -65,6 +65,7 @@ def main(mode):
 
     # Things I install on all machines (lin/mac laptops, servers)
     here_to_home('tmux.conf')
+    here_to_home('ignore')
     here_to_home('gitignore')
     here_to_home('pythonrc.py')
     here_to_home('config/nvim/init.lua')
