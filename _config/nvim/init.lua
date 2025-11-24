@@ -258,3 +258,27 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.foldmethod = "indent"
   end,
 })
+
+
+-------------------------------------------------------------------------------
+-- COMMANDS COMMANDS COMMANDS COMMANDS COMMANDS COMMANDS COMMANDS COMMANDS C --
+
+-- Example: :RunOut git diff --no-color -- %
+vim.api.nvim_create_user_command('RunOut', function(opts)
+  vim.cmd('enew')  -- new buffer in current window
+  local buf = vim.api.nvim_get_current_buf()
+  vim.bo[buf].buftype = 'nofile'
+  vim.bo[buf].bufhidden = 'wipe'
+  vim.bo[buf].swapfile = false
+  vim.bo[buf].modifiable = true
+
+  local cmd = vim.fn.expandcmd(opts.args)   -- expand %, #, globs, etc.
+  local out = vim.fn.systemlist(cmd)  -- run exactly what you pass
+  if vim.v.shell_error ~= 0 then
+    -- keep it minimal: just show an error and still dump whatever stdout came
+    vim.api.nvim_err_writeln('Command exited non-zero: ' .. opts.args)
+  end
+
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, out)
+  vim.bo[buf].modifiable = false
+end, { nargs = '*', complete = 'file' })
