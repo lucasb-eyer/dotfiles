@@ -192,26 +192,24 @@ require("lazy").setup {
 
     -- Languages
     ------------
-    -- treesitter for syntax highlighting
-    -- * auto-installs the parser for python
+    -- treesitter, make sure to also install the distro packages for smoother experience.
     {
       "nvim-treesitter/nvim-treesitter",
       -- automatically update the parsers with every new release of treesitter
       build = ":TSUpdate",
-
-      opts = {
-        highlight = { enable = true }, -- enable treesitter syntax highlighting
-        indent = { enable = true }, -- better indentation behavior
-        ensure_installed = {
-          "fish",
-          "markdown",
-          "markdown_inline",
-          "python",
-        },
-      },
+      lazy = false,
       config = function(_, opts)
-        require("nvim-treesitter.install").prefer_git = true
-        require("nvim-treesitter.configs").setup(opts)
+        require"nvim-treesitter.install".prefer_git = true
+        require'nvim-treesitter'.install { 'fish', 'markdown', 'markdown_inline', 'python' }
+        vim.api.nvim_create_autocmd('FileType', {
+          pattern = { 'fish', 'markdown', 'python' },
+          callback = function()
+            vim.treesitter.start()
+            vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.wo[0][0].foldmethod = 'expr'
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end,
+        })
       end,
     },
 
