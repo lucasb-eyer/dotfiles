@@ -77,6 +77,7 @@ def main(mode):
     here_to_home('config/rofi/theme')
     here_to_home('config/xsettingsd/xsettingsd.conf', method="copy")  # We're changing it with sed on lightswitch, and sed copies anyways.
     here_to_home('config/kitty/kitty.conf')
+    here_to_home('codex/prompts/deslop.md')
     if mode != 'server':
         here_to_home(f'config/kitty/kitty.conf.{mode}', 'config/kitty/kitty.conf.local')
     here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
