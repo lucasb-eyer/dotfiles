@@ -262,6 +262,7 @@ vim.api.nvim_create_autocmd("FileType", {
 -- COMMANDS COMMANDS COMMANDS COMMANDS COMMANDS COMMANDS COMMANDS COMMANDS C --
 
 -- Example: :RunOut git diff --no-color -- %
+--          :setlocal filetype=diff
 vim.api.nvim_create_user_command('RunOut', function(opts)
   vim.cmd('enew')  -- new buffer in current window
   local buf = vim.api.nvim_get_current_buf()
