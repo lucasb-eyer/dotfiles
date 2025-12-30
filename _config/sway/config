@@ -76,12 +76,8 @@ bindsym $mod+XF86MonBrightnessDown exec --no-startup-id lightswitch dark
 bindsym $mod+XF86MonBrightnessUp exec --no-startup-id lightswitch light
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-bindsym $mod+grave focus right
-bindsym $mod+Tab focus next
+bindsym $mod+j focus next
+bindsym $mod+k focus prev
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
