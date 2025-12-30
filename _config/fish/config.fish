@@ -41,7 +41,6 @@ end
 
 set -xg EDITOR nvim
 set -xg VISUAL nvim
-set -xg PAGER more
 abbr -a -- vim nvim
 
 if type -q kitty
