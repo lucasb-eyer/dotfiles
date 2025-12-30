@@ -37,7 +37,7 @@ output * scale 2.0
 # Autostart, mainly applets.
 exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id nm-applet --indicator
-# exec --no-startup-id wl-paste -t text --watch clipman store --no-persist
+exec --no-startup-id wl-paste -t text --watch clipman store --no-persist
 # Find lat/long: curl -s https://ipinfo.io/loc
 exec wlsunset -l 47.3667 -L 8.5500 -t 3200
 
