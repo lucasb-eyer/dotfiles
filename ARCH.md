@@ -14,7 +14,7 @@ ttf-font-awesome noto-fonts noto-fonts-emoji
 # yay:
 
 ttf-roboto-mono-nerd nerd-fonts-roboto-mono tela-circle-icon-theme
-blueman-applet blueman nm-applet wl-sunset
+blueman-applet blueman nm-applet wl-sunset clipman
 btop
 claude-code
 
