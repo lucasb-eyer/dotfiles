@@ -17,4 +17,6 @@ AI generated slop includes:
 - Any other style that is inconsistent with the file, including using types when the file doesn't.
 - Consistency of the changes with AGENTS.md requirements.
 
+Importantly, though, do not remove the actual feature.
+Do not `git add` your changes.
 Report at the end with only a 1-3 sentence summary of what you changed
