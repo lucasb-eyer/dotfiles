@@ -66,7 +66,8 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 5%+ && $refre
 bindsym $mod+Return exec kitty -1
 
 # kill focused window
-bindsym $mod+Shift+q kill
+# Not using mod+shift+q anymore, because copilot key is mod+shift, and I often mistype right-alt vs copilot...
+# bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c kill
 
 # Program launcher
