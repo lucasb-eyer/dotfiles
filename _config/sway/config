@@ -148,7 +148,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+r reload
 
 mode "exit: [l]ock, [s]uspend, [o]ff, lo[g]out, [r]eboot" {
-  bindsym l exec swaylock --scaling fit --color 000000 --image `find ~/Pictures/wallpapers/orig/ -type f | shuf | head -1`; mode "default"
+  bindsym l exec swaylock --scaling fit --color 000000 `find ~/Pictures/wallpapers/orig/ -type f 2>/dev/null | shuf | head -1 | awk '{print "--image", $0}'`; mode "default"
   bindsym g exec swaymsg exit
   bindsym r exec systemctl reboot
   bindsym s exec systemctl suspend; mode "default"
