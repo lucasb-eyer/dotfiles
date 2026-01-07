@@ -163,9 +163,10 @@ for_window [title="Lucas scratchpad"] floating enable, border pixel 5, resize se
 bindsym $mod+Escape [title="Lucas scratchpad"] scratchpad show, resize set 76 ppt 76 ppt, move position center
 exec --no-startup-id kitty --title "Lucas scratchpad" ~/sci-env/bin/jupyter console --ZMQTerminalInteractiveShell.banner=''
 
-for_window [app_id="chrome-chatgpt.com__-Default"] floating enable, border pixel 5, move scratchpad
-bindsym $mod+F2 [app_id="chrome-chatgpt.com__-Default"] scratchpad show, resize set 76 ppt 76 ppt, move position center
-exec --no-startup-id google-chrome-stable -enable-features=UseOzonePlatform -ozone-platform=wayland --app='https://chatgpt.com'
+set $chatsess "chrome-chatgpt.com__g_g-p-68eb6162e0448191b758e04935fbf660-qqs_project-Default"
+for_window [app_id=$chatsess] floating enable, border pixel 5, move scratchpad
+bindsym $mod+F2 [app_id=$chatsess] scratchpad show, resize set 76 ppt 76 ppt, move position center
+exec --no-startup-id google-chrome-stable -enable-features=UseOzonePlatform -ozone-platform=wayland --app='https://chatgpt.com/g/g-p-68eb6162e0448191b758e04935fbf660-qqs/project'
 
 for_window [class="Display-im6.q16"] floating enable, move position center
 for_window [title="(?:Open|Save) (?:File|Folder|As)"] floating enable;
