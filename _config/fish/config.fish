@@ -111,6 +111,6 @@ abbr -a -- glo "git log --oneline origin/main.."
 abbr -a -- gsl 'git log -g --pretty="%C(yellow)%gd %C(blue)%ci%C(reset) %s" refs/stash'
 abbr -a -- uncommit "git reset --soft HEAD~1"
 abbr -a -- unamend "git reset --soft HEAD@{1}"
-abbr -a --set-cursor -- sq "squeue -A % -O JobId:7,Name:20,UserName:5,State:10,TimeUsed:9,NumCPUs:5,QOS:9,NumNodes:6,GRES:14,NodeList:15,RestartCnt:4,Reason"
+abbr -a --set-cursor -- sq "squeue -A % -O JobId:9,Name:20,UserName:5,State:10,TimeUsed:9,NumCPUs:5,QOS:9,NumNodes:6,GRES:14,NodeList:17,RestartCnt:4,Reason"
 abbr -a --set-cursor -- stail "scontrol show job % | grep -Po 'StdOut=\\K.+' | xargs tail -F"
 abbr -a --set-cursor -- svim "scontrol show job % | grep -Po 'StdOut=\\K.+' | xargs nvim"
