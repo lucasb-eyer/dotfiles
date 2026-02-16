@@ -221,7 +221,7 @@ require("lazy").setup {
     -- { 'nvim-mini/mini.animate', version = false, opts = { cursor = { enable = false } } },
     { 'nvim-mini/mini.cursorword', version = false, opts = { delay = 1000 } },
     { 'nvim-mini/mini.diff', version = false, config = true, opts = { view = { style = "sign", signs = { add = '+', change = '▒', delete = '-' }, } } },
-    { 'nvim-mini/mini.surround', version = false, config = true },
+    { 'nvim-mini/mini.surround', version = false, config = true, opts = { mappings = { replace = 'sc' } } },
 
     { 'vim-scripts/CursorLineCurrentWindow' },
 
