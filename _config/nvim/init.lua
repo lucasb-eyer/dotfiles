@@ -38,6 +38,21 @@ vim.opt.gdefault = true  -- /g on by default, writing /g turns it off.
 -- vv splits the window vertically
 vim.keymap.set('', 'vv', '<C-w>v<C-w>l')
 
+-- Remove trailing whitespace in current buffer without moving the cursor
+-- or touching the current search pattern.
+local function trim_trailing_whitespace()
+  local view = vim.fn.winsaveview()
+  vim.cmd([[keeppatterns %s/\s\+$//e]])
+  vim.fn.winrestview(view)
+end
+
+vim.api.nvim_create_user_command('TrimWhitespace', trim_trailing_whitespace, {
+  desc = 'Remove trailing whitespace in current buffer',
+})
+
+vim.keymap.set('n', '<leader>ws', trim_trailing_whitespace, { desc = 'Trim trailing whitespace' })
+vim.keymap.set('n', 'd<Space>', trim_trailing_whitespace, { desc = 'Trim trailing whitespace' })
+
 -- " Better automatic brackets
 -- inoremap        (  ()<Left>
 -- inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
@@ -118,6 +133,7 @@ require("lazy").setup {
 
         -- " f+n for stopping highlighting of search results.
         vim.fn['arpeggio#map']('n', '', 1, 'fn', ':noh<CR>')
+
       end
     },
 
