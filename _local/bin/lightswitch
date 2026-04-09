@@ -15,12 +15,12 @@ fi
 
 # Wayland-related setup, detected from sway
 if [ -e "$HOME/.config/sway" ]; then
-  ln -sf "$HOME/.config/sway/solarized-$nextbg" "$HOME/.config/sway/theme"
-  swaymsg reload
-
   # Waybar theme
   ln -sf "$HOME/.config/waybar/style-$nextbg.css" "$HOME/.config/waybar/style.css"
   pkill -USR2 waybar 2>/dev/null || true
+
+  ln -sf "$HOME/.config/sway/solarized-$nextbg" "$HOME/.config/sway/theme"
+  swaymsg reload
 
   # Rofi (TODO: choose/create the themes)
   if [ $nextbg = dark ]; then
@@ -56,5 +56,4 @@ if command -v gsettings >/dev/null 2>&1; then
   gsettings set org.gnome.desktop.interface gtk-theme Adwaita-$nextbg
 fi
 
-# Update terminal emulator
-kitty +kitten themes --reload-in=all "Solarized $(echo $nextbg | sed 's/dark/Dark Lucas/' | sed 's/light/Light Lucas/')"
+# Since we use {dark,light}-theme.auto.conf files in kitty, it will pick up the switch from gsetting above.

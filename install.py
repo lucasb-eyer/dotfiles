@@ -76,12 +76,8 @@ def main(mode):
     here_to_home('config/dunst/dunstrc')
     here_to_home('config/rofi/theme')
     here_to_home('config/xsettingsd/xsettingsd.conf', method="copy")  # We're changing it with sed on lightswitch, and sed copies anyways.
-    here_to_home('config/kitty/kitty.conf')
     here_to_home('codex/prompts/deslop.md')
     here_to_home('codex/prompts/lbreview.md')
-    if mode != 'server':
-        here_to_home(f'config/kitty/kitty.conf.{mode}', 'config/kitty/kitty.conf.local')
-    here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
     here_to_home('urxvt_ext_52-osc', 'urxvt/ext/52-osc')
 
     if mode == 'linux':
@@ -107,6 +103,9 @@ def main(mode):
         here_to_home('config/kitty/kitty.conf')
         here_to_home('config/kitty/themes/Solarized Dark Lucas.conf')
         here_to_home('config/kitty/themes/Solarized Light Lucas.conf')
+        here_to_home('config/kitty/themes/Solarized Dark Lucas.conf', 'config/kitty/dark-theme.auto.conf')
+        here_to_home('config/kitty/themes/Solarized Light Lucas.conf', 'config/kitty/light-theme.auto.conf')
+        here_to_home(f'config/kitty/kitty.conf.{mode}', 'config/kitty/kitty.conf.local')
 
     if mode == 'linux':
         here_to_home('inputrc')
