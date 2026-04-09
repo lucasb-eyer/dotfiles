@@ -20,6 +20,7 @@ if [ -e "$HOME/.config/sway" ]; then
   pkill -USR2 waybar 2>/dev/null || true
 
   ln -sf "$HOME/.config/sway/solarized-$nextbg" "$HOME/.config/sway/theme"
+  sleep 0.1  # This sleep avoids ghost "key release" messages being re-sent from all input devices by swaymsg reload; it's a race-condition.
   swaymsg reload
 
   # Rofi (TODO: choose/create the themes)
