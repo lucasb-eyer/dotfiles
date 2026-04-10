@@ -39,7 +39,7 @@ exec --no-startup-id /usr/bin/blueman-applet
 exec --no-startup-id nm-applet --indicator
 exec --no-startup-id wl-paste -t text --watch clipman store --no-persist
 # Find lat/long: curl -s https://ipinfo.io/loc
-exec wlsunset -l 47.3667 -L 8.5500 -t 3200
+exec --no-startup-id ~/.local/bin/wlsunset-restart
 
 # Notifications control center.
 # exec --no-startup-id swaync
@@ -151,12 +151,15 @@ mode "exit: [l]ock, [s]uspend, [o]ff, lo[g]out, [r]eboot" {
   bindsym l exec swaylock --scaling fit --color 000000 `find ~/Pictures/wallpapers/orig/ -type f 2>/dev/null | shuf | head -1 | awk '{print "--image", $0}'`; mode "default"
   bindsym g exec swaymsg exit
   bindsym r exec systemctl reboot
-  bindsym s exec systemctl suspend; mode "default"
+  bindsym s exec --no-startup-id sh -c 'systemctl suspend; ~/.local/bin/wlsunset-restart'; mode "default"
   bindsym o exec systemctl poweroff
   bindsym Escape mode "default"
   bindsym Return mode "default"
 }
 bindsym $mod+x mode "exit: [l]ock, [s]uspend, [o]ff, lo[g]out, [r]eboot"
+
+# Manual quick-fix when output gamma looks off after resume/hotplug.
+bindsym $mod+Shift+n exec --no-startup-id ~/.local/bin/wlsunset-restart
 
 # Scratchpads
 for_window [title="Lucas scratchpad"] floating enable, border pixel 5, resize set 1440 900, move position center, move scratchpad

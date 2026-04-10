@@ -1,0 +1,8 @@
+#!/bin/sh
+# Restart wlsunset cleanly; Used after resume from standby - currently there's a bug over-saturating colors otherwise.
+pkill -x wlsunset 2>/dev/null || true
+for _ in 1 2 3 4 5; do
+  pgrep -x wlsunset >/dev/null || break
+  sleep 0.1
+done
+exec /usr/bin/wlsunset -l 47.3667 -L 8.5500 -t 3200
