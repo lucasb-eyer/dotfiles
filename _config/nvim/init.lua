@@ -216,14 +216,20 @@ require("lazy").setup {
       lazy = false,
       config = function(_, opts)
         require"nvim-treesitter.install".prefer_git = true
-        require'nvim-treesitter'.install { 'fish', 'markdown', 'markdown_inline', 'python' }
+        -- Don't auto-install languages on start because I don't have tree-sitter binary everywhere.
+        -- Use manual `:TSInstall fish markdown markdown_inline python` command.
+        -- require'nvim-treesitter'.install { 'fish', 'markdown', 'markdown_inline', 'python' }
+
         vim.api.nvim_create_autocmd('FileType', {
           pattern = { 'fish', 'markdown', 'python' },
           callback = function()
-            vim.treesitter.start()
-            vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-            vim.wo[0][0].foldmethod = 'expr'
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            -- pcall guards against missing parsers (e.g., python parser not installed)
+            local ok = pcall(vim.treesitter.start)
+            if ok then
+              vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+              vim.wo[0][0].foldmethod = 'expr'
+              vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
           end,
         })
       end,
